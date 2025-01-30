@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React from "react"
 
-import SuccessIllustration from "@/assets/success-illustration.svg"
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
@@ -22,7 +21,7 @@ SuccessBlock.displayName = "SuccessBlock"
 export function SuccessBlockImage() {
   return (
     <Image
-      src={SuccessIllustration}
+      src={"/images/success-illustration.svg"}
       width={121}
       height={140}
       alt=""

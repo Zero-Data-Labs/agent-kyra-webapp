@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React from "react"
 
-import ErrorIllustration from "@/assets/error-illustration.svg"
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
@@ -22,7 +21,7 @@ ErrorBlock.displayName = "ErrorBlock"
 export function ErrorBlockImage() {
   return (
     <Image
-      src={ErrorIllustration}
+      src={"/images/error-illustration.svg"}
       width={121}
       height={140}
       alt=""

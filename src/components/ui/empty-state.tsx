@@ -1,7 +1,6 @@
 import Image from "next/image"
 import React from "react"
 
-import EmptyIllustration from "@/assets/empty-illustration.svg"
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
@@ -22,7 +21,7 @@ EmptyState.displayName = "EmptyState"
 export function EmptyStateImage() {
   return (
     <Image
-      src={EmptyIllustration}
+      src={"/images/empty-illustration.svg"}
       width={114}
       height={152}
       alt=""
