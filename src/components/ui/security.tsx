@@ -24,7 +24,7 @@ export function SecurityIcon(props: SecurityIconProps) {
   return (
     <ShieldCheckIcon
       className={cn(
-        "text-status-secured-foreground size-4 shrink-0",
+        "size-4 shrink-0 text-status-secured-foreground",
         className
       )}
       {...iconProps}

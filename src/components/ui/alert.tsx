@@ -11,7 +11,7 @@ import { SecurityIcon } from "@/components/ui/security"
 import { cn } from "@/styles/utils"
 
 const alertVariants = cva(
-  "bg-surface-hover relative w-full rounded border border-l-4 px-3 py-2",
+  "relative w-full rounded border border-l-4 bg-surface-hover px-3 py-2",
   {
     variants: {
       variant: {

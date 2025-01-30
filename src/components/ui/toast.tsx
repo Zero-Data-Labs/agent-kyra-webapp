@@ -29,10 +29,10 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        info: "text-surface bg-foreground",
-        success: "text-surface bg-foreground",
-        warning: "text-surface bg-foreground",
-        error: "text-surface bg-foreground",
+        info: "bg-foreground text-surface",
+        success: "bg-foreground text-surface",
+        warning: "bg-foreground text-surface",
+        error: "bg-foreground text-surface",
       },
     },
     defaultVariants: {
@@ -63,7 +63,7 @@ const ToastAction = React.forwardRef<
   <ToastPrimitives.Action
     ref={ref}
     className={cn(
-      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-foreground transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+      "hover:bg-secondary inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
       className
     )}
     {...props}
@@ -78,7 +78,7 @@ const ToastClose = React.forwardRef<
   <ToastPrimitives.Close
     ref={ref}
     className={cn(
-      "text-surface/50 hover:text-surface absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100",
+      "absolute right-2 top-2 rounded-md p-1 text-surface/50 opacity-0 transition-opacity hover:text-surface focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100",
       className
     )}
     toast-close=""

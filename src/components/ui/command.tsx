@@ -37,7 +37,7 @@ const CommandInput = React.forwardRef<
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
-        "bg-surface ring-offset-surface hover:border-border-hover flex h-12 w-full rounded-md border border-border py-2 pl-10 text-base leading-5 placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 sm:pl-12",
+        "flex h-12 w-full rounded-md border border-border bg-surface py-2 pl-10 text-base leading-5 ring-offset-surface placeholder:text-muted-foreground hover:border-border-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 sm:pl-12",
         displayClearButton ? "pr-10 sm:pr-12" : "pr-2",
         className
       )}
@@ -132,7 +132,7 @@ const CommandItem = React.forwardRef<
   <CommandPrimitive.Item
     ref={ref}
     className={cn(
-      "data-[selected='true']:bg-surface-active relative cursor-default select-none rounded-md outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
+      "relative cursor-default select-none rounded-md outline-none data-[disabled=true]:pointer-events-none data-[selected='true']:bg-surface-active data-[disabled=true]:opacity-50",
       className
     )}
     {...props}
