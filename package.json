@@ -6,7 +6,7 @@
     "version": "npx genversion --es6 --double ./src/config/version.ts",
     "postinstall": "yarn run version",
     "predev": "yarn run version",
-    "dev": "next dev",
+    "dev": "next dev -p 3003",
     "prebuild": "yarn run version",
     "build": "next build",
     "prestart": "yarn run version",

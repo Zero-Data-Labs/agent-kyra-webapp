@@ -5,3 +5,7 @@ export function getRootPageRoute() {
 export function getDefaultRedirectPathAfterConnection() {
   return getRootPageRoute()
 }
+
+export function getAuthPageRoute(basePath?: string) {
+  return `${basePath ?? ""}/auth`
+}
