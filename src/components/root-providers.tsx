@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { ThemesProvider } from "@/features/themes/themes-provider"
 import { Toaster } from "@/features/toasts/toaster"
+import { VeridaAuthProvider } from "@/features/verida-auth/components/verida-auth-provider"
 
 export interface RootProvidersProps {
   children: React.ReactNode
@@ -21,7 +22,7 @@ export function RootProviders(props: RootProvidersProps) {
       <NuqsAdapter>
         <ThemesProvider>
           <TooltipProvider>
-            {children}
+            <VeridaAuthProvider>{children}</VeridaAuthProvider>
             <Toaster />
           </TooltipProvider>
         </ThemesProvider>

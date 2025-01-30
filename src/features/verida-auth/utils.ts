@@ -1,7 +1,13 @@
 import { commonConfig } from "@/config/common"
 import { getAuthPageRoute } from "@/features/routes/utils"
-import { VERIDA_AUTH_REQUIRED_SCOPES } from "@/features/verida-auth/constants"
-import type { VeridaAuthRequest } from "@/features/verida-auth/type"
+import {
+  VERIDA_AUTH_ERROR_MESSAGES,
+  VERIDA_AUTH_REQUIRED_SCOPES,
+} from "@/features/verida-auth/constants"
+import type {
+  VeridaAuthRequest,
+  VeridaAuthResponseError,
+} from "@/features/verida-auth/type"
 
 /**
  * Builds a URL for the Verida authentication request
@@ -45,4 +51,16 @@ export function buildVeridaAuthRequest(appBaseUrl: string): VeridaAuthRequest {
     scopes: VERIDA_AUTH_REQUIRED_SCOPES,
     redirectUrl: getAuthPageRoute(appBaseUrl),
   }
+}
+
+/**
+ * Type guard to check if a string value is a valid Verida authentication error
+ *
+ * @param value - The string value to check
+ * @returns True if the value is a valid Verida auth error code, false otherwise
+ */
+export function isVeridaAuthError(
+  value: string
+): value is VeridaAuthResponseError {
+  return value in VERIDA_AUTH_ERROR_MESSAGES
 }
