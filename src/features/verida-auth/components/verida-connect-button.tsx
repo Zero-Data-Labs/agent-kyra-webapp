@@ -1,9 +1,8 @@
-"use client"
-
 import Link from "next/link"
 import { type ComponentProps, useMemo } from "react"
 
 import { Button } from "@/components/ui/button"
+import { commonConfig } from "@/config/common"
 import {
   buildVeridaAuthRequest,
   buildVeridaAuthRequestUrl,
@@ -19,7 +18,7 @@ export function VeridaConnectButton(props: VeridaConnectButtonProps) {
   const { className, ...buttonProps } = props
 
   const authUrl = useMemo(() => {
-    const request = buildVeridaAuthRequest(window.location.href)
+    const request = buildVeridaAuthRequest(commonConfig.BASE_URL)
     return buildVeridaAuthRequestUrl(request)
   }, [])
 
