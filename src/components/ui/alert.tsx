@@ -1,20 +1,30 @@
 import { type VariantProps, cva } from "class-variance-authority"
+import {
+  CircleAlertIcon,
+  CircleCheckIcon,
+  CircleXIcon,
+  InfoIcon,
+} from "lucide-react"
 import * as React from "react"
 
+import { SecurityIcon } from "@/components/ui/security"
 import { cn } from "@/styles/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground [&>svg~*]:pl-7",
+  "bg-surface-hover relative w-full rounded border border-l-4 px-3 py-2",
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        info: "border-l-status-info text-status-info",
+        success: "border-l-status-success text-status-success",
+        secured:
+          "border-l-status-secured-foreground text-status-secured-foreground",
+        warning: "border-l-status-warning text-status-warning",
+        error: "border-l-status-error text-status-error",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "info",
     },
   }
 )
@@ -22,13 +32,22 @@ const alertVariants = cva(
 const Alert = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
+>(({ className, variant, children, ...props }, ref) => (
   <div
     ref={ref}
     role="alert"
-    className={cn(alertVariants({ variant }), className)}
+    className={cn(alertVariants({ variant }), "pl-10 text-start", className)}
     {...props}
-  />
+  >
+    <div className="absolute left-3 top-2">
+      {variant === "info" ? <InfoIcon className="size-5" /> : null}
+      {variant === "success" ? <CircleCheckIcon className="size-5" /> : null}
+      {variant === "secured" ? <SecurityIcon className="size-5" /> : null}
+      {variant === "warning" ? <CircleAlertIcon className="size-5" /> : null}
+      {variant === "error" ? <CircleXIcon className="size-5" /> : null}
+    </div>
+    {children}
+  </div>
 ))
 Alert.displayName = "Alert"
 
@@ -37,8 +56,9 @@ const AlertTitle = React.forwardRef<
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <h5
+    // TODO: Use Typography
     ref={ref}
-    className={cn("mb-1 font-medium leading-none tracking-tight", className)}
+    className={cn("mb-1 font-medium leading-5 tracking-tight", className)}
     {...props}
   />
 ))
@@ -49,8 +69,9 @@ const AlertDescription = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
   <div
+    // TODO: Use Typography
     ref={ref}
-    className={cn("text-sm [&_p]:leading-relaxed", className)}
+    className={cn("text-sm text-foreground", className)}
     {...props}
   />
 ))

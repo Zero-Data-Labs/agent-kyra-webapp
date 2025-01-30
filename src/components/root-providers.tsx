@@ -5,6 +5,7 @@ import { Suspense } from "react"
 
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { ThemesProvider } from "@/features/themes/themes-provider"
+import { Toaster } from "@/features/toasts/toaster"
 
 export interface RootProvidersProps {
   children: React.ReactNode
@@ -19,7 +20,10 @@ export function RootProviders(props: RootProvidersProps) {
     <Suspense>
       <NuqsAdapter>
         <ThemesProvider>
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            {children}
+            <Toaster />
+          </TooltipProvider>
         </ThemesProvider>
       </NuqsAdapter>
     </Suspense>

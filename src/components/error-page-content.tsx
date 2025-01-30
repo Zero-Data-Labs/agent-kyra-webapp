@@ -84,7 +84,7 @@ export function ErrorPageContent(props: ErrorPageContentProps) {
         {main ? <ErrorBlockTitle>{main}</ErrorBlockTitle> : null}
         {sub ? <ErrorBlockDescription>{sub}</ErrorBlockDescription> : null}
         {showError ? (
-          <Alert variant="destructive">
+          <Alert variant="error">
             <AlertDescription>{error.message}</AlertDescription>
           </Alert>
         ) : null}
