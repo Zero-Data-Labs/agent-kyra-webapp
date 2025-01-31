@@ -13,3 +13,14 @@ export function getDefaultRedirectPathAfterAuthentication() {
 export function getAgentsPageRoute() {
   return "/agents"
 }
+
+export function getAgentPageRoute({
+  agentId,
+  fromDeletion,
+}: {
+  agentId: string
+  fromDeletion?: boolean
+}) {
+  // TODO: Try to use nuqs
+  return `/agents/${agentId}${fromDeletion ? "?fromDeletion=true" : ""}`
+}

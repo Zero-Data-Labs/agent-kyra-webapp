@@ -14,7 +14,7 @@ import type {
 } from "@/features/verida-database/types"
 import { updateVeridaRecord } from "@/features/verida-database/utils"
 
-type UseUpdateVeridaRecordOptions = {
+export type UseUpdateVeridaRecordOptions = {
   disableOptimisticUpdate?: boolean
 }
 

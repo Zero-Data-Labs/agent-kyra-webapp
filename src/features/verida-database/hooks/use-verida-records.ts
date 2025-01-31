@@ -17,7 +17,7 @@ import { getVeridaRecords } from "@/features/verida-database/utils"
 const logger = Logger.create("verida-database")
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type UseVeridaRecordsArgs<T extends z.ZodObject<any>> = {
+export type UseVeridaRecordsArgs<T extends z.ZodObject<any>> = {
   databaseDefinition: DatabaseDefinition
   filter?: VeridaDatabaseQueryFilter<VeridaRecord<z.infer<T>>>
   options?: VeridaDatabaseQueryOptions<VeridaRecord<z.infer<T>>>
@@ -98,7 +98,7 @@ export function useVeridaRecords<T extends z.ZodObject<any>>(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type PrefetchVeridaRecordsArgs<T extends z.ZodObject<any>> = {
+export type PrefetchVeridaRecordsArgs<T extends z.ZodObject<any>> = {
   queryClient: QueryClient
   authToken: string
   databaseDefinition: DatabaseDefinition
