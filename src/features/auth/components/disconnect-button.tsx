@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 import { cn } from "@/styles/utils"
 
-export type VeridaDisconnectButtonProps = Omit<
+export type DisconnectButtonProps = Omit<
   ComponentProps<typeof Button>,
   "onClick"
 >
 
-export function VeridaDisconnectButton(props: VeridaDisconnectButtonProps) {
+export function DisconnectButton(props: DisconnectButtonProps) {
   const { className, variant = "outline-destructive", ...buttonProps } = props
 
   const { disconnect } = useVeridaAuth()
@@ -27,4 +27,4 @@ export function VeridaDisconnectButton(props: VeridaDisconnectButtonProps) {
     </Button>
   )
 }
-VeridaDisconnectButton.displayName = "VeridaDisconnectButton"
+DisconnectButton.displayName = "DisconnectButton"

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { VeridaConnectButton } from "@/features/verida-auth/components/verida-connect-button"
+import { ConnectButton } from "@/features/auth/components/connect-button"
 import { VERIDA_AUTH_ERROR_MESSAGES } from "@/features/verida-auth/constants"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 import { useVeridaAuthResponse } from "@/features/verida-auth/hooks/use-verida-auth-response"
@@ -32,12 +32,12 @@ export default function AuthPage() {
             {authResponse.errorDescription || errorInfo.description}
           </AlertDescription>
         </Alert>
-        <VeridaConnectButton />
+        <ConnectButton />
       </div>
     )
   }
 
-  // TODO: Display something while processing the response or if there is not response at all
+  // TODO: Display something while processing the response or if there is no response at all
   return null
 }
 AuthPage.displayName = "AuthPage"

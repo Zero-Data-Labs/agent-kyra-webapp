@@ -8,7 +8,7 @@ export interface VeridaAuthProviderProps {
   children: React.ReactNode
 }
 
-// TODO: Need to handle auth error when calling Verida's API (e.g. token is)
+// TODO: Need to handle auth error when calling Verida's API (e.g. invalid token)
 
 export function VeridaAuthProvider(props: VeridaAuthProviderProps) {
   const { children } = props
