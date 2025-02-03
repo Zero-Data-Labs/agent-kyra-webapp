@@ -16,13 +16,13 @@ const logger = Logger.create("assistants")
  * Processes an AI prompt by sending it to the AI assistant API.
  *
  * @param aiPromptInput - The prompt input to send
- * @param sessionToken - The session token for authentication
+ * @param authToken - The token for authentication
  * @returns A promise that resolves to the AI assistant output
  * @throws Error if the prompt is empty or if there's an issue with the API call
  */
 export async function sendAiPromptInputToAssistant(
   aiPromptInput: AiPromptInput,
-  sessionToken: string
+  authToken: string
 ): Promise<AiAssistantOutput> {
   logger.info("Processing prompt input")
 
@@ -58,7 +58,7 @@ export async function sendAiPromptInputToAssistant(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-Key": sessionToken,
+          "Authorization": `Bearer ${authToken}`,
         },
         body: JSON.stringify(body),
       }
@@ -93,12 +93,12 @@ export async function sendAiPromptInputToAssistant(
 /**
  * Initiates the hotloading process for the LLM API.
  *
- * @param sessionToken - The session token for authentication
+ * @param authToken - The session token for authentication
  * @param progressCallback - Optional callback function to report progress
  * @returns A promise that resolves when hotloading is complete
  */
 export function hotloadAPI(
-  sessionToken: string,
+  authToken: string,
   progressCallback?: (progress: number, dataCurrentlyLoading?: string) => void
 ): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -108,7 +108,7 @@ export function hotloadAPI(
     const url = new URL(
       `${commonConfig.VERIDA_DATA_API_BASE_URL}/api/rest/v1/llm/hotload`
     )
-    url.searchParams.append("api_key", sessionToken)
+    url.searchParams.append("api_key", authToken)
     const eventSource = new EventSource(url.toString())
 
     eventSource.onmessage = (event) => {
