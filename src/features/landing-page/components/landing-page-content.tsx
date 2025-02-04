@@ -12,13 +12,15 @@ export function LandingPageContent(props: LandingPageContentProps) {
   return (
     <div
       className={cn(
-        "flex h-full w-full flex-col items-center justify-center gap-4",
+        "flex h-full w-full flex-col items-center gap-4 p-6",
         className
       )}
       {...divProps}
     >
-      <Typography variant="heading-1">Agent Kyra Landing page</Typography>
-      <ConnectButton />
+      <Typography variant="heading-1">Agent Kyra</Typography>
+      <div className="flex w-full flex-1 flex-col items-center justify-center">
+        <ConnectButton />
+      </div>
     </div>
   )
 }
