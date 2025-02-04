@@ -31,7 +31,7 @@ export function ConnectButton(props: ConnectButtonProps) {
           height={144}
         />
 
-        <span>Connect with Verida</span>
+        <span>Connect Verida</span>
       </Link>
     </Button>
   )
