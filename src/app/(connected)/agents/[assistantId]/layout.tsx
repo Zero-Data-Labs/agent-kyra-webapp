@@ -3,6 +3,7 @@ import React, { use } from "react"
 import { AiAssistantCombobox } from "@/app/(connected)/agents/[assistantId]/_components/ai-assistant-combobox"
 import { PageWrapper } from "@/components/page-wrapper"
 import { Typography } from "@/components/ui/typography"
+import { DisconnectButton } from "@/features/auth/components/disconnect-button"
 
 type AssistantLayoutProps = {
   children: React.ReactNode
@@ -28,6 +29,7 @@ export default function AssistantLayout(props: AssistantLayoutProps) {
           <AiAssistantCombobox assistantId={assistantId} className="flex-1" />
         </div>
       }
+      rightContent={<DisconnectButton />}
     >
       {children}
     </PageWrapper>

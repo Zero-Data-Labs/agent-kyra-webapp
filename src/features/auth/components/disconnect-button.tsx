@@ -1,5 +1,6 @@
 "use client"
 
+import { LogOutIcon } from "lucide-react"
 import { type ComponentProps } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -12,18 +13,22 @@ export type DisconnectButtonProps = Omit<
 >
 
 export function DisconnectButton(props: DisconnectButtonProps) {
-  const { className, variant = "outline-destructive", ...buttonProps } = props
+  const { className, variant = "ghost", ...buttonProps } = props
 
   const { disconnect } = useVeridaAuth()
 
   return (
     <Button
       onClick={disconnect}
-      className={cn("", className)}
+      className={cn(
+        "w-12 gap-2 px-0 py-0 sm:w-auto sm:px-6 sm:py-2",
+        className
+      )}
       variant={variant}
       {...buttonProps}
     >
-      Disconnect
+      <LogOutIcon className="size-4" />
+      <span className="hidden sm:block">Disconnect</span>
     </Button>
   )
 }
