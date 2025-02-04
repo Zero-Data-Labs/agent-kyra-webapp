@@ -2,7 +2,6 @@
 
 import React, { useCallback } from "react"
 
-import { VeridaNetworkColouredLogo } from "@/components/icons/verida-network-coloured-logo"
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { SUGGESTED_PROMPTS } from "@/features/assistants/constants"
@@ -30,13 +29,10 @@ export function AssistantEmptyContent(props: AssistantEmptyContentProps) {
       {...divProps}
     >
       <div className="flex flex-col items-center gap-6 sm:gap-8">
-        <div className="size-14 rounded-md border bg-white p-2">
-          <VeridaNetworkColouredLogo className="size-10" />
-        </div>
         <div className="flex flex-col items-center gap-2 text-center">
           <Typography variant="heading-4">Talk about your data</Typography>
           <Typography variant="base-regular">
-            Ask questions to your agent about your private data, for example:
+            Ask questions to your agent about your personal data, for example:
           </Typography>
         </div>
         <div className="flex flex-row flex-wrap items-center justify-center gap-2">

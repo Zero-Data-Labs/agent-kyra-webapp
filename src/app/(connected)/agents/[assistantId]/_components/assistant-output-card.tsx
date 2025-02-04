@@ -5,9 +5,8 @@ import { EllipsisVerticalIcon } from "lucide-react"
 import { useMemo } from "react"
 
 import { AssistantOutputCardMenu } from "@/app/(connected)/agents/[assistantId]/_components/assistant-output-card-menu"
-import { VeridaNetworkLogo } from "@/components/icons/verida-network-logo"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
-import { Avatar } from "@/components/ui/avatar"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardBody, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -99,19 +98,8 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
       <Card className="gap-2 rounded-xl p-3 md:gap-3 md:p-4">
         <CardHeader className="flex flex-row items-center justify-between gap-2">
           <div className="flex flex-row items-center justify-start gap-2">
-            <Avatar className="relative size-8 shrink-0 p-1 text-white sm:size-10">
-              <div
-                className={cn(
-                  "absolute inset-0 bg-ai-assistant-gradient",
-                  !aiAssistantOutput ||
-                    aiAssistantOutput?.status === "processing"
-                    ? "animate-spin-slow"
-                    : ""
-                )}
-              />
-              <div className="absolute inset-0 flex flex-row items-center justify-center">
-                <VeridaNetworkLogo className="size-5 sm:size-6" />
-              </div>
+            <Avatar className="relative size-8 shrink-0 p-0 text-white sm:size-10">
+              <AvatarImage src="/images/kyra-avatar.jpg" alt="Kyra avatar" />
             </Avatar>
             <div className="flex flex-col">
               <Typography variant="base-semibold">
