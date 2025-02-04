@@ -181,7 +181,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
         } as AiAssistantRecord)
       } catch (error) {
         logger.error(
-          new Error("Failed to update assistant order", { cause: error })
+          new Error("Failed to update agent order", { cause: error })
         )
       }
     },
@@ -209,7 +209,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
           {aiAssistants && aiAssistants.length > 0 ? (
-            <CommandGroup heading="Your assistants" className="p-2">
+            <CommandGroup heading="Your agents" className="p-2">
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -239,7 +239,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
               </DndContext>
             </CommandGroup>
           ) : (
-            <CommandGroup heading="Suggested by Verida" className="p-2">
+            <CommandGroup heading="Suggested" className="p-2">
               <AiAssistantSelectorItem
                 assistant={DEFAULT_ASSISTANT}
                 isCurrentAssistant={
@@ -263,8 +263,8 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
             >
               <Typography variant="base-semibold" className="truncate">
                 {isMaxNbAssistantsReached
-                  ? "Can't create more assistants"
-                  : "Create a new assistant..."}
+                  ? "Can't create more agents"
+                  : "Create a new agent..."}
               </Typography>
             </CommandItem>
           </CommandGroup>
@@ -331,10 +331,10 @@ function AiAssistantSelectorItem(props: AiAssistantSelectorItemProps) {
                   }}
                 >
                   <PencilIcon className="size-4 sm:size-5" />
-                  <span className="sr-only">Edit assistant</span>
+                  <span className="sr-only">Edit agent</span>
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Edit assistant</TooltipContent>
+              <TooltipContent>Edit agent</TooltipContent>
             </Tooltip>
           </div>
         ) : null}

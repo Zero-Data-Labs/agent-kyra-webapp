@@ -115,11 +115,11 @@ export function ManageAiAssistantDialog(props: ManageAiAssistantDialogProps) {
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <DialogHeader>
               <DialogTitle>
-                {type === "create" ? "Create Assistant" : "Edit Assistant"}
+                {type === "create" ? "Create Agent" : "Edit Agent"}
               </DialogTitle>
               <DialogDescription>
-                An AI assistant lets you organise your prompts and fine-tune
-                your requests
+                An AI agent lets you organise your prompts and fine-tune your
+                requests
               </DialogDescription>
             </DialogHeader>
             <DialogBody className="flex flex-col gap-6 px-0.5">
@@ -133,7 +133,7 @@ export function ManageAiAssistantDialog(props: ManageAiAssistantDialogProps) {
                       <Input {...field} />
                     </FormControl>
                     <FormDescription>
-                      A name to identify your assistant
+                      A name to identify your agent
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -186,12 +186,12 @@ function DeleteAiAssistantDialog(props: DeleteAiAssistantDialogProps) {
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete Assistant</AlertDialogTitle>
+          <AlertDialogTitle>Delete Agent</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogBody>
           <AlertDialogDescription>
-            Are you sure you want to delete this assistant? This action cannot
-            be undone.
+            Are you sure you want to delete this agent? This action cannot be
+            undone.
           </AlertDialogDescription>
         </AlertDialogBody>
         <AlertDialogFooter>

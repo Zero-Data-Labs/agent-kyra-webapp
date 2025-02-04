@@ -96,7 +96,7 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
         <CardBody>
           <Textarea
             ref={inputRef}
-            placeholder="Ask your assistant"
+            placeholder="Ask your agent"
             value={aiPromptInput?.prompt ?? ""}
             onChange={handleUserPromptChange}
             onKeyDown={handleKeyDown}
@@ -182,7 +182,7 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
               }
             >
               <SendIcon className="size-5 sm:size-6" />
-              <span className="sr-only">Send to assistant for processing</span>
+              <span className="sr-only">Send to agent for processing</span>
             </Button>
           </div>
         </CardFooter>

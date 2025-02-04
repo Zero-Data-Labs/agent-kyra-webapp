@@ -115,7 +115,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
             </Avatar>
             <div className="flex flex-col">
               <Typography variant="base-semibold">
-                {outputAssistant ? outputAssistant.name : "Assistant"}
+                {outputAssistant ? outputAssistant.name : "Agent"}
               </Typography>
               {!aiAssistantOutput ||
               aiAssistantOutput?.status === "processing" ? (
@@ -139,7 +139,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
                 >
                   <EllipsisVerticalIcon className="size-5 sm:size-6" />
                   <span className="sr-only">
-                    Open assistant output actions menu
+                    Open Agent output actions menu
                   </span>
                 </Button>
               </AssistantOutputCardMenu>

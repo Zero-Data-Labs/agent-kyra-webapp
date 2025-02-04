@@ -13,7 +13,7 @@ export default function AssistantErrorPage(props: ErrorPageProps) {
 
   return (
     <ErrorPageContent
-      mainMessage="There was an error loading the AI Assistant"
+      mainMessage="There was an error loading the AI Agent"
       error={error}
       reset={reset}
       hideNavigationButton

@@ -36,8 +36,7 @@ export function AssistantEmptyContent(props: AssistantEmptyContentProps) {
         <div className="flex flex-col items-center gap-2 text-center">
           <Typography variant="heading-4">Talk about your data</Typography>
           <Typography variant="base-regular">
-            Ask questions to your assistant about your private data, for
-            example:
+            Ask questions to your agent about your private data, for example:
           </Typography>
         </div>
         <div className="flex flex-row flex-wrap items-center justify-center gap-2">

@@ -13,9 +13,9 @@ export default function AssistantNotFoundPage() {
     <div className="flex h-full flex-1 flex-col items-center justify-center gap-4 p-4">
       <NotFoundBlock>
         <NotFoundBlockImage />
-        <NotFoundBlockTitle>Assistant Not Found</NotFoundBlockTitle>
+        <NotFoundBlockTitle>Agent Not Found</NotFoundBlockTitle>
         <NotFoundBlockDescription>
-          The assistant you are looking for does not exist. Select one from your
+          The agent you are looking for does not exist. Select one from your
           list:
         </NotFoundBlockDescription>
       </NotFoundBlock>

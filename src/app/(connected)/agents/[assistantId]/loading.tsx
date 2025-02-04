@@ -29,9 +29,9 @@ export default function AssistantLoadingPage(props: AssistantLoadingPageProps) {
       ) : (
         <LoadingBlock>
           <LoadingBlockSpinner />
-          <LoadingBlockTitle>Preparing assistant...</LoadingBlockTitle>
+          <LoadingBlockTitle>Preparing agent...</LoadingBlockTitle>
           <LoadingBlockDescription>
-            Please wait while we prepare your assistant
+            Please wait while we prepare your agent
           </LoadingBlockDescription>
         </LoadingBlock>
       )}

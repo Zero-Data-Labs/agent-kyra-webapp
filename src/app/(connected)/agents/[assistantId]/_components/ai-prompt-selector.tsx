@@ -162,7 +162,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         } as AiPromptRecord)
       } catch (error) {
         logger.error(
-          new Error("Failed to update assistant order", { cause: error })
+          new Error("Failed to update prompt order", { cause: error })
         )
       }
     },
@@ -231,7 +231,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
               </DndContext>
             </CommandGroup>
           ) : null}
-          <CommandGroup heading="Suggested by Verida">
+          <CommandGroup heading="Suggested">
             {SUGGESTED_PROMPTS.map((suggestedPrompt, index) => (
               <AiPromptSelectorItem
                 key={index}

@@ -23,8 +23,7 @@ export function AssistantOutput() {
           <ErrorBlockImage />
           <ErrorBlockTitle>Error</ErrorBlockTitle>
           <ErrorBlockDescription>
-            {error ??
-              "Something went wrong with the assistant. Please try again."}
+            {error ?? "Something went wrong with the agent. Please try again."}
           </ErrorBlockDescription>
         </ErrorBlock>
       ) : (

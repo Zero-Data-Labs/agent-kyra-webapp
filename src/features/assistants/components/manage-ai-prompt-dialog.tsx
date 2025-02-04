@@ -158,7 +158,7 @@ export function ManageAiPromptDialog(props: ManageAiPromptDialogProps) {
                       />
                     </FormControl>
                     <FormDescription>
-                      Your message sent to the assistant
+                      Your message sent to the agent
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

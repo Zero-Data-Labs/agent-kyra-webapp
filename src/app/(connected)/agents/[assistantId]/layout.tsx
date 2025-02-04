@@ -23,7 +23,7 @@ export default function AssistantLayout(props: AssistantLayoutProps) {
       pageTitle={
         <div className="flex min-w-0 flex-row items-center gap-2">
           <Typography variant="heading-3" className="shrink-0">
-            AI Assistant
+            AI Agent
           </Typography>
           <AiAssistantCombobox assistantId={assistantId} className="flex-1" />
         </div>

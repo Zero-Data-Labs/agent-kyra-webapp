@@ -27,7 +27,7 @@ export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
       await window.navigator.clipboard.writeText(aiAssistantOutput.result)
       toast({
         variant: "success",
-        description: "Assistant response copied to clipboard",
+        description: "Agent response copied to clipboard",
       })
     }
   }, [aiAssistantOutput, toast])

@@ -60,11 +60,11 @@ export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
             </Typography>
           ) : (
             <Typography variant="heading-5" className="truncate italic">
-              Choose Assistant
+              Choose Agent
             </Typography>
           )}
           <ChevronDownIcon className="size-5 shrink-0 text-muted-foreground" />
-          <span className="sr-only">Select AI Assistant</span>
+          <span className="sr-only">Select AI Agent</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent
