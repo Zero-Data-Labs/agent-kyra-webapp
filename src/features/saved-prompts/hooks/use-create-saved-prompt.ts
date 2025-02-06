@@ -1,23 +1,23 @@
 import { useCallback } from "react"
 
-import { AiPromptBaseSchema } from "@/features/assistants/schemas"
-import type { AiPromptBase } from "@/features/assistants/types"
-import { AI_PROMPTS_DB_DEF } from "@/features/prompts/constants"
+import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
+import { SavedPromptBaseSchema } from "@/features/saved-prompts/schemas"
+import type { SavedPromptBase } from "@/features/saved-prompts/types"
 import { useToast } from "@/features/toasts/use-toast"
 import { useCreateVeridaRecord } from "@/features/verida-database/hooks/use-create-verida-record"
 import type { UnsavedVeridaRecord } from "@/features/verida-database/types"
 
-export function useCreateAiPrompt() {
+export function useCreateSavedPrompt() {
   const { toast } = useToast()
 
   const { createRecordAsync, createRecord, ...mutation } =
-    useCreateVeridaRecord(AiPromptBaseSchema)
+    useCreateVeridaRecord(SavedPromptBaseSchema)
 
-  const createAiPrompt = useCallback(
-    (promptToSave: UnsavedVeridaRecord<AiPromptBase>) => {
+  const createSavedPrompt = useCallback(
+    (promptToSave: UnsavedVeridaRecord<SavedPromptBase>) => {
       return createRecord(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           record: promptToSave,
         },
         {
@@ -39,11 +39,11 @@ export function useCreateAiPrompt() {
     [createRecord, toast]
   )
 
-  const createAiPromptAsync = useCallback(
-    (promptToSave: UnsavedVeridaRecord<AiPromptBase>) => {
+  const createSavedPromptAsync = useCallback(
+    (promptToSave: UnsavedVeridaRecord<SavedPromptBase>) => {
       return createRecordAsync(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           record: promptToSave,
         },
         {
@@ -66,8 +66,8 @@ export function useCreateAiPrompt() {
   )
 
   return {
-    createAiPrompt,
-    createAiPromptAsync,
+    createSavedPrompt,
+    createSavedPromptAsync,
     ...mutation,
   }
 }

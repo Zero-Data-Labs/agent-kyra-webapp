@@ -1,27 +1,29 @@
 import { useCallback } from "react"
 
-import { AiPromptBaseSchema } from "@/features/assistants/schemas"
-import type { AiPromptRecord } from "@/features/assistants/types"
-import { AI_PROMPTS_DB_DEF } from "@/features/prompts/constants"
+import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
+import { SavedPromptBaseSchema } from "@/features/saved-prompts/schemas"
+import type { SavedPromptRecord } from "@/features/saved-prompts/types"
 import { useToast } from "@/features/toasts/use-toast"
 import {
   type UseUpdateVeridaRecordOptions,
   useUpdateVeridaRecord,
 } from "@/features/verida-database/hooks/use-update-verida-record"
 
-export type UseUpdateAiPromptOptions = UseUpdateVeridaRecordOptions
+export type UseUpdateSavedPromptOptions = UseUpdateVeridaRecordOptions
 
-export function useUpdateAiPrompt(options: UseUpdateAiPromptOptions = {}) {
+export function useUpdateSavedPrompt(
+  options: UseUpdateSavedPromptOptions = {}
+) {
   const { toast } = useToast()
 
   const { updateRecordAsync, updateRecord, ...mutation } =
-    useUpdateVeridaRecord(AiPromptBaseSchema, options)
+    useUpdateVeridaRecord(SavedPromptBaseSchema, options)
 
-  const updateAiPrompt = useCallback(
-    (promptToUpdate: AiPromptRecord) => {
+  const updateSavedPrompt = useCallback(
+    (promptToUpdate: SavedPromptRecord) => {
       return updateRecord(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           record: promptToUpdate,
         },
         {
@@ -43,11 +45,11 @@ export function useUpdateAiPrompt(options: UseUpdateAiPromptOptions = {}) {
     [updateRecord, toast]
   )
 
-  const updateAiPromptAsync = useCallback(
-    (promptToUpdate: AiPromptRecord) => {
+  const updateSavedPromptAsync = useCallback(
+    (promptToUpdate: SavedPromptRecord) => {
       return updateRecordAsync(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           record: promptToUpdate,
         },
         {
@@ -70,8 +72,8 @@ export function useUpdateAiPrompt(options: UseUpdateAiPromptOptions = {}) {
   )
 
   return {
-    updateAiPrompt,
-    updateAiPromptAsync,
+    updateSavedPrompt,
+    updateSavedPromptAsync,
     ...mutation,
   }
 }

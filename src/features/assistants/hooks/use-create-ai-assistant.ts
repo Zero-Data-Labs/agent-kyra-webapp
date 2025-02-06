@@ -1,8 +1,8 @@
 import { useCallback } from "react"
 
-import { AI_ASSISTANTS_DB_DEF } from "@/features/agents/constants"
 import { AiAssistantBaseSchema } from "@/features/assistants/schemas"
 import type { AiAssistantBase } from "@/features/assistants/types"
+import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
 import { useToast } from "@/features/toasts/use-toast"
 import { useCreateVeridaRecord } from "@/features/verida-database/hooks/use-create-verida-record"
 import type { UnsavedVeridaRecord } from "@/features/verida-database/types"

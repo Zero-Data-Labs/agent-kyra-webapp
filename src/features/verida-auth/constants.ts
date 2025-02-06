@@ -1,5 +1,5 @@
-import { AI_ASSISTANTS_DB_DEF } from "@/features/agents/constants"
-import { AI_PROMPTS_DB_DEF } from "@/features/prompts/constants"
+import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
+import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
 import type {
   VeridaAuthErrorInfo,
   VeridaAuthResponseError,
@@ -22,7 +22,7 @@ export const VERIDA_AUTH_REQUIRED_SCOPES: string[] = [
   "db:r:ai_assistant",
   "db:r:ai_prompt",
   `ds:rwd:${AI_ASSISTANTS_DB_DEF.schemaUrlLatest}`,
-  `ds:rwd:${AI_PROMPTS_DB_DEF.schemaUrlLatest}`,
+  `ds:rwd:${SAVED_PROMPTS_DB_DEF.schemaUrlLatest}`,
 
   // For data access by the LLM endpoint
   "ds:r:social-email",

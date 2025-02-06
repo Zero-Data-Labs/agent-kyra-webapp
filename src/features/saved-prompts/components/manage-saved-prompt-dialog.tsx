@@ -36,29 +36,29 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { AiPromptFormDataSchema } from "@/features/assistants/schemas"
-import type { AiPromptFormData } from "@/features/assistants/types"
+import { SavedPromptFormDataSchema } from "@/features/saved-prompts/schemas"
+import type { SavedPromptFormData } from "@/features/saved-prompts/types"
 import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 
-const logger = Logger.create("assistants")
+const logger = Logger.create("saved-prompts")
 
-export type ManageAiPromptDialogProps = {
+export type ManageSavedPromptDialogProps = {
   type: "create" | "edit"
-  initialData: Partial<AiPromptFormData>
+  initialData: Partial<SavedPromptFormData>
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSubmit: (data: AiPromptFormData) => Promise<void>
+  onSubmit: (data: SavedPromptFormData) => Promise<void>
   onDelete?: () => Promise<void>
 }
 
-export function ManageAiPromptDialog(props: ManageAiPromptDialogProps) {
+export function ManageSavedPromptDialog(props: ManageSavedPromptDialogProps) {
   const { type, initialData, open, onOpenChange, onSubmit, onDelete } = props
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const form = useForm<AiPromptFormData>({
-    resolver: zodResolver(AiPromptFormDataSchema),
+  const form = useForm<SavedPromptFormData>({
+    resolver: zodResolver(SavedPromptFormDataSchema),
     defaultValues: {
       name: initialData.name ?? "",
       prompt: initialData.prompt ?? "",
@@ -66,7 +66,7 @@ export function ManageAiPromptDialog(props: ManageAiPromptDialogProps) {
   })
 
   const handleSubmit = useCallback(
-    async (data: AiPromptFormData) => {
+    async (data: SavedPromptFormData) => {
       setIsSubmitting(true)
       try {
         await onSubmit(data)
@@ -171,14 +171,14 @@ export function ManageAiPromptDialog(props: ManageAiPromptDialogProps) {
               )}
             >
               {type === "edit" && onDelete ? (
-                <DeleteAiPromptDialog
+                <DeleteSavedPromptDialog
                   onDelete={handleDelete}
                   isProcessing={isSubmitting}
                 >
                   <Button variant="outline-destructive" disabled={isSubmitting}>
                     Delete
                   </Button>
-                </DeleteAiPromptDialog>
+                </DeleteSavedPromptDialog>
               ) : null}
               <Button variant="primary" type="submit" disabled={isSubmitting}>
                 Save
@@ -190,15 +190,15 @@ export function ManageAiPromptDialog(props: ManageAiPromptDialogProps) {
     </Dialog>
   )
 }
-ManageAiPromptDialog.displayName = "AssistantManagePromptDialog"
+ManageSavedPromptDialog.displayName = "ManageSavedPromptDialog"
 
-type DeleteAiPromptDialogProps = {
+type DeleteSavedPromptDialogProps = {
   children: React.ReactNode
   onDelete: () => Promise<void>
   isProcessing: boolean
 }
 
-function DeleteAiPromptDialog(props: DeleteAiPromptDialogProps) {
+function DeleteSavedPromptDialog(props: DeleteSavedPromptDialogProps) {
   const { children, onDelete, isProcessing } = props
 
   return (
@@ -227,4 +227,4 @@ function DeleteAiPromptDialog(props: DeleteAiPromptDialogProps) {
     </AlertDialog>
   )
 }
-DeleteAiPromptDialog.displayName = "DeletePromptDialog"
+DeleteSavedPromptDialog.displayName = "DeleteSavedPromptDialog"

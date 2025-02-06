@@ -1,9 +1,9 @@
 import type {
   AiAssistantRecord,
-  AiPromptRecord,
   LLMModelDefinition,
   LlmModel,
 } from "@/features/assistants/types"
+import type { SavedPromptRecord } from "@/features/saved-prompts/types"
 
 export const LLM_MODEL_DEFS: Record<LlmModel, LLMModelDefinition> = {
   "CLAUDE_HAIKU_3.5": {
@@ -59,17 +59,15 @@ export const LLM_MODEL_DEFS: Record<LlmModel, LLMModelDefinition> = {
 }
 
 export const MAX_NB_ASSISTANTS = 5
-export const MAX_NB_PROMPTS_PER_ASSISTANT = 20
 
 export const DEFAULT_ASSISTANT_ORDER = 100
-export const DEFAULT_PROMPT_ORDER = 100
 
 export const DEFAULT_ASSISTANT: AiAssistantRecord = {
   _id: "new",
   name: "Kyra",
 }
 
-export const SUGGESTED_PROMPTS: AiPromptRecord[] = [
+export const SUGGESTED_PROMPTS: SavedPromptRecord[] = [
   {
     _id: "1",
     assistantId: "new",

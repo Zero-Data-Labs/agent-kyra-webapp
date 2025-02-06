@@ -1,8 +1,8 @@
 import { useMemo } from "react"
 
-import { AI_ASSISTANTS_DB_DEF } from "@/features/agents/constants"
 import { MAX_NB_ASSISTANTS } from "@/features/assistants/constants"
 import { AiAssistantBaseSchema } from "@/features/assistants/schemas"
+import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
 import {
   type PrefetchVeridaRecordsArgs,
   type UseVeridaRecordsArgs,

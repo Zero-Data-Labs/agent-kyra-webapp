@@ -1,8 +1,8 @@
 import { useMemo } from "react"
 
-import { MAX_NB_PROMPTS_PER_ASSISTANT } from "@/features/assistants/constants"
-import { AiPromptBaseSchema } from "@/features/assistants/schemas"
-import { AI_PROMPTS_DB_DEF } from "@/features/prompts/constants"
+import { MAX_NB_SAVED_PROMPTS_PER_AGENT } from "@/features/saved-prompts/constants"
+import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
+import { SavedPromptBaseSchema } from "@/features/saved-prompts/schemas"
 import {
   type PrefetchVeridaRecordsArgs,
   type UseVeridaRecordsArgs,
@@ -10,19 +10,22 @@ import {
   useVeridaRecords,
 } from "@/features/verida-database/hooks/use-verida-records"
 
-type UseGetAiPromptsArgs = Pick<
-  UseVeridaRecordsArgs<typeof AiPromptBaseSchema>,
+type UseGetSavedPromptsArgs = Pick<
+  UseVeridaRecordsArgs<typeof SavedPromptBaseSchema>,
   "filter" | "options"
 >
 
-export function useGetAiPrompts({ filter, options }: UseGetAiPromptsArgs = {}) {
+export function useGetSavedPrompts({
+  filter,
+  options,
+}: UseGetSavedPromptsArgs = {}) {
   const { records, ...query } = useVeridaRecords({
-    databaseDefinition: AI_PROMPTS_DB_DEF,
-    baseSchema: AiPromptBaseSchema,
+    databaseDefinition: SAVED_PROMPTS_DB_DEF,
+    baseSchema: SavedPromptBaseSchema,
     filter,
     options: {
       ...options,
-      limit: options?.limit ?? MAX_NB_PROMPTS_PER_ASSISTANT,
+      limit: options?.limit ?? MAX_NB_SAVED_PROMPTS_PER_AGENT,
     },
   })
 
@@ -51,27 +54,27 @@ export function useGetAiPrompts({ filter, options }: UseGetAiPromptsArgs = {}) {
   }, [records])
 
   return {
-    aiPrompts: sortedRecords,
+    savedPrompts: sortedRecords,
     ...query,
   }
 }
 
-type PrefetchGetAiPromptsArgs = Omit<
-  PrefetchVeridaRecordsArgs<typeof AiPromptBaseSchema>,
+type PrefetchGetSavedPromptsArgs = Omit<
+  PrefetchVeridaRecordsArgs<typeof SavedPromptBaseSchema>,
   "databaseDefinition" | "baseSchema"
 >
 
-export async function prefetchGetAiPrompts({
+export async function prefetchGetSavedPrompts({
   queryClient,
   authToken,
   filter,
   options,
-}: PrefetchGetAiPromptsArgs) {
+}: PrefetchGetSavedPromptsArgs) {
   await prefetchVeridaRecords({
     queryClient,
     authToken,
-    databaseDefinition: AI_PROMPTS_DB_DEF,
-    baseSchema: AiPromptBaseSchema,
+    databaseDefinition: SAVED_PROMPTS_DB_DEF,
+    baseSchema: SavedPromptBaseSchema,
     filter,
     options,
   })

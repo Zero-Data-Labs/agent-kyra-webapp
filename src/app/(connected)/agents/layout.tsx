@@ -1,7 +1,7 @@
 import React from "react"
 
 import { AiAssistantDialogProvider } from "@/features/assistants/components/ai-assistant-dialog-provider"
-import { AiPromptDialogProvider } from "@/features/assistants/components/ai-prompt-dialog-provider"
+import { SavedPromptDialogProvider } from "@/features/saved-prompts/components/saved-prompt-dialog-provider"
 
 export interface AgentsLayoutProps {
   children: React.ReactNode
@@ -12,7 +12,7 @@ export default function AgentsLayout(props: AgentsLayoutProps) {
 
   return (
     <AiAssistantDialogProvider>
-      <AiPromptDialogProvider>{children}</AiPromptDialogProvider>
+      <SavedPromptDialogProvider>{children}</SavedPromptDialogProvider>
     </AiAssistantDialogProvider>
   )
 }

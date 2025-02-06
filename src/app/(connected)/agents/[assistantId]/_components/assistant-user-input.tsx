@@ -20,10 +20,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { MAX_NB_PROMPTS_PER_ASSISTANT } from "@/features/assistants/constants"
-import { useAiPromptDialog } from "@/features/assistants/hooks/use-ai-prompt-dialog"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { useGetAiPrompts } from "@/features/assistants/hooks/use-get-ai-prompts"
+import { MAX_NB_SAVED_PROMPTS_PER_AGENT } from "@/features/saved-prompts/constants"
+import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
+import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
 import { cn, getMediaQuery } from "@/styles/utils"
 
 export type AssistantUserInputProps = Omit<
@@ -43,8 +43,8 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
     clearAiPromptInput,
   } = useAssistants()
 
-  const { openSaveDialog } = useAiPromptDialog()
-  const { aiPrompts } = useGetAiPrompts({
+  const { openSaveDialog } = useSavedPromptDialog()
+  const { savedPrompts: aiPrompts } = useGetSavedPrompts({
     filter: {
       assistantId: selectedAiAssistant,
     },
@@ -53,7 +53,7 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
 
   const isMaxNbPromptsReached = useMemo(
     () =>
-      aiPrompts ? aiPrompts.length >= MAX_NB_PROMPTS_PER_ASSISTANT : false,
+      aiPrompts ? aiPrompts.length >= MAX_NB_SAVED_PROMPTS_PER_AGENT : false,
     [aiPrompts]
   )
 

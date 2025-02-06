@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 
-import { AI_ASSISTANTS_DB_DEF } from "@/features/agents/constants"
+import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
 import { useToast } from "@/features/toasts/use-toast"
 import { useDeleteVeridaRecord } from "@/features/verida-database/hooks/use-delete-verida-record"
 

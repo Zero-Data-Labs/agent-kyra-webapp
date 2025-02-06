@@ -1,6 +1,10 @@
 import type { DatabaseDefinition } from "@/features/verida-database/types"
 
-export const AI_PROMPTS_DB_DEF: DatabaseDefinition = {
+export const DEFAULT_SAVED_PROMPT_ORDER = 100
+
+export const MAX_NB_SAVED_PROMPTS_PER_AGENT = 20
+
+export const SAVED_PROMPTS_DB_DEF: DatabaseDefinition = {
   title: "User Prompt",
   titlePlural: "User Prompts",
   databaseVaultName: "ai_prompt",

@@ -1,20 +1,20 @@
 import { useCallback } from "react"
 
-import { AI_PROMPTS_DB_DEF } from "@/features/prompts/constants"
+import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
 import { useToast } from "@/features/toasts/use-toast"
 import { useDeleteVeridaRecord } from "@/features/verida-database/hooks/use-delete-verida-record"
 
-export function useDeleteAiPrompt() {
+export function useDeleteSavedPrompt() {
   const { toast } = useToast()
 
   const { deleteRecord, deleteRecordAsync, ...mutation } =
     useDeleteVeridaRecord()
 
-  const deleteAiPrompt = useCallback(
+  const deleteSavedPrompt = useCallback(
     (promptId: string) => {
       return deleteRecord(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           recordId: promptId,
         },
         {
@@ -36,11 +36,11 @@ export function useDeleteAiPrompt() {
     [deleteRecord, toast]
   )
 
-  const deleteAiPromptAsync = useCallback(
+  const deleteSavedPromptAsync = useCallback(
     (promptId: string) => {
       return deleteRecordAsync(
         {
-          databaseDefinition: AI_PROMPTS_DB_DEF,
+          databaseDefinition: SAVED_PROMPTS_DB_DEF,
           recordId: promptId,
         },
         {
@@ -63,8 +63,8 @@ export function useDeleteAiPrompt() {
   )
 
   return {
-    deleteAiPrompt,
-    deleteAiPromptAsync,
+    deleteSavedPrompt,
+    deleteSavedPromptAsync,
     ...mutation,
   }
 }

@@ -9,7 +9,6 @@ import {
   AssistantsContext,
   type AssistantsContextType,
 } from "@/features/assistants/contexts/assistants-context"
-import { prefetchGetAiPrompts } from "@/features/assistants/hooks/use-get-ai-prompts"
 import type {
   AiAssistantHotloadResult,
   AiAssistantOutput,
@@ -19,6 +18,7 @@ import {
   hotloadAPI,
   sendAiPromptInputToAssistant,
 } from "@/features/assistants/utils"
+import { prefetchGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
 import { Logger } from "@/features/telemetry/logger"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 
@@ -85,7 +85,7 @@ export function AssistantsProvider(props: AssistantsProviderProps) {
       return
     }
 
-    prefetchGetAiPrompts({
+    prefetchGetSavedPrompts({
       queryClient,
       authToken: token,
       filter: {

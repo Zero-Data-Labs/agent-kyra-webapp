@@ -34,15 +34,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Typography } from "@/components/ui/typography"
-import {
-  DEFAULT_PROMPT_ORDER,
-  SUGGESTED_PROMPTS,
-} from "@/features/assistants/constants"
-import { useAiPromptDialog } from "@/features/assistants/hooks/use-ai-prompt-dialog"
+import { SUGGESTED_PROMPTS } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { useGetAiPrompts } from "@/features/assistants/hooks/use-get-ai-prompts"
-import { useUpdateAiPrompt } from "@/features/assistants/hooks/use-update-ai-prompt"
-import type { AiPromptInput, AiPromptRecord } from "@/features/assistants/types"
+import type { AiPromptInput } from "@/features/assistants/types"
+import { DEFAULT_SAVED_PROMPT_ORDER } from "@/features/saved-prompts/constants"
+import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
+import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
+import { useUpdateSavedPrompt } from "@/features/saved-prompts/hooks/use-update-saved-prompt"
+import type { SavedPromptRecord } from "@/features/saved-prompts/types"
 import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
@@ -72,16 +71,16 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
     setPromptSearchValue,
   } = useAssistants()
 
-  const { openEditDialog } = useAiPromptDialog()
+  const { openEditDialog } = useSavedPromptDialog()
 
   // TODO: Handle pagination, filter and sort. Link this to the value in the
   // CommandInput and turn the whole Command to a controlled component
-  const { aiPrompts } = useGetAiPrompts({
+  const { savedPrompts: aiPrompts } = useGetSavedPrompts({
     filter: {
       assistantId: selectedAiAssistant,
     },
   })
-  const { updateAiPromptAsync } = useUpdateAiPrompt()
+  const { updateSavedPromptAsync: updateAiPromptAsync } = useUpdateSavedPrompt()
 
   const handleSelect = useCallback(
     async (input: AiPromptInput) => {
@@ -145,13 +144,13 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         newOrder = (prevPrompt.order + nextPrompt.order) / 2
       } else if (prevPrompt?.order !== undefined) {
         // Only previous has order - add DEFAULT_PROMPT_ORDER
-        newOrder = prevPrompt.order + DEFAULT_PROMPT_ORDER
+        newOrder = prevPrompt.order + DEFAULT_SAVED_PROMPT_ORDER
       } else if (nextPrompt?.order !== undefined) {
         // Only next has order - subtract DEFAULT_PROMPT_ORDER
-        newOrder = nextPrompt.order - DEFAULT_PROMPT_ORDER
+        newOrder = nextPrompt.order - DEFAULT_SAVED_PROMPT_ORDER
       } else {
         // Neither has order - start at DEFAULT_PROMPT_ORDER * position
-        newOrder = (newIndex + 1) * DEFAULT_PROMPT_ORDER
+        newOrder = (newIndex + 1) * DEFAULT_SAVED_PROMPT_ORDER
       }
 
       try {
@@ -159,7 +158,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         await updateAiPromptAsync({
           ...movedAiPrompt,
           order: newOrder,
-        } as AiPromptRecord)
+        } as SavedPromptRecord)
       } catch (error) {
         logger.error(
           new Error("Failed to update prompt order", { cause: error })
@@ -253,7 +252,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
 AiPromptSelector.displayName = "AiPromptSelector"
 
 type AiPromptSelectorItemProps = {
-  aiPrompt: AiPromptRecord
+  aiPrompt: SavedPromptRecord
   onSelect: () => void
   onSetPrompt: () => void
   sortable?: boolean
