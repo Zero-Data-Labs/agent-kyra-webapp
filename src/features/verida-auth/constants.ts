@@ -1,4 +1,4 @@
-import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
+import { AGENTS_DB_DEF } from "@/features/saved-agents/constants"
 import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
 import type {
   VeridaAuthErrorInfo,
@@ -21,7 +21,7 @@ export const VERIDA_AUTH_REQUIRED_SCOPES: string[] = [
   "api:ds-delete",
   "db:r:ai_assistant",
   "db:r:ai_prompt",
-  `ds:rwd:${AI_ASSISTANTS_DB_DEF.schemaUrlLatest}`,
+  `ds:rwd:${AGENTS_DB_DEF.schemaUrlLatest}`,
   `ds:rwd:${SAVED_PROMPTS_DB_DEF.schemaUrlLatest}`,
 
   // For data access by the LLM endpoint

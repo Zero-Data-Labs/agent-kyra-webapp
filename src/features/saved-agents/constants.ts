@@ -1,6 +1,16 @@
+import type { SavedAgentRecord } from "@/features/saved-agents/types"
 import type { DatabaseDefinition } from "@/features/verida-database/types"
 
-export const AI_ASSISTANTS_DB_DEF: DatabaseDefinition = {
+export const MAX_NB_AGENTS = 5
+
+export const DEFAULT_AGENT_ORDER = 100
+
+export const DEFAULT_AGENT: SavedAgentRecord = {
+  _id: "new",
+  name: "Kyra",
+}
+
+export const AGENTS_DB_DEF: DatabaseDefinition = {
   title: "AI Assistant",
   titlePlural: "AI Assistants",
   databaseVaultName: "ai_assistant",

@@ -48,22 +48,6 @@ export const PrivateDataApiV1LLMPersonalResponseSchema = z.object({
   }),
 })
 
-export const AiAssistantBaseSchema = z.object({
-  name: z.string(),
-  order: z.number().optional(),
-})
-
-export const AiAssistantFormDataSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(32, "Name must be less than 32 characters")
-    .regex(
-      /^[a-zA-Z0-9-_\s]+$/,
-      "Name can only contain letters, numbers, hyphens, underscores and spaces"
-    ),
-})
-
 // Prompt search and config below are temporarily deprecated for the new agent but may come back later
 
 export const PROMPT_SEARCH_TIMEFRAMES = [

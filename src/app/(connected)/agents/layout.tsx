@@ -1,6 +1,6 @@
 import React from "react"
 
-import { AiAssistantDialogProvider } from "@/features/assistants/components/ai-assistant-dialog-provider"
+import { SavedAgentDialogProvider } from "@/features/saved-agents/components/saved-agent-dialog-provider"
 import { SavedPromptDialogProvider } from "@/features/saved-prompts/components/saved-prompt-dialog-provider"
 
 export interface AgentsLayoutProps {
@@ -11,9 +11,9 @@ export default function AgentsLayout(props: AgentsLayoutProps) {
   const { children } = props
 
   return (
-    <AiAssistantDialogProvider>
+    <SavedAgentDialogProvider>
       <SavedPromptDialogProvider>{children}</SavedPromptDialogProvider>
-    </AiAssistantDialogProvider>
+    </SavedAgentDialogProvider>
   )
 }
 AgentsLayout.displayName = "AgentsLayout"

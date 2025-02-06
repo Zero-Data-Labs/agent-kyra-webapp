@@ -12,11 +12,11 @@ import { AssistantUserInput } from "@/app/(connected)/agents/[assistantId]/_comp
 import AssistantLoadingPage from "@/app/(connected)/agents/[assistantId]/loading"
 import { Card } from "@/components/ui/card"
 import { Typography } from "@/components/ui/typography"
-import { DEFAULT_ASSISTANT } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { useGetAiAssistant } from "@/features/assistants/hooks/use-get-ai-assistant"
-import { useGetAiAssistants } from "@/features/assistants/hooks/use-get-ai-assistants"
 import { getAgentPageRoute } from "@/features/routes/utils"
+import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
+import { useGetSavedAgent } from "@/features/saved-agents/hooks/use-get-saved-agent"
+import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { getMediaQuery } from "@/styles/utils"
 
 type AssistantPageProps = {
@@ -41,35 +41,34 @@ export default function AssistantPage(props: AssistantPageProps) {
     setSelectedAiAssistant(assistantId)
   }, [assistantId, setSelectedAiAssistant])
 
-  const { aiAssistant, isLoading: isLoadingAiAssistant } = useGetAiAssistant(
+  const { savedAgent, isLoading: isLoadingSavedAgent } = useGetSavedAgent(
     {
-      assistantId,
+      agentId: assistantId,
     },
     {
-      enabled: assistantId !== DEFAULT_ASSISTANT._id,
+      enabled: assistantId !== DEFAULT_AGENT._id,
     }
   )
 
-  const { aiAssistants, isLoading: isLoadingAiAssistants } =
-    useGetAiAssistants()
+  const { savedAgents, isLoading: isLoadingSavedAgents } = useGetSavedAgents()
 
   useEffect(() => {
     if (
       !fromDeletion && // Only redirect if not from deletion
-      aiAssistants &&
-      aiAssistants.length > 0 &&
-      assistantId === DEFAULT_ASSISTANT._id
+      savedAgents &&
+      savedAgents.length > 0 &&
+      assistantId === DEFAULT_AGENT._id
     ) {
-      const firstAssistantId = aiAssistants[0]!._id
-      router.replace(getAgentPageRoute({ agentId: firstAssistantId }))
+      const firstAgentId = savedAgents[0]!._id
+      router.replace(getAgentPageRoute({ agentId: firstAgentId }))
     }
-  }, [aiAssistants, assistantId, router, fromDeletion])
+  }, [savedAgents, assistantId, router, fromDeletion])
 
   const isXL = useMediaQuery(getMediaQuery("xl"))
 
   if (
-    isLoadingAiAssistant ||
-    isLoadingAiAssistants ||
+    isLoadingSavedAgent ||
+    isLoadingSavedAgents ||
     hotload.status === "loading"
   ) {
     return <AssistantLoadingPage hotload={hotload} />
@@ -77,7 +76,7 @@ export default function AssistantPage(props: AssistantPageProps) {
 
   // TODO: Display alert if hotloading failed
 
-  if (aiAssistant || assistantId === DEFAULT_ASSISTANT._id) {
+  if (savedAgent || assistantId === DEFAULT_AGENT._id) {
     return (
       <div className="flex h-full w-full flex-row justify-center gap-6">
         {isXL ? (
@@ -86,7 +85,7 @@ export default function AssistantPage(props: AssistantPageProps) {
               <div className="flex flex-row items-center gap-2 px-1 pt-1 text-muted-foreground">
                 <MessageSquareMoreIcon className="size-5 sm:size-6" />
                 <Typography variant="base-semibold">
-                  Your prompts{aiAssistant ? ` for ${aiAssistant.name}` : ""}
+                  Your prompts{savedAgent ? ` for ${savedAgent.name}` : ""}
                 </Typography>
               </div>
               <AiPromptSelector />

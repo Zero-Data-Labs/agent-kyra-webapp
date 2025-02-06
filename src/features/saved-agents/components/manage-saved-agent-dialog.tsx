@@ -36,36 +36,36 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { AiAssistantFormDataSchema } from "@/features/assistants/schemas"
-import type { AiAssistantFormData } from "@/features/assistants/types"
+import { SavedAgentFormDataSchema } from "@/features/saved-agents/schemas"
+import type { SavedAgentFormData } from "@/features/saved-agents/types"
 import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 
-const logger = Logger.create("assistants")
+const logger = Logger.create("saved-agents")
 
-export type ManageAiAssistantDialogProps = {
+export type ManageSavedAgentDialogProps = {
   type: "create" | "edit"
-  initialData: Partial<AiAssistantFormData>
+  initialData: Partial<SavedAgentFormData>
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSubmit: (data: AiAssistantFormData) => Promise<void>
+  onSubmit: (data: SavedAgentFormData) => Promise<void>
   onDelete?: () => Promise<void>
 }
 
-export function ManageAiAssistantDialog(props: ManageAiAssistantDialogProps) {
+export function ManageSavedAgentDialog(props: ManageSavedAgentDialogProps) {
   const { type, initialData, open, onOpenChange, onSubmit, onDelete } = props
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const form = useForm<AiAssistantFormData>({
-    resolver: zodResolver(AiAssistantFormDataSchema),
+  const form = useForm<SavedAgentFormData>({
+    resolver: zodResolver(SavedAgentFormDataSchema),
     defaultValues: {
       name: initialData.name ?? "",
     },
   })
 
   const handleSubmit = useCallback(
-    async (data: AiAssistantFormData) => {
+    async (data: SavedAgentFormData) => {
       setIsSubmitting(true)
       try {
         await onSubmit(data)
@@ -151,14 +151,14 @@ export function ManageAiAssistantDialog(props: ManageAiAssistantDialogProps) {
               )}
             >
               {type === "edit" && onDelete ? (
-                <DeleteAiAssistantDialog
+                <DeleteSavedAgentDialog
                   onDelete={handleDelete}
                   isProcessing={isSubmitting}
                 >
                   <Button variant="outline-destructive" disabled={isSubmitting}>
                     Delete
                   </Button>
-                </DeleteAiAssistantDialog>
+                </DeleteSavedAgentDialog>
               ) : null}
               <Button variant="primary" type="submit" disabled={isSubmitting}>
                 {type === "create" ? "Create" : "Save"}
@@ -170,15 +170,15 @@ export function ManageAiAssistantDialog(props: ManageAiAssistantDialogProps) {
     </Dialog>
   )
 }
-ManageAiAssistantDialog.displayName = "ManageAiAssistantDialog"
+ManageSavedAgentDialog.displayName = "ManageSavedAgentDialog"
 
-type DeleteAiAssistantDialogProps = {
+type DeleteSavedAgentDialogProps = {
   children: React.ReactNode
   onDelete: () => Promise<void>
   isProcessing: boolean
 }
 
-function DeleteAiAssistantDialog(props: DeleteAiAssistantDialogProps) {
+function DeleteSavedAgentDialog(props: DeleteSavedAgentDialogProps) {
   const { children, onDelete, isProcessing } = props
 
   return (
@@ -208,4 +208,4 @@ function DeleteAiAssistantDialog(props: DeleteAiAssistantDialogProps) {
     </AlertDialog>
   )
 }
-DeleteAiAssistantDialog.displayName = "DeleteAssistantDialog"
+DeleteSavedAgentDialog.displayName = "DeleteSavedAgentDialog"

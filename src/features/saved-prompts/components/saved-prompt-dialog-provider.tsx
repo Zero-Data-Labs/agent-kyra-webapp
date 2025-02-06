@@ -3,14 +3,14 @@
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 
-import {
-  DEFAULT_ASSISTANT,
-  DEFAULT_ASSISTANT_ORDER,
-} from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { useCreateAiAssistant } from "@/features/assistants/hooks/use-create-ai-assistant"
-import { useGetAiAssistants } from "@/features/assistants/hooks/use-get-ai-assistants"
 import { getAgentPageRoute } from "@/features/routes/utils"
+import {
+  DEFAULT_AGENT,
+  DEFAULT_AGENT_ORDER,
+} from "@/features/saved-agents/constants"
+import { useCreateSavedAgent } from "@/features/saved-agents/hooks/use-create-saved-agent"
+import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { ManageSavedPromptDialog } from "@/features/saved-prompts/components/manage-saved-prompt-dialog"
 import { DEFAULT_SAVED_PROMPT_ORDER } from "@/features/saved-prompts/constants"
 import {
@@ -43,10 +43,10 @@ export function SavedPromptDialogProvider(
     isOpen: false,
   })
 
-  const { aiAssistants } = useGetAiAssistants()
+  const { savedAgents } = useGetSavedAgents()
 
   const { selectedAiAssistant } = useAssistants()
-  const { createAiAssistantAsync } = useCreateAiAssistant()
+  const { createSavedAgentAsync } = useCreateSavedAgent()
   const { savedPrompts } = useGetSavedPrompts({
     filter: {
       assistantId: selectedAiAssistant,
@@ -85,36 +85,36 @@ export function SavedPromptDialogProvider(
   const handleSubmit = useCallback(
     async (data: SavedPromptFormData) => {
       if (dialogState.type === "create") {
-        let assistantId = selectedAiAssistant
-        let createdAssistant = false
+        let agentId = selectedAiAssistant
+        let createdAgent = false
 
         if (
-          !aiAssistants ||
-          !aiAssistants.find((assistant) => {
-            return assistant._id === assistantId
+          !savedAgents ||
+          !savedAgents.find((agent) => {
+            return agent._id === agentId
           })
         ) {
-          const newAssistantRecord = await createAiAssistantAsync({
-            name: DEFAULT_ASSISTANT.name,
-            order: DEFAULT_ASSISTANT_ORDER,
+          const newSavedAgentRecord = await createSavedAgentAsync({
+            name: DEFAULT_AGENT.name,
+            order: DEFAULT_AGENT_ORDER,
           })
-          assistantId = newAssistantRecord._id
-          createdAssistant = true
+          agentId = newSavedAgentRecord._id
+          createdAgent = true
         }
 
         await createSavedPromptAsync({
           ...data,
-          assistantId,
+          assistantId: agentId,
           order: savedPrompts
             ? Math.max(...savedPrompts.map((p) => p.order ?? 0), 0) +
               DEFAULT_SAVED_PROMPT_ORDER
             : DEFAULT_SAVED_PROMPT_ORDER,
         })
 
-        if (createdAssistant) {
+        if (createdAgent) {
           router.replace(
             getAgentPageRoute({
-              agentId: assistantId,
+              agentId,
             })
           )
         }
@@ -126,13 +126,13 @@ export function SavedPromptDialogProvider(
       }
     },
     [
-      createAiAssistantAsync,
+      createSavedAgentAsync,
       createSavedPromptAsync,
       updateSavedPromptAsync,
       selectedAiAssistant,
       dialogState,
       router,
-      aiAssistants,
+      savedAgents,
       savedPrompts,
     ]
   )

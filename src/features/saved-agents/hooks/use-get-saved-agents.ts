@@ -1,8 +1,8 @@
 import { useMemo } from "react"
 
-import { MAX_NB_ASSISTANTS } from "@/features/assistants/constants"
-import { AiAssistantBaseSchema } from "@/features/assistants/schemas"
-import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
+import { MAX_NB_AGENTS } from "@/features/saved-agents/constants"
+import { AGENTS_DB_DEF } from "@/features/saved-agents/constants"
+import { SavedAgentBaseSchema } from "@/features/saved-agents/schemas"
 import {
   type PrefetchVeridaRecordsArgs,
   type UseVeridaRecordsArgs,
@@ -10,22 +10,22 @@ import {
   useVeridaRecords,
 } from "@/features/verida-database/hooks/use-verida-records"
 
-type UseGetAiAssistantsArgs = Pick<
-  UseVeridaRecordsArgs<typeof AiAssistantBaseSchema>,
+type UseGetuseGetSavedAgentsArgs = Pick<
+  UseVeridaRecordsArgs<typeof SavedAgentBaseSchema>,
   "filter" | "options"
 >
 
-export function useGetAiAssistants({
+export function useGetSavedAgents({
   filter,
   options,
-}: UseGetAiAssistantsArgs = {}) {
+}: UseGetuseGetSavedAgentsArgs = {}) {
   const { records, ...query } = useVeridaRecords({
-    databaseDefinition: AI_ASSISTANTS_DB_DEF,
-    baseSchema: AiAssistantBaseSchema,
+    databaseDefinition: AGENTS_DB_DEF,
+    baseSchema: SavedAgentBaseSchema,
     filter,
     options: {
       ...options,
-      limit: options?.limit ?? MAX_NB_ASSISTANTS,
+      limit: options?.limit ?? MAX_NB_AGENTS,
     },
   })
 
@@ -54,27 +54,27 @@ export function useGetAiAssistants({
   }, [records])
 
   return {
-    aiAssistants: sortedRecords,
+    savedAgents: sortedRecords,
     ...query,
   }
 }
 
-type PrefetchAiAssistantsArgs = Omit<
-  PrefetchVeridaRecordsArgs<typeof AiAssistantBaseSchema>,
+type PrefetchSavedAgentsArgs = Omit<
+  PrefetchVeridaRecordsArgs<typeof SavedAgentBaseSchema>,
   "databaseDefinition" | "baseSchema"
 >
 
-export async function prefetchAiAssistants({
+export async function prefetchSavedAgents({
   queryClient,
   authToken,
   filter,
   options,
-}: PrefetchAiAssistantsArgs) {
+}: PrefetchSavedAgentsArgs) {
   await prefetchVeridaRecords({
     queryClient,
     authToken,
-    databaseDefinition: AI_ASSISTANTS_DB_DEF,
-    baseSchema: AiAssistantBaseSchema,
+    databaseDefinition: AGENTS_DB_DEF,
+    baseSchema: SavedAgentBaseSchema,
     filter,
     options,
   })

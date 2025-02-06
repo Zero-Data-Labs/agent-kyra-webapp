@@ -11,8 +11,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Typography } from "@/components/ui/typography"
-import { DEFAULT_ASSISTANT } from "@/features/assistants/constants"
-import { useGetAiAssistants } from "@/features/assistants/hooks/use-get-ai-assistants"
+import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
+import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { cn } from "@/styles/utils"
 
 type AiAssistantComboboxProps = {
@@ -24,14 +24,14 @@ export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
 
   const [open, setOpen] = useState(false)
 
-  const { aiAssistants } = useGetAiAssistants()
+  const { savedAgents } = useGetSavedAgents()
 
   const currentAssistant = useMemo(() => {
     return (
-      aiAssistants?.find((aiAssistant) => aiAssistant._id === assistantId) ??
-      (assistantId === DEFAULT_ASSISTANT._id ? DEFAULT_ASSISTANT : null)
+      savedAgents?.find((savedAgent) => savedAgent._id === assistantId) ??
+      (assistantId === DEFAULT_AGENT._id ? DEFAULT_AGENT : null)
     )
-  }, [aiAssistants, assistantId])
+  }, [savedAgents, assistantId])
 
   const handleAction = useCallback(async () => {
     setOpen(false)

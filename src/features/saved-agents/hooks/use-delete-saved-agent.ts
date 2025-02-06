@@ -1,33 +1,33 @@
 import { useCallback } from "react"
 
-import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
+import { AGENTS_DB_DEF } from "@/features/saved-agents/constants"
 import { useToast } from "@/features/toasts/use-toast"
 import { useDeleteVeridaRecord } from "@/features/verida-database/hooks/use-delete-verida-record"
 
-export function useDeleteAiAssistant() {
+export function useDeleteSavedAgent() {
   const { toast } = useToast()
 
   const { deleteRecord, deleteRecordAsync, ...mutation } =
     useDeleteVeridaRecord()
 
-  const deleteAiAssistant = useCallback(
-    (assistantId: string) => {
+  const deleteSavedAgent = useCallback(
+    (agentId: string) => {
       return deleteRecord(
         {
-          databaseDefinition: AI_ASSISTANTS_DB_DEF,
-          recordId: assistantId,
+          databaseDefinition: AGENTS_DB_DEF,
+          recordId: agentId,
         },
         {
           onSuccess: () => {
             toast({
               variant: "success",
-              description: "Assistant deleted successfully",
+              description: "Agent deleted successfully",
             })
           },
           onError: () => {
             toast({
               variant: "error",
-              description: "Deleting assistant failed",
+              description: "Deleting agent failed",
             })
           },
         }
@@ -36,24 +36,24 @@ export function useDeleteAiAssistant() {
     [deleteRecord, toast]
   )
 
-  const deleteAiAssistantAsync = useCallback(
-    (assistantId: string) => {
+  const deleteSavedAgentAsync = useCallback(
+    (agentId: string) => {
       return deleteRecordAsync(
         {
-          databaseDefinition: AI_ASSISTANTS_DB_DEF,
-          recordId: assistantId,
+          databaseDefinition: AGENTS_DB_DEF,
+          recordId: agentId,
         },
         {
           onSuccess: () => {
             toast({
               variant: "success",
-              description: "Assistant deleted successfully",
+              description: "Agent deleted successfully",
             })
           },
           onError: () => {
             toast({
               variant: "error",
-              description: "Deleting assistant failed",
+              description: "Deleting agent failed",
             })
           },
         }
@@ -63,8 +63,8 @@ export function useDeleteAiAssistant() {
   )
 
   return {
-    deleteAiAssistant,
-    deleteAiAssistantAsync,
+    deleteSavedAgent,
+    deleteSavedAgentAsync,
     ...mutation,
   }
 }

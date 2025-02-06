@@ -1,8 +1,6 @@
 import { z } from "zod"
 
 import {
-  AiAssistantBaseSchema,
-  AiAssistantFormDataSchema,
   LlmModelSchema,
   LlmProviderSchema,
   PrivateDataApiV1LLMAgentResponseSchema,
@@ -19,7 +17,6 @@ import {
   PromptSearchSortSchema,
   PromptSearchTimeframeSchema,
 } from "@/features/assistants/schemas"
-import type { VeridaRecord } from "@/features/verida-database/types"
 
 // FIXME: Fix the supposedly circular dependency of importing SearchTypeSchema
 // import { SearchType } from "@/features/data-search/types"
@@ -66,12 +63,6 @@ export type LLMModelDefinition = {
   model: LlmModel
   label: string
 }
-
-export type AiAssistantBase = z.infer<typeof AiAssistantBaseSchema>
-
-export type AiAssistantRecord = VeridaRecord<AiAssistantBase>
-
-export type AiAssistantFormData = z.infer<typeof AiAssistantFormDataSchema>
 
 export type AiPromptInput = {
   assistantId?: string

@@ -1,36 +1,36 @@
 import { useCallback } from "react"
 
-import { AiAssistantBaseSchema } from "@/features/assistants/schemas"
-import type { AiAssistantBase } from "@/features/assistants/types"
-import { AI_ASSISTANTS_DB_DEF } from "@/features/saved-agents/constants"
+import { AGENTS_DB_DEF } from "@/features/saved-agents/constants"
+import { SavedAgentBaseSchema } from "@/features/saved-agents/schemas"
+import type { SavedAgentBase } from "@/features/saved-agents/types"
 import { useToast } from "@/features/toasts/use-toast"
 import { useCreateVeridaRecord } from "@/features/verida-database/hooks/use-create-verida-record"
 import type { UnsavedVeridaRecord } from "@/features/verida-database/types"
 
-export function useCreateAiAssistant() {
+export function useCreateSavedAgent() {
   const { toast } = useToast()
 
   const { createRecord, createRecordAsync, ...mutation } =
-    useCreateVeridaRecord(AiAssistantBaseSchema)
+    useCreateVeridaRecord(SavedAgentBaseSchema)
 
-  const createAiAssistant = useCallback(
-    (assistantToSave: UnsavedVeridaRecord<AiAssistantBase>) => {
+  const createSavedAgent = useCallback(
+    (agentToSave: UnsavedVeridaRecord<SavedAgentBase>) => {
       return createRecord(
         {
-          databaseDefinition: AI_ASSISTANTS_DB_DEF,
-          record: assistantToSave,
+          databaseDefinition: AGENTS_DB_DEF,
+          record: agentToSave,
         },
         {
           onSuccess: () => {
             toast({
               variant: "success",
-              description: "Assistant created successfully",
+              description: "Agent created successfully",
             })
           },
           onError: () => {
             toast({
               variant: "error",
-              description: "Creating assistant failed",
+              description: "Creating agent failed",
             })
           },
         }
@@ -39,24 +39,24 @@ export function useCreateAiAssistant() {
     [createRecord, toast]
   )
 
-  const createAiAssistantAsync = useCallback(
-    (assistantToSave: UnsavedVeridaRecord<AiAssistantBase>) => {
+  const createSavedAgentAsync = useCallback(
+    (agentToSave: UnsavedVeridaRecord<SavedAgentBase>) => {
       return createRecordAsync(
         {
-          databaseDefinition: AI_ASSISTANTS_DB_DEF,
-          record: assistantToSave,
+          databaseDefinition: AGENTS_DB_DEF,
+          record: agentToSave,
         },
         {
           onSuccess: () => {
             toast({
               variant: "success",
-              description: "Assistant created successfully",
+              description: "Agent created successfully",
             })
           },
           onError: () => {
             toast({
               variant: "error",
-              description: "Creating assistant failed",
+              description: "Creating agent failed",
             })
           },
         }
@@ -66,8 +66,8 @@ export function useCreateAiAssistant() {
   )
 
   return {
-    createAiAssistant,
-    createAiAssistantAsync,
+    createSavedAgent,
+    createSavedAgentAsync,
     ...mutation,
   }
 }

@@ -12,9 +12,9 @@ import { Card, CardBody, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Typography } from "@/components/ui/typography"
 import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
-import { DEFAULT_ASSISTANT } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { useGetAiAssistants } from "@/features/assistants/hooks/use-get-ai-assistants"
+import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
+import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { cn } from "@/styles/utils"
 import { SHORT_TIME_FORMAT_OPTIONS } from "@/utils/date"
 
@@ -25,14 +25,14 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
 
   const { aiAssistantOutput } = useAssistants()
 
-  const { aiAssistants } = useGetAiAssistants()
+  const { savedAgents } = useGetSavedAgents()
 
   const outputAssistant = useMemo(() => {
     if (!aiAssistantOutput?.assistantId) {
       return undefined
     }
 
-    const fromUserAssistants = aiAssistants?.find(
+    const fromUserAssistants = savedAgents?.find(
       (a) => a._id === aiAssistantOutput.assistantId
     )
 
@@ -40,12 +40,12 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
       return fromUserAssistants
     }
 
-    if (aiAssistantOutput.assistantId === DEFAULT_ASSISTANT._id) {
-      return DEFAULT_ASSISTANT
+    if (aiAssistantOutput.assistantId === DEFAULT_AGENT._id) {
+      return DEFAULT_AGENT
     }
 
     return undefined
-  }, [aiAssistantOutput?.assistantId, aiAssistants])
+  }, [aiAssistantOutput?.assistantId, savedAgents])
 
   const processedAt = useMemo(() => {
     if (aiAssistantOutput?.status !== "processed") {

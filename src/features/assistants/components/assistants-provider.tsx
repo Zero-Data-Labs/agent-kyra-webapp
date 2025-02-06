@@ -4,7 +4,6 @@ import { useQueryClient } from "@tanstack/react-query"
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import { useLocalStorage } from "usehooks-ts"
 
-import { DEFAULT_ASSISTANT } from "@/features/assistants/constants"
 import {
   AssistantsContext,
   type AssistantsContextType,
@@ -18,6 +17,7 @@ import {
   hotloadAPI,
   sendAiPromptInputToAssistant,
 } from "@/features/assistants/utils"
+import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { prefetchGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
 import { Logger } from "@/features/telemetry/logger"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
@@ -42,7 +42,7 @@ export function AssistantsProvider(props: AssistantsProviderProps) {
 
   const [selectedAiAssistant, setSelectedAiAssistant] = useLocalStorage(
     "kyra-selected-agent",
-    DEFAULT_ASSISTANT._id,
+    DEFAULT_AGENT._id,
     {
       initializeWithValue: true,
     }

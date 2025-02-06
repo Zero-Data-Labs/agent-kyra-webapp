@@ -1,8 +1,4 @@
-import type {
-  AiAssistantRecord,
-  LLMModelDefinition,
-  LlmModel,
-} from "@/features/assistants/types"
+import type { LLMModelDefinition, LlmModel } from "@/features/assistants/types"
 import type { SavedPromptRecord } from "@/features/saved-prompts/types"
 
 export const LLM_MODEL_DEFS: Record<LlmModel, LLMModelDefinition> = {
@@ -56,15 +52,6 @@ export const LLM_MODEL_DEFS: Record<LlmModel, LLMModelDefinition> = {
     model: "MIXTRAL_LARGE",
     label: "Mixtral Large",
   },
-}
-
-export const MAX_NB_ASSISTANTS = 5
-
-export const DEFAULT_ASSISTANT_ORDER = 100
-
-export const DEFAULT_ASSISTANT: AiAssistantRecord = {
-  _id: "new",
-  name: "Kyra",
 }
 
 export const SUGGESTED_PROMPTS: SavedPromptRecord[] = [

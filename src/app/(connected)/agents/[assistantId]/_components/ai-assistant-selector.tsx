@@ -36,19 +36,19 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Typography } from "@/components/ui/typography"
-import {
-  DEFAULT_ASSISTANT,
-  DEFAULT_ASSISTANT_ORDER,
-  MAX_NB_ASSISTANTS,
-} from "@/features/assistants/constants"
-import { useAiAssistantDialog } from "@/features/assistants/hooks/use-ai-assistant-dialog"
-import { useGetAiAssistants } from "@/features/assistants/hooks/use-get-ai-assistants"
-import { useUpdateAiAssistant } from "@/features/assistants/hooks/use-update-ai-assistant"
-import type {
-  AiAssistantFormData,
-  AiAssistantRecord,
-} from "@/features/assistants/types"
 import { getAgentPageRoute } from "@/features/routes/utils"
+import {
+  DEFAULT_AGENT,
+  DEFAULT_AGENT_ORDER,
+  MAX_NB_AGENTS,
+} from "@/features/saved-agents/constants"
+import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
+import { useSavedAgentDialog } from "@/features/saved-agents/hooks/use-saved-agent-dialog"
+import { useUpdateSavedAgent } from "@/features/saved-agents/hooks/use-update-saved-agent"
+import type {
+  SavedAgentFormData,
+  SavedAgentRecord,
+} from "@/features/saved-agents/types"
 import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
@@ -58,8 +58,8 @@ const logger = Logger.create("assistants")
 export type AiAssistantSelectorProps = {
   currentAssistantId?: string
   onCreateClick?: () => void
-  onItemSelect?: (assistant: AiAssistantRecord) => void
-  onEditClick?: (assistant: AiAssistantRecord) => void
+  onItemSelect?: (assistant: SavedAgentRecord) => void
+  onEditClick?: (assistant: SavedAgentRecord) => void
   hideSearch?: boolean
 } & Omit<React.ComponentProps<"div">, "children">
 
@@ -85,12 +85,12 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
 
   const [searchValue, setSearchValue] = useState("")
 
-  const { openCreateDialog, openEditDialog } = useAiAssistantDialog()
-  const { aiAssistants } = useGetAiAssistants()
-  const { updateAiAssistantAsync } = useUpdateAiAssistant()
+  const { openCreateDialog, openEditDialog } = useSavedAgentDialog()
+  const { savedAgents } = useGetSavedAgents()
+  const { updateSavedAgentAsync } = useUpdateSavedAgent()
 
   const handleCreateClick = useCallback(
-    (data?: Partial<AiAssistantFormData>) => {
+    (data?: Partial<SavedAgentFormData>) => {
       openCreateDialog(data)
       onCreateClick?.()
     },
@@ -98,17 +98,17 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
   )
 
   const handleItemSelect = useCallback(
-    (assistant: AiAssistantRecord) => {
-      onItemSelect?.(assistant)
-      router.push(getAgentPageRoute({ agentId: assistant._id }))
+    (savedAgent: SavedAgentRecord) => {
+      onItemSelect?.(savedAgent)
+      router.push(getAgentPageRoute({ agentId: savedAgent._id }))
     },
     [onItemSelect, router]
   )
 
   const handleEditClick = useCallback(
-    (assistant: AiAssistantRecord) => {
-      openEditDialog(assistant)
-      onEditClick?.(assistant)
+    (savedAgent: SavedAgentRecord) => {
+      openEditDialog(savedAgent)
+      onEditClick?.(savedAgent)
     },
     [openEditDialog, onEditClick]
   )
@@ -118,16 +118,16 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
   }, [setSearchValue])
 
   const sortedAiAssistantIds = useMemo(() => {
-    return aiAssistants
-      ? aiAssistants.map((aiAssistant) => ({
-          id: aiAssistant._id,
+    return savedAgents
+      ? savedAgents.map((savedAgent) => ({
+          id: savedAgent._id,
         }))
       : []
-  }, [aiAssistants])
+  }, [savedAgents])
 
   const handleDragEnd = useCallback(
     async (event: DragEndEvent) => {
-      if (!aiAssistants) {
+      if (!savedAgents) {
         return
       }
 
@@ -137,60 +137,57 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
         return
       }
 
-      const oldIndex = aiAssistants.findIndex(
-        (aiAssistant) => aiAssistant._id === active.id
+      const oldIndex = savedAgents.findIndex(
+        (savedAgent) => savedAgent._id === active.id
       )
-      const newIndex = aiAssistants.findIndex(
-        (aiAssistant) => aiAssistant._id === over?.id
+      const newIndex = savedAgents.findIndex(
+        (savedAgent) => savedAgent._id === over?.id
       )
 
-      const movedAssistant = aiAssistants[oldIndex]
-      const newAiAssistants = moveItemInArray(aiAssistants, oldIndex, newIndex)
+      const movedAgent = savedAgents[oldIndex]
+      const newSavedAgents = moveItemInArray(savedAgents, oldIndex, newIndex)
 
       // Get previous and next assistants for order calculation
-      const prevAssistant = newIndex > 0 ? newAiAssistants[newIndex - 1] : null
-      const nextAssistant =
-        newIndex < newAiAssistants.length - 1
-          ? newAiAssistants[newIndex + 1]
+      const prevAgent = newIndex > 0 ? newSavedAgents[newIndex - 1] : null
+      const nextAgent =
+        newIndex < newSavedAgents.length - 1
+          ? newSavedAgents[newIndex + 1]
           : null
 
       let newOrder: number
 
-      if (
-        prevAssistant?.order !== undefined &&
-        nextAssistant?.order !== undefined
-      ) {
+      if (prevAgent?.order !== undefined && nextAgent?.order !== undefined) {
         // Both neighbors have order - set as average
-        newOrder = (prevAssistant.order + nextAssistant.order) / 2
-      } else if (prevAssistant?.order !== undefined) {
-        // Only previous has order - add DEFAULT_ASSISTANT_ORDER
-        newOrder = prevAssistant.order + DEFAULT_ASSISTANT_ORDER
-      } else if (nextAssistant?.order !== undefined) {
-        // Only next has order - subtract DEFAULT_ASSISTANT_ORDER
-        newOrder = nextAssistant.order - DEFAULT_ASSISTANT_ORDER
+        newOrder = (prevAgent.order + nextAgent.order) / 2
+      } else if (prevAgent?.order !== undefined) {
+        // Only previous has order - add DEFAULT_AGENT_ORDER
+        newOrder = prevAgent.order + DEFAULT_AGENT_ORDER
+      } else if (nextAgent?.order !== undefined) {
+        // Only next has order - subtract DEFAULT_AGENT_ORDER
+        newOrder = nextAgent.order - DEFAULT_AGENT_ORDER
       } else {
-        // Neither has order - start at DEFAULT_ASSISTANT_ORDER * position
-        newOrder = (newIndex + 1) * DEFAULT_ASSISTANT_ORDER
+        // Neither has order - start at DEFAULT_AGENT_ORDER * position
+        newOrder = (newIndex + 1) * DEFAULT_AGENT_ORDER
       }
 
       try {
-        // Update the moved assistant with new order
-        await updateAiAssistantAsync({
-          ...movedAssistant,
+        // Update the moved agent with new order
+        await updateSavedAgentAsync({
+          ...movedAgent,
           order: newOrder,
-        } as AiAssistantRecord)
+        } as SavedAgentRecord)
       } catch (error) {
         logger.error(
           new Error("Failed to update agent order", { cause: error })
         )
       }
     },
-    [aiAssistants, updateAiAssistantAsync]
+    [savedAgents, updateSavedAgentAsync]
   )
 
-  const isMaxNbAssistantsReached = useMemo(() => {
-    return aiAssistants ? aiAssistants?.length >= MAX_NB_ASSISTANTS : false
-  }, [aiAssistants])
+  const isMaxNbSavedAgentsReached = useMemo(() => {
+    return savedAgents ? savedAgents?.length >= MAX_NB_AGENTS : false
+  }, [savedAgents])
 
   return (
     <div {...divProps} className={cn("rounded-[0.875rem]", className)}>
@@ -208,7 +205,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
         ) : null}
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
-          {aiAssistants && aiAssistants.length > 0 ? (
+          {savedAgents && savedAgents.length > 0 ? (
             <CommandGroup heading="Your agents" className="p-2">
               <DndContext
                 sensors={sensors}
@@ -219,11 +216,11 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
                   items={sortedAiAssistantIds}
                   strategy={verticalListSortingStrategy}
                 >
-                  {aiAssistants?.map((aiAssistant) => (
+                  {savedAgents?.map((aiAssistant) => (
                     <AiAssistantSelectorItem
                       key={aiAssistant._id}
                       assistant={aiAssistant}
-                      sortable={aiAssistants.length > 1}
+                      sortable={savedAgents.length > 1}
                       isCurrentAssistant={
                         currentAssistantId === aiAssistant._id
                       }
@@ -241,15 +238,13 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
           ) : (
             <CommandGroup heading="Suggested" className="p-2">
               <AiAssistantSelectorItem
-                assistant={DEFAULT_ASSISTANT}
-                isCurrentAssistant={
-                  currentAssistantId === DEFAULT_ASSISTANT._id
-                }
+                assistant={DEFAULT_AGENT}
+                isCurrentAssistant={currentAssistantId === DEFAULT_AGENT._id}
                 onSelect={() => {
-                  handleItemSelect(DEFAULT_ASSISTANT)
+                  handleItemSelect(DEFAULT_AGENT)
                 }}
                 onEditClick={() => {
-                  handleCreateClick(DEFAULT_ASSISTANT)
+                  handleCreateClick(DEFAULT_AGENT)
                 }}
               />
             </CommandGroup>
@@ -258,11 +253,11 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
           <CommandGroup className="p-2">
             <CommandItem
               onSelect={() => handleCreateClick()}
-              disabled={isMaxNbAssistantsReached}
+              disabled={isMaxNbSavedAgentsReached}
               className="flex h-12 cursor-pointer flex-row items-center py-1 pl-2 pr-1 text-muted-foreground"
             >
               <Typography variant="base-semibold" className="truncate">
-                {isMaxNbAssistantsReached
+                {isMaxNbSavedAgentsReached
                   ? "Can't create more agents"
                   : "Create a new agent..."}
               </Typography>
@@ -277,7 +272,7 @@ AiAssistantSelector.displayName = "AiAssistantSelector"
 
 type AiAssistantSelectorItemProps = {
   sortable?: boolean
-  assistant: AiAssistantRecord
+  assistant: SavedAgentRecord
   isCurrentAssistant?: boolean
   onSelect?: () => void
   onEditClick?: () => void
