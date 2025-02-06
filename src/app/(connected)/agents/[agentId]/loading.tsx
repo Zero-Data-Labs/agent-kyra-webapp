@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/loading"
 import type { LlmApiHotloadResult } from "@/features/agent-chat/types"
 
-type AssistantLoadingPageProps = {
+export type AgentLoadingPageProps = {
   hotload?: LlmApiHotloadResult
 }
 
-export default function AssistantLoadingPage(props: AssistantLoadingPageProps) {
+export default function AgentLoadingPage(props: AgentLoadingPageProps) {
   const { hotload } = props
 
   return (
@@ -23,7 +23,7 @@ export default function AssistantLoadingPage(props: AssistantLoadingPageProps) {
           <LoadingBlockTitle>Loading data...</LoadingBlockTitle>
           <LoadingProgress value={hotload.progress} className="max-w-96" />
           <LoadingBlockDescription>
-            {`Loading your ${hotload.dataCurrentlyLoading || "data"} for the assistant... ${Math.round((hotload.progress || 0) * 100)}%`}
+            {`Loading your ${hotload.dataCurrentlyLoading || "data"} for the agent... ${Math.round((hotload.progress || 0) * 100)}%`}
           </LoadingBlockDescription>
         </LoadingBlock>
       ) : (
@@ -38,4 +38,4 @@ export default function AssistantLoadingPage(props: AssistantLoadingPageProps) {
     </div>
   )
 }
-AssistantLoadingPage.displayName = "AssistantLoadingPage"
+AgentLoadingPage.displayName = "AgentLoadingPage"

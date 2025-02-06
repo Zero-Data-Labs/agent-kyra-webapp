@@ -1,7 +1,7 @@
 "use client"
 
-import { AssistantEmptyContent } from "@/app/(connected)/agents/[assistantId]/_components/assistant-empty-content"
-import { AssistantOutputCard } from "@/app/(connected)/agents/[assistantId]/_components/assistant-output-card"
+import { ChatAgentOutputCard } from "@/app/(connected)/agents/[agentId]/_components/chat-agent-output-card"
+import { ChatEmptyContent } from "@/app/(connected)/agents/[agentId]/_components/chat-empty-content"
 import {
   ErrorBlock,
   ErrorBlockDescription,
@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/error"
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 
-export function AssistantOutput() {
+export function ChatOutput() {
   const { agentOutput, error } = useAgentChat()
 
   return (
     // TODO: Manage when the hotloading had an error
     <>
       {agentOutput ? (
-        <AssistantOutputCard />
+        <ChatAgentOutputCard />
       ) : error ? (
         <ErrorBlock className="mt-2">
           <ErrorBlockImage />
@@ -27,9 +27,9 @@ export function AssistantOutput() {
           </ErrorBlockDescription>
         </ErrorBlock>
       ) : (
-        <AssistantEmptyContent className="mt-2" />
+        <ChatEmptyContent className="mt-2" />
       )}
     </>
   )
 }
-AssistantOutput.displayName = "AssistantOutput"
+ChatOutput.displayName = "ChatOutput"

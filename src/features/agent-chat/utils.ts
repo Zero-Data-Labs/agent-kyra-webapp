@@ -32,7 +32,7 @@ export async function sendPromptInputToAgent(
 
   // Explicitly building the body to ensure that the request is correct
   // Mostly because the structures are not the same
-  // But also because aiPromptInput may have additional fields
+  // But also because promptInput may have additional fields
   const body: PrivateDataApiV1LLMAgentRequestBody = {
     prompt: promptInput.prompt,
   }

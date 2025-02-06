@@ -14,13 +14,11 @@ import {
 } from "@/components/ui/security"
 import { Typography } from "@/components/ui/typography"
 
-type AssistantSecurityDetailsDialogProps = React.ComponentProps<
+export type AiSecurityDetailsDialogProps = React.ComponentProps<
   typeof SecurityDetailsDialogTrigger
 >
 
-export function AssistantSecurityDetailsDialog(
-  props: AssistantSecurityDetailsDialogProps
-) {
+export function AiSecurityDetailsDialog(props: AiSecurityDetailsDialogProps) {
   const { ...triggerProps } = props
 
   return (
@@ -109,4 +107,4 @@ export function AssistantSecurityDetailsDialog(
     </SecurityDetailsDialog>
   )
 }
-AssistantSecurityDetailsDialog.displayName = "AssistantSecurityDetailsDialog"
+AiSecurityDetailsDialog.displayName = "AiSecurityDetailsDialog"

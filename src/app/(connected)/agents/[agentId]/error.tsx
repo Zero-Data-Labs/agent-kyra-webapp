@@ -2,13 +2,13 @@
 
 import React from "react"
 
-import { AiAssistantSelector } from "@/app/(connected)/agents/[assistantId]/_components/ai-assistant-selector"
+import { AgentSelector } from "@/app/(connected)/agents/[agentId]/_components/agent-selector"
 import {
   ErrorPageContent,
   type ErrorPageProps,
 } from "@/components/error-page-content"
 
-export default function AssistantErrorPage(props: ErrorPageProps) {
+export default function AgentErrorPage(props: ErrorPageProps) {
   const { error, reset } = props
 
   return (
@@ -18,11 +18,11 @@ export default function AssistantErrorPage(props: ErrorPageProps) {
       reset={reset}
       hideNavigationButton
     >
-      <AiAssistantSelector
+      <AgentSelector
         className="w-[calc(100vw-1rem)] max-w-sm border"
         hideSearch
       />
     </ErrorPageContent>
   )
 }
-AssistantErrorPage.displayName = "AssistantErrorPage"
+AgentErrorPage.displayName = "AgentErrorPage"

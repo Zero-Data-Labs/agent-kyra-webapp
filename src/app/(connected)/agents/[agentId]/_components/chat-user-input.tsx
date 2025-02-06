@@ -11,7 +11,7 @@ import React, {
 } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
-import { AiPromptsCombobox } from "@/app/(connected)/agents/[assistantId]/_components/ai-prompts-combobox"
+import { PromptsCombobox } from "@/app/(connected)/agents/[agentId]/_components/prompts-combobox"
 import { Button } from "@/components/ui/button"
 import { Card, CardBody, CardFooter } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -26,12 +26,9 @@ import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
 import { cn, getMediaQuery } from "@/styles/utils"
 
-export type AssistantUserInputProps = Omit<
-  React.ComponentProps<"div">,
-  "children"
->
+export type ChatUserInputProps = Omit<React.ComponentProps<"div">, "children">
 
-export function AssistantUserInput(props: AssistantUserInputProps) {
+export function ChatUserInput(props: ChatUserInputProps) {
   const { ...divProps } = props
 
   const {
@@ -44,17 +41,18 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
   } = useAgentChat()
 
   const { openSaveDialog } = useSavedPromptDialog()
-  const { savedPrompts: aiPrompts } = useGetSavedPrompts({
+  const { savedPrompts } = useGetSavedPrompts({
     filter: {
       assistantId: selectedAgent,
     },
   })
-  // const { openDialog: openConfigDialog } = useAiPromptConfigDialog()
 
   const isMaxNbPromptsReached = useMemo(
     () =>
-      aiPrompts ? aiPrompts.length >= MAX_NB_SAVED_PROMPTS_PER_AGENT : false,
-    [aiPrompts]
+      savedPrompts
+        ? savedPrompts.length >= MAX_NB_SAVED_PROMPTS_PER_AGENT
+        : false,
+    [savedPrompts]
   )
 
   const inputRef = useRef<HTMLTextAreaElement>(null)
@@ -127,7 +125,7 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
         <CardFooter className="flex flex-row items-center justify-between">
           <div className="flex flex-row items-center justify-start gap-2">
             {!isXL ? (
-              <AiPromptsCombobox
+              <PromptsCombobox
                 onSetPrompt={handleSetPrompt}
                 className="size-8 sm:size-10"
               />
@@ -175,4 +173,4 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
     </div>
   )
 }
-AssistantUserInput.displayName = "AssistantUserInput"
+ChatUserInput.displayName = "ChatUserInput"

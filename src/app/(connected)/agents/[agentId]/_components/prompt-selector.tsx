@@ -46,14 +46,15 @@ import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
 
-const logger = Logger.create("assistants")
+const logger = Logger.create("agent-page")
 
-export type AiPromptSelectorProps = {
+export interface PromptSelectorProps
+  extends Omit<React.ComponentProps<"div">, "children"> {
   onSelect?: () => void
   onSetPrompt?: () => void
-} & Omit<React.ComponentProps<"div">, "children">
+}
 
-export function AiPromptSelector(props: AiPromptSelectorProps) {
+export function PromptSelector(props: PromptSelectorProps) {
   const { className, onSelect, onSetPrompt, ...divProps } = props
 
   const sensors = useSensors(
@@ -75,12 +76,12 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
 
   // TODO: Handle pagination, filter and sort. Link this to the value in the
   // CommandInput and turn the whole Command to a controlled component
-  const { savedPrompts: aiPrompts } = useGetSavedPrompts({
+  const { savedPrompts } = useGetSavedPrompts({
     filter: {
       assistantId: selectedAgent,
     },
   })
-  const { updateSavedPromptAsync: updateAiPromptAsync } = useUpdateSavedPrompt()
+  const { updateSavedPromptAsync } = useUpdateSavedPrompt()
 
   const handleSelect = useCallback(
     async (input: PromptInput) => {
@@ -102,17 +103,17 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
     setPromptSearchValue("")
   }, [setPromptSearchValue])
 
-  const sortedAiPromptIds = useMemo(() => {
-    return aiPrompts
-      ? aiPrompts.map((aiPrompt) => ({
-          id: aiPrompt._id,
+  const sortedSavedPromptIds = useMemo(() => {
+    return savedPrompts
+      ? savedPrompts.map((savedPrompt) => ({
+          id: savedPrompt._id,
         }))
       : []
-  }, [aiPrompts])
+  }, [savedPrompts])
 
   const handleDragEnd = useCallback(
     async (event: DragEndEvent) => {
-      if (!aiPrompts) {
+      if (!savedPrompts) {
         return
       }
 
@@ -122,20 +123,22 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         return
       }
 
-      const oldIndex = aiPrompts.findIndex(
-        (aiPrompt) => aiPrompt._id === active.id
+      const oldIndex = savedPrompts.findIndex(
+        (savedPrompt) => savedPrompt._id === active.id
       )
-      const newIndex = aiPrompts.findIndex(
-        (aiPrompt) => aiPrompt._id === over?.id
+      const newIndex = savedPrompts.findIndex(
+        (savedPrompt) => savedPrompt._id === over?.id
       )
 
-      const movedAiPrompt = aiPrompts[oldIndex]
-      const newAiPrompts = moveItemInArray(aiPrompts, oldIndex, newIndex)
+      const movedSavedPrompt = savedPrompts[oldIndex]
+      const newSavedPrompts = moveItemInArray(savedPrompts, oldIndex, newIndex)
 
       // Get previous and next prompts for order calculation
-      const prevPrompt = newIndex > 0 ? newAiPrompts[newIndex - 1] : null
+      const prevPrompt = newIndex > 0 ? newSavedPrompts[newIndex - 1] : null
       const nextPrompt =
-        newIndex < newAiPrompts.length - 1 ? newAiPrompts[newIndex + 1] : null
+        newIndex < newSavedPrompts.length - 1
+          ? newSavedPrompts[newIndex + 1]
+          : null
 
       let newOrder: number
 
@@ -155,8 +158,8 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
 
       try {
         // Update the moved agent with new order
-        await updateAiPromptAsync({
-          ...movedAiPrompt,
+        await updateSavedPromptAsync({
+          ...movedSavedPrompt,
           order: newOrder,
         } as SavedPromptRecord)
       } catch (error) {
@@ -165,7 +168,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         )
       }
     },
-    [aiPrompts, updateAiPromptAsync]
+    [savedPrompts, updateSavedPromptAsync]
   )
 
   return (
@@ -182,7 +185,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
         </div>
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
-          {aiPrompts && aiPrompts.length > 0 ? (
+          {savedPrompts && savedPrompts.length > 0 ? (
             <CommandGroup heading="Saved">
               <DndContext
                 sensors={sensors}
@@ -190,19 +193,19 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
                 onDragEnd={handleDragEnd}
               >
                 <SortableContext
-                  items={sortedAiPromptIds}
+                  items={sortedSavedPromptIds}
                   strategy={verticalListSortingStrategy}
                 >
-                  {aiPrompts.map((savedAiPrompt) => (
-                    <AiPromptSelectorItem
-                      key={savedAiPrompt._id}
-                      aiPrompt={savedAiPrompt}
-                      sortable={aiPrompts.length > 1}
+                  {savedPrompts.map((savedPrompt) => (
+                    <PromptSelectorItem
+                      key={savedPrompt._id}
+                      prompt={savedPrompt}
+                      sortable={savedPrompts.length > 1}
                       onSelect={() => {
-                        handleSelect(savedAiPrompt)
+                        handleSelect(savedPrompt)
                       }}
                       onSetPrompt={() => {
-                        handleSetPrompt(savedAiPrompt)
+                        handleSetPrompt(savedPrompt)
                       }}
                       additionalActions={
                         <>
@@ -213,7 +216,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
                                 size="icon"
                                 onClick={(e) => {
                                   e.stopPropagation()
-                                  openEditDialog(savedAiPrompt)
+                                  openEditDialog(savedPrompt)
                                 }}
                               >
                                 <PencilIcon className="size-4 sm:size-5" />
@@ -232,9 +235,9 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
           ) : null}
           <CommandGroup heading="Suggested">
             {SUGGESTED_PROMPTS.map((suggestedPrompt, index) => (
-              <AiPromptSelectorItem
+              <PromptSelectorItem
                 key={index}
-                aiPrompt={suggestedPrompt}
+                prompt={suggestedPrompt}
                 onSelect={() => {
                   handleSelect(suggestedPrompt)
                 }}
@@ -249,21 +252,21 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
     </div>
   )
 }
-AiPromptSelector.displayName = "AiPromptSelector"
+PromptSelector.displayName = "PromptSelector"
 
-type AiPromptSelectorItemProps = {
-  aiPrompt: SavedPromptRecord
+type PromptSelectorItemProps = {
+  prompt: SavedPromptRecord
   onSelect: () => void
   onSetPrompt: () => void
   sortable?: boolean
   additionalActions?: React.ReactNode
 }
 
-function AiPromptSelectorItem(props: AiPromptSelectorItemProps) {
-  const { aiPrompt, onSelect, onSetPrompt, sortable, additionalActions } = props
+function PromptSelectorItem(props: PromptSelectorItemProps) {
+  const { prompt, onSelect, onSetPrompt, sortable, additionalActions } = props
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: aiPrompt._id })
+    useSortable({ id: prompt._id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -275,7 +278,7 @@ function AiPromptSelectorItem(props: AiPromptSelectorItemProps) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      value={aiPrompt.prompt}
+      value={prompt.prompt}
       onSelect={onSelect}
       className="cursor-pointer py-1 pl-2 pr-1"
     >
@@ -287,7 +290,7 @@ function AiPromptSelectorItem(props: AiPromptSelectorItemProps) {
             </div>
           ) : null}
           <Typography variant="base-regular" className="truncate">
-            {aiPrompt.name}
+            {prompt.name}
           </Typography>
         </div>
         <div className="flex shrink-0 flex-row items-center gap-1">
@@ -313,4 +316,4 @@ function AiPromptSelectorItem(props: AiPromptSelectorItemProps) {
     </CommandItem>
   )
 }
-AiPromptSelectorItem.displayName = "AiPromptSelectorItem"
+PromptSelectorItem.displayName = "PromptSelectorItem"

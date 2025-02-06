@@ -3,7 +3,7 @@
 import { ChevronDownIcon } from "lucide-react"
 import { useCallback, useMemo, useState } from "react"
 
-import { AiAssistantSelector } from "@/app/(connected)/agents/[assistantId]/_components/ai-assistant-selector"
+import { AgentSelector } from "@/app/(connected)/agents/[agentId]/_components/agent-selector"
 import { Button } from "@/components/ui/button"
 import {
   Popover,
@@ -15,29 +15,30 @@ import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { cn } from "@/styles/utils"
 
-type AiAssistantComboboxProps = {
-  assistantId: string
-} & Omit<React.ComponentProps<typeof Button>, "children">
+export interface AgentComboboxProps
+  extends Omit<React.ComponentProps<typeof Button>, "children"> {
+  agentId: string
+}
 
-export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
-  const { assistantId, className, ...buttonProps } = props
+export function AgentCombobox(props: AgentComboboxProps) {
+  const { agentId, className, ...buttonProps } = props
 
   const [open, setOpen] = useState(false)
 
   const { savedAgents } = useGetSavedAgents()
 
-  const currentAssistant = useMemo(() => {
+  const currentAgent = useMemo(() => {
     return (
-      savedAgents?.find((savedAgent) => savedAgent._id === assistantId) ??
-      (assistantId === DEFAULT_AGENT._id ? DEFAULT_AGENT : null)
+      savedAgents?.find((savedAgent) => savedAgent._id === agentId) ??
+      (agentId === DEFAULT_AGENT._id ? DEFAULT_AGENT : null)
     )
-  }, [savedAgents, assistantId])
+  }, [savedAgents, agentId])
 
   const handleAction = useCallback(async () => {
     setOpen(false)
   }, [])
 
-  if (!currentAssistant) {
+  if (!currentAgent) {
     return null
   }
 
@@ -49,14 +50,14 @@ export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
           {...buttonProps}
           className={cn(
             "min-w-0 gap-2 bg-transparent px-2",
-            currentAssistant ? "text-foreground" : "text-muted-foreground",
+            currentAgent ? "text-foreground" : "text-muted-foreground",
             className
           )}
           aria-expanded={open}
         >
-          {currentAssistant ? (
+          {currentAgent ? (
             <Typography variant="heading-3" className="truncate">
-              {currentAssistant.name}
+              {currentAgent.name}
             </Typography>
           ) : (
             <Typography variant="heading-5" className="truncate italic">
@@ -73,8 +74,8 @@ export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
         collisionPadding={8}
         className="w-[calc(100vw-1rem)] max-w-sm rounded-[0.875rem] p-0"
       >
-        <AiAssistantSelector
-          currentAssistantId={assistantId}
+        <AgentSelector
+          currentAgentId={agentId}
           onCreateClick={handleAction}
           onItemSelect={handleAction}
           onEditClick={handleAction}
@@ -83,4 +84,4 @@ export function AiAssistantCombobox(props: AiAssistantComboboxProps) {
     </Popover>
   )
 }
-AiAssistantCombobox.displayName = "AiAssistantCombobox"
+AgentCombobox.displayName = "AgentCombobox"

@@ -1,22 +1,22 @@
 import React, { use } from "react"
 
-import { AiAssistantCombobox } from "@/app/(connected)/agents/[assistantId]/_components/ai-assistant-combobox"
+import { AgentCombobox } from "@/app/(connected)/agents/[agentId]/_components/agent-combobox"
 import { PageWrapper } from "@/components/page-wrapper"
 import { Typography } from "@/components/ui/typography"
 import { DisconnectButton } from "@/features/auth/components/disconnect-button"
 
-type AssistantLayoutProps = {
+export type AgentLayoutProps = {
   children: React.ReactNode
   params: Promise<{
-    assistantId: string
+    agentId: string
   }>
 }
 
-export default function AssistantLayout(props: AssistantLayoutProps) {
+export default function AgentLayout(props: AgentLayoutProps) {
   const { children, params } = props
 
-  const { assistantId: encodedAssistantId } = use(params)
-  const assistantId = decodeURIComponent(encodedAssistantId)
+  const { agentId: encodedAgentId } = use(params)
+  const agentId = decodeURIComponent(encodedAgentId)
 
   return (
     <PageWrapper
@@ -26,7 +26,7 @@ export default function AssistantLayout(props: AssistantLayoutProps) {
           <Typography variant="heading-3" className="shrink-0">
             AI Agent
           </Typography>
-          <AiAssistantCombobox assistantId={assistantId} className="flex-1" />
+          <AgentCombobox agentId={agentId} className="flex-1" />
         </div>
       }
       rightContent={<DisconnectButton />}
@@ -35,4 +35,4 @@ export default function AssistantLayout(props: AssistantLayoutProps) {
     </PageWrapper>
   )
 }
-AssistantLayout.displayName = "AssistantLayout"
+AgentLayout.displayName = "AgentLayout"

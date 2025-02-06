@@ -9,9 +9,9 @@ import type { PromptInput } from "@/features/agent-chat/types"
 import { SUGGESTED_PROMPTS } from "@/features/suggested-prompts/constants"
 import { cn } from "@/styles/utils"
 
-export type AssistantEmptyContentProps = React.ComponentProps<"div">
+export type ChatEmptyContentProps = React.ComponentProps<"div">
 
-export function AssistantEmptyContent(props: AssistantEmptyContentProps) {
+export function ChatEmptyContent(props: ChatEmptyContentProps) {
   const { className, ...divProps } = props
 
   const { setAndProcessPromptInput } = useAgentChat()
@@ -55,4 +55,4 @@ export function AssistantEmptyContent(props: AssistantEmptyContentProps) {
     </div>
   )
 }
-AssistantEmptyContent.displayName = "AssistantEmptyContent"
+ChatEmptyContent.displayName = "ChatEmptyContent"

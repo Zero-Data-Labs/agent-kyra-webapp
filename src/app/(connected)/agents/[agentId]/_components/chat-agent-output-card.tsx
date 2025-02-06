@@ -4,7 +4,7 @@ import { intlFormat } from "date-fns"
 import { EllipsisVerticalIcon } from "lucide-react"
 import { useMemo } from "react"
 
-import { AssistantOutputCardMenu } from "@/app/(connected)/agents/[assistantId]/_components/assistant-output-card-menu"
+import { ChatAgentOutputCardMenu } from "@/app/(connected)/agents/[agentId]/_components/chat-agent-output-card-menu"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -18,26 +18,25 @@ import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-a
 import { cn } from "@/styles/utils"
 import { SHORT_TIME_FORMAT_OPTIONS } from "@/utils/date"
 
-export type AssistantOutputCardProps = React.ComponentProps<"div">
+export type ChatAgentOutputCardProps = React.ComponentProps<"div">
 
-export function AssistantOutputCard(props: AssistantOutputCardProps) {
+export function ChatAgentOutputCard(props: ChatAgentOutputCardProps) {
   const { className, ...divProps } = props
 
   const { agentOutput } = useAgentChat()
-
   const { savedAgents } = useGetSavedAgents()
 
-  const outputAssistant = useMemo(() => {
+  const agent = useMemo(() => {
     if (!agentOutput?.agentId) {
       return undefined
     }
 
-    const fromUserAssistants = savedAgents?.find(
+    const fromUserAgents = savedAgents?.find(
       (a) => a._id === agentOutput.agentId
     )
 
-    if (fromUserAssistants) {
-      return fromUserAssistants
+    if (fromUserAgents) {
+      return fromUserAgents
     }
 
     if (agentOutput.agentId === DEFAULT_AGENT._id) {
@@ -100,7 +99,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
             </Avatar>
             <div className="flex flex-col">
               <Typography variant="base-semibold">
-                {outputAssistant ? outputAssistant.name : "Agent"}
+                {agent ? agent.name : "Agent"}
               </Typography>
               {!agentOutput || agentOutput?.status === "processing" ? (
                 <Skeleton className="my-[0.15rem] h-3 w-20 rounded-full" />
@@ -115,7 +114,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
           </div>
           {agentOutput?.status === "processed" ? (
             <div className="flex flex-row items-center justify-end gap-2">
-              <AssistantOutputCardMenu>
+              <ChatAgentOutputCardMenu>
                 <Button
                   variant="ghost"
                   size="icon"
@@ -126,13 +125,13 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
                     Open Agent output actions menu
                   </span>
                 </Button>
-              </AssistantOutputCardMenu>
+              </ChatAgentOutputCardMenu>
             </div>
           ) : null}
         </CardHeader>
         <CardBody>
           {!agentOutput || agentOutput?.status === "processing" ? (
-            <AssistantOutputSkeleton className="w-full" />
+            <ChatAgentOutputSkeleton className="w-full" />
           ) : (
             <MarkdownRenderer className="max-w-full overflow-x-auto">
               {agentOutput.result}
@@ -154,14 +153,14 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
     </div>
   )
 }
-AssistantOutputCard.displayName = "AssistantOutputCard"
+ChatAgentOutputCard.displayName = "ChatAgentOutputCard"
 
-type AssistantOutputSkeletonProps = Omit<
+type ChatAgentOutputSkeletonProps = Omit<
   React.ComponentProps<"div">,
   "children"
 >
 
-function AssistantOutputSkeleton(props: AssistantOutputSkeletonProps) {
+function ChatAgentOutputSkeleton(props: ChatAgentOutputSkeletonProps) {
   const { className, ...divProps } = props
 
   return (
@@ -185,4 +184,4 @@ function AssistantOutputSkeleton(props: AssistantOutputSkeletonProps) {
     </div>
   )
 }
-AssistantOutputSkeleton.displayName = "AssistantOutputSkeleton"
+ChatAgentOutputSkeleton.displayName = "ChatAgentOutputSkeleton"

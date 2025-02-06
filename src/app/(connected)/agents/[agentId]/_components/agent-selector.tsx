@@ -53,19 +53,20 @@ import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
 
-const logger = Logger.create("assistants")
+const logger = Logger.create("agent-page")
 
-export type AiAssistantSelectorProps = {
-  currentAssistantId?: string
+export interface AgentSelectorProps
+  extends Omit<React.ComponentProps<"div">, "children"> {
+  currentAgentId?: string
   onCreateClick?: () => void
-  onItemSelect?: (assistant: SavedAgentRecord) => void
-  onEditClick?: (assistant: SavedAgentRecord) => void
+  onItemSelect?: (savedAgent: SavedAgentRecord) => void
+  onEditClick?: (savedAgent: SavedAgentRecord) => void
   hideSearch?: boolean
-} & Omit<React.ComponentProps<"div">, "children">
+}
 
-export function AiAssistantSelector(props: AiAssistantSelectorProps) {
+export function AgentSelector(props: AgentSelectorProps) {
   const {
-    currentAssistantId,
+    currentAgentId,
     onCreateClick,
     onItemSelect,
     onEditClick,
@@ -117,7 +118,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
     setSearchValue("")
   }, [setSearchValue])
 
-  const sortedAiAssistantIds = useMemo(() => {
+  const sortedAgentIds = useMemo(() => {
     return savedAgents
       ? savedAgents.map((savedAgent) => ({
           id: savedAgent._id,
@@ -147,7 +148,7 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
       const movedAgent = savedAgents[oldIndex]
       const newSavedAgents = moveItemInArray(savedAgents, oldIndex, newIndex)
 
-      // Get previous and next assistants for order calculation
+      // Get previous and next agents for order calculation
       const prevAgent = newIndex > 0 ? newSavedAgents[newIndex - 1] : null
       const nextAgent =
         newIndex < newSavedAgents.length - 1
@@ -213,22 +214,20 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
                 onDragEnd={handleDragEnd}
               >
                 <SortableContext
-                  items={sortedAiAssistantIds}
+                  items={sortedAgentIds}
                   strategy={verticalListSortingStrategy}
                 >
-                  {savedAgents?.map((aiAssistant) => (
-                    <AiAssistantSelectorItem
-                      key={aiAssistant._id}
-                      assistant={aiAssistant}
+                  {savedAgents?.map((savedAgent) => (
+                    <AgentSelectorItem
+                      key={savedAgent._id}
+                      agent={savedAgent}
                       sortable={savedAgents.length > 1}
-                      isCurrentAssistant={
-                        currentAssistantId === aiAssistant._id
-                      }
+                      isSelected={currentAgentId === savedAgent._id}
                       onSelect={() => {
-                        handleItemSelect(aiAssistant)
+                        handleItemSelect(savedAgent)
                       }}
                       onEditClick={() => {
-                        handleEditClick(aiAssistant)
+                        handleEditClick(savedAgent)
                       }}
                     />
                   ))}
@@ -237,9 +236,9 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
             </CommandGroup>
           ) : (
             <CommandGroup heading="Suggested" className="p-2">
-              <AiAssistantSelectorItem
-                assistant={DEFAULT_AGENT}
-                isCurrentAssistant={currentAssistantId === DEFAULT_AGENT._id}
+              <AgentSelectorItem
+                agent={DEFAULT_AGENT}
+                isSelected={currentAgentId === DEFAULT_AGENT._id}
                 onSelect={() => {
                   handleItemSelect(DEFAULT_AGENT)
                 }}
@@ -268,22 +267,21 @@ export function AiAssistantSelector(props: AiAssistantSelectorProps) {
     </div>
   )
 }
-AiAssistantSelector.displayName = "AiAssistantSelector"
+AgentSelector.displayName = "AgentSelector"
 
-type AiAssistantSelectorItemProps = {
+type AgentSelectorItemProps = {
   sortable?: boolean
-  assistant: SavedAgentRecord
-  isCurrentAssistant?: boolean
+  agent: SavedAgentRecord
+  isSelected?: boolean
   onSelect?: () => void
   onEditClick?: () => void
 }
 
-function AiAssistantSelectorItem(props: AiAssistantSelectorItemProps) {
-  const { assistant, isCurrentAssistant, onSelect, onEditClick, sortable } =
-    props
+function AgentSelectorItem(props: AgentSelectorItemProps) {
+  const { agent, isSelected, onSelect, onEditClick, sortable } = props
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: assistant._id })
+    useSortable({ id: agent._id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -295,7 +293,7 @@ function AiAssistantSelectorItem(props: AiAssistantSelectorItemProps) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      value={assistant.name}
+      value={agent.name}
       onSelect={onSelect}
       className="cursor-pointer py-1 pl-2 pr-1"
     >
@@ -307,9 +305,9 @@ function AiAssistantSelectorItem(props: AiAssistantSelectorItemProps) {
             </div>
           ) : null}
           <Typography variant="base-regular" className="truncate">
-            {assistant.name}
+            {agent.name}
           </Typography>
-          {isCurrentAssistant ? (
+          {isSelected ? (
             <CheckIcon className="size-4 shrink-0 text-muted-foreground" />
           ) : null}
         </div>
@@ -337,4 +335,4 @@ function AiAssistantSelectorItem(props: AiAssistantSelectorItemProps) {
     </CommandItem>
   )
 }
-AiAssistantSelectorItem.displayName = "AiAssistantSelectorItem"
+AgentSelectorItem.displayName = "AgentSelectorItem"

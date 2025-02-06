@@ -5,11 +5,11 @@ import { notFound, useRouter, useSearchParams } from "next/navigation"
 import { use, useEffect } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
-import { AiPromptSelector } from "@/app/(connected)/agents/[assistantId]/_components/ai-prompt-selector"
-import { AssistantOutput } from "@/app/(connected)/agents/[assistantId]/_components/assistant-output"
-import { AssistantSecurityDetailsDialog } from "@/app/(connected)/agents/[assistantId]/_components/assistant-security-details-dialog"
-import { AssistantUserInput } from "@/app/(connected)/agents/[assistantId]/_components/assistant-user-input"
-import AssistantLoadingPage from "@/app/(connected)/agents/[assistantId]/loading"
+import { AiSecurityDetailsDialog } from "@/app/(connected)/agents/[agentId]/_components/ai-security-details-dialog"
+import { ChatOutput } from "@/app/(connected)/agents/[agentId]/_components/chat-output"
+import { ChatUserInput } from "@/app/(connected)/agents/[agentId]/_components/chat-user-input"
+import { PromptSelector } from "@/app/(connected)/agents/[agentId]/_components/prompt-selector"
+import AgentLoadingPage from "@/app/(connected)/agents/[agentId]/loading"
 import { Card } from "@/components/ui/card"
 import { Typography } from "@/components/ui/typography"
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
@@ -19,17 +19,18 @@ import { useGetSavedAgent } from "@/features/saved-agents/hooks/use-get-saved-ag
 import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { getMediaQuery } from "@/styles/utils"
 
-type AssistantPageProps = {
+export type AgentPageProps = {
   params: Promise<{
-    assistantId: string
+    agentId: string
   }>
 }
 
-export default function AssistantPage(props: AssistantPageProps) {
+export default function AgentPage(props: AgentPageProps) {
   const { params } = props
 
-  const { assistantId: encodedAssistantId } = use(params)
-  const assistantId = decodeURIComponent(encodedAssistantId)
+  const { agentId: encodedAgentId } = use(params)
+  const agentId = decodeURIComponent(encodedAgentId)
+
   const searchParams = useSearchParams()
   const fromDeletion = searchParams.get("fromDeletion") === "true"
 
@@ -38,15 +39,15 @@ export default function AssistantPage(props: AssistantPageProps) {
   const { setSelectedAgent, hotload } = useAgentChat()
 
   useEffect(() => {
-    setSelectedAgent(assistantId)
-  }, [assistantId, setSelectedAgent])
+    setSelectedAgent(agentId)
+  }, [agentId, setSelectedAgent])
 
   const { savedAgent, isLoading: isLoadingSavedAgent } = useGetSavedAgent(
     {
-      agentId: assistantId,
+      agentId,
     },
     {
-      enabled: assistantId !== DEFAULT_AGENT._id,
+      enabled: agentId !== DEFAULT_AGENT._id,
     }
   )
 
@@ -57,12 +58,12 @@ export default function AssistantPage(props: AssistantPageProps) {
       !fromDeletion && // Only redirect if not from deletion
       savedAgents &&
       savedAgents.length > 0 &&
-      assistantId === DEFAULT_AGENT._id
+      agentId === DEFAULT_AGENT._id
     ) {
       const firstAgentId = savedAgents[0]!._id
       router.replace(getAgentPageRoute({ agentId: firstAgentId }))
     }
-  }, [savedAgents, assistantId, router, fromDeletion])
+  }, [savedAgents, agentId, router, fromDeletion])
 
   const isXL = useMediaQuery(getMediaQuery("xl"))
 
@@ -71,12 +72,12 @@ export default function AssistantPage(props: AssistantPageProps) {
     isLoadingSavedAgents ||
     hotload.status === "loading"
   ) {
-    return <AssistantLoadingPage hotload={hotload} />
+    return <AgentLoadingPage hotload={hotload} />
   }
 
   // TODO: Display alert if hotloading failed
 
-  if (savedAgent || assistantId === DEFAULT_AGENT._id) {
+  if (savedAgent || agentId === DEFAULT_AGENT._id) {
     return (
       <div className="flex h-full w-full flex-row justify-center gap-6">
         {isXL ? (
@@ -88,19 +89,19 @@ export default function AssistantPage(props: AssistantPageProps) {
                   Your prompts{savedAgent ? ` for ${savedAgent.name}` : ""}
                 </Typography>
               </div>
-              <AiPromptSelector />
+              <PromptSelector />
             </Card>
           </aside>
         ) : null}
         <div className="flex h-full w-full max-w-screen-md flex-1 flex-col gap-4 xl:max-w-none">
           <div className="sticky top-2 z-10 sm:top-3 md:top-6">
-            <AssistantUserInput />
+            <ChatUserInput />
           </div>
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex flex-row items-center justify-end gap-4 px-3 md:px-4">
-              <AssistantSecurityDetailsDialog />
+              <AiSecurityDetailsDialog />
             </div>
-            <AssistantOutput />
+            <ChatOutput />
           </div>
         </div>
       </div>
@@ -109,4 +110,4 @@ export default function AssistantPage(props: AssistantPageProps) {
 
   notFound()
 }
-AssistantPage.displayName = "AssistantPage"
+AgentPage.displayName = "AgentPage"

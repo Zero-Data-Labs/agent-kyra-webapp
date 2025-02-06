@@ -11,18 +11,18 @@ import {
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { useToast } from "@/features/toasts/use-toast"
 
-export type AssistantOutputCardMenuProps = {
+export type ChatAgentOutputCardMenuProps = {
   children: React.ReactNode
 }
 
-export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
+export function ChatAgentOutputCardMenu(props: ChatAgentOutputCardMenuProps) {
   const { children } = props
 
   const { toast } = useToast()
 
   const { agentOutput, clearAgentOutput } = useAgentChat()
 
-  const handleCopyAssistantOutput = useCallback(async () => {
+  const handleCopyOutput = useCallback(async () => {
     if (agentOutput?.status === "processed") {
       await window.navigator.clipboard.writeText(agentOutput.result)
       toast({
@@ -37,7 +37,7 @@ export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent align="end" collisionPadding={8}>
         <DropdownMenuItem
-          onClick={handleCopyAssistantOutput}
+          onClick={handleCopyOutput}
           disabled={agentOutput?.status !== "processed"}
         >
           Copy
@@ -52,4 +52,4 @@ export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
     </DropdownMenu>
   )
 }
-AssistantOutputCardMenu.displayName = "AssistantOutputCardMenu"
+ChatAgentOutputCardMenu.displayName = "ChatAgentOutputCardMenu"
