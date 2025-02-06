@@ -34,8 +34,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Typography } from "@/components/ui/typography"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import type { AiPromptInput } from "@/features/assistants/types"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
+import type { PromptInput } from "@/features/agent-chat/types"
 import { DEFAULT_SAVED_PROMPT_ORDER } from "@/features/saved-prompts/constants"
 import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
@@ -64,12 +64,12 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
   )
 
   const {
-    selectedAiAssistant,
-    setAndProcessAiPromptInput,
-    updateAiPromptInput,
+    selectedAgent,
+    setAndProcessPromptInput,
+    updatePromptInput,
     promptSearchValue,
     setPromptSearchValue,
-  } = useAssistants()
+  } = useAgentChat()
 
   const { openEditDialog } = useSavedPromptDialog()
 
@@ -77,25 +77,25 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
   // CommandInput and turn the whole Command to a controlled component
   const { savedPrompts: aiPrompts } = useGetSavedPrompts({
     filter: {
-      assistantId: selectedAiAssistant,
+      assistantId: selectedAgent,
     },
   })
   const { updateSavedPromptAsync: updateAiPromptAsync } = useUpdateSavedPrompt()
 
   const handleSelect = useCallback(
-    async (input: AiPromptInput) => {
-      setAndProcessAiPromptInput(input)
+    async (input: PromptInput) => {
+      setAndProcessPromptInput(input)
       onSelect?.()
     },
-    [setAndProcessAiPromptInput, onSelect]
+    [setAndProcessPromptInput, onSelect]
   )
 
   const handleSetPrompt = useCallback(
-    async (input: AiPromptInput) => {
-      updateAiPromptInput(input)
+    async (input: PromptInput) => {
+      updatePromptInput(input)
       onSetPrompt?.()
     },
-    [updateAiPromptInput, onSetPrompt]
+    [updatePromptInput, onSetPrompt]
   )
 
   const handleClearSearch = useCallback(() => {
@@ -154,7 +154,7 @@ export function AiPromptSelector(props: AiPromptSelectorProps) {
       }
 
       try {
-        // Update the moved assistant with new order
+        // Update the moved agent with new order
         await updateAiPromptAsync({
           ...movedAiPrompt,
           order: newOrder,

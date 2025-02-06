@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
 import {
   DEFAULT_AGENT,
@@ -45,11 +45,11 @@ export function SavedPromptDialogProvider(
 
   const { savedAgents } = useGetSavedAgents()
 
-  const { selectedAiAssistant } = useAssistants()
+  const { selectedAgent } = useAgentChat()
   const { createSavedAgentAsync } = useCreateSavedAgent()
   const { savedPrompts } = useGetSavedPrompts({
     filter: {
-      assistantId: selectedAiAssistant,
+      assistantId: selectedAgent,
     },
   })
   const { createSavedPromptAsync } = useCreateSavedPrompt()
@@ -85,7 +85,7 @@ export function SavedPromptDialogProvider(
   const handleSubmit = useCallback(
     async (data: SavedPromptFormData) => {
       if (dialogState.type === "create") {
-        let agentId = selectedAiAssistant
+        let agentId = selectedAgent
         let createdAgent = false
 
         if (
@@ -129,7 +129,7 @@ export function SavedPromptDialogProvider(
       createSavedAgentAsync,
       createSavedPromptAsync,
       updateSavedPromptAsync,
-      selectedAiAssistant,
+      selectedAgent,
       dialogState,
       router,
       savedAgents,

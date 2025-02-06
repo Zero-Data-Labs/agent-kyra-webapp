@@ -3,23 +3,23 @@ import { z } from "zod"
 import {
   PrivateDataApiV1LLMAgentResponseSchema,
   PrivateDataApiV1LlmHotloadResponseSchema,
-} from "@/features/assistants/schemas"
+} from "@/features/agent-chat/schemas"
 
-export type AiAssistantHotloadStatus = "idle" | "loading" | "success" | "error"
+export type LlmApiHotloadStatus = "idle" | "loading" | "success" | "error"
 
-export type AiAssistantHotloadResult = {
-  status: AiAssistantHotloadStatus
+export type LlmApiHotloadResult = {
+  status: LlmApiHotloadStatus
   progress: number
   dataCurrentlyLoading?: string
 }
 
-export type AiPromptInput = {
-  assistantId?: string
+export type PromptInput = {
+  agentId?: string
   prompt?: string
 }
 
-export type AiAssistantOutput = {
-  assistantId?: string
+export type AgentOutput = {
+  agentId?: string
 } & (
   | {
       status: "processing"

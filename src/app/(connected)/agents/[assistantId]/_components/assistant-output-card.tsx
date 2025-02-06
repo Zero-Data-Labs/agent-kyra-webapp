@@ -12,7 +12,7 @@ import { Card, CardBody, CardFooter, CardHeader } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Typography } from "@/components/ui/typography"
 import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { cn } from "@/styles/utils"
@@ -23,47 +23,44 @@ export type AssistantOutputCardProps = React.ComponentProps<"div">
 export function AssistantOutputCard(props: AssistantOutputCardProps) {
   const { className, ...divProps } = props
 
-  const { aiAssistantOutput } = useAssistants()
+  const { agentOutput } = useAgentChat()
 
   const { savedAgents } = useGetSavedAgents()
 
   const outputAssistant = useMemo(() => {
-    if (!aiAssistantOutput?.assistantId) {
+    if (!agentOutput?.agentId) {
       return undefined
     }
 
     const fromUserAssistants = savedAgents?.find(
-      (a) => a._id === aiAssistantOutput.assistantId
+      (a) => a._id === agentOutput.agentId
     )
 
     if (fromUserAssistants) {
       return fromUserAssistants
     }
 
-    if (aiAssistantOutput.assistantId === DEFAULT_AGENT._id) {
+    if (agentOutput.agentId === DEFAULT_AGENT._id) {
       return DEFAULT_AGENT
     }
 
     return undefined
-  }, [aiAssistantOutput?.assistantId, savedAgents])
+  }, [agentOutput?.agentId, savedAgents])
 
   const processedAt = useMemo(() => {
-    if (aiAssistantOutput?.status !== "processed") {
+    if (agentOutput?.status !== "processed") {
       return EMPTY_VALUE_FALLBACK
     }
 
-    return intlFormat(aiAssistantOutput.processedAt, SHORT_TIME_FORMAT_OPTIONS)
-  }, [aiAssistantOutput])
+    return intlFormat(agentOutput.processedAt, SHORT_TIME_FORMAT_OPTIONS)
+  }, [agentOutput])
 
   const processingTimeInfo = useMemo(() => {
-    if (
-      aiAssistantOutput?.status !== "processed" ||
-      !aiAssistantOutput?.processingTime
-    ) {
+    if (agentOutput?.status !== "processed" || !agentOutput?.processingTime) {
       return undefined
     }
 
-    const milliseconds = aiAssistantOutput.processingTime
+    const milliseconds = agentOutput.processingTime
     const totalSeconds = milliseconds / 1000
     let minutes = Math.floor(totalSeconds / 60)
     const remainingSeconds = totalSeconds % 60
@@ -84,13 +81,13 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
       minutes += 1
     }
     return `${minutes}min`
-  }, [aiAssistantOutput])
+  }, [agentOutput])
 
   const displayFooterInfo = useMemo(
     () =>
       !!processingTimeInfo &&
-      !(!aiAssistantOutput || aiAssistantOutput?.status === "processing"),
-    [processingTimeInfo, aiAssistantOutput]
+      !(!agentOutput || agentOutput?.status === "processing"),
+    [processingTimeInfo, agentOutput]
   )
 
   return (
@@ -105,8 +102,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
               <Typography variant="base-semibold">
                 {outputAssistant ? outputAssistant.name : "Agent"}
               </Typography>
-              {!aiAssistantOutput ||
-              aiAssistantOutput?.status === "processing" ? (
+              {!agentOutput || agentOutput?.status === "processing" ? (
                 <Skeleton className="my-[0.15rem] h-3 w-20 rounded-full" />
               ) : (
                 <div className="text-muted-foreground">
@@ -117,7 +113,7 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
               )}
             </div>
           </div>
-          {aiAssistantOutput?.status === "processed" ? (
+          {agentOutput?.status === "processed" ? (
             <div className="flex flex-row items-center justify-end gap-2">
               <AssistantOutputCardMenu>
                 <Button
@@ -135,11 +131,11 @@ export function AssistantOutputCard(props: AssistantOutputCardProps) {
           ) : null}
         </CardHeader>
         <CardBody>
-          {!aiAssistantOutput || aiAssistantOutput?.status === "processing" ? (
+          {!agentOutput || agentOutput?.status === "processing" ? (
             <AssistantOutputSkeleton className="w-full" />
           ) : (
             <MarkdownRenderer className="max-w-full overflow-x-auto">
-              {aiAssistantOutput.result}
+              {agentOutput.result}
             </MarkdownRenderer>
           )}
         </CardBody>

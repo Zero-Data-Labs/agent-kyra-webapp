@@ -4,8 +4,8 @@ import React, { useCallback } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import type { AiPromptInput } from "@/features/assistants/types"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
+import type { PromptInput } from "@/features/agent-chat/types"
 import { SUGGESTED_PROMPTS } from "@/features/suggested-prompts/constants"
 import { cn } from "@/styles/utils"
 
@@ -14,13 +14,13 @@ export type AssistantEmptyContentProps = React.ComponentProps<"div">
 export function AssistantEmptyContent(props: AssistantEmptyContentProps) {
   const { className, ...divProps } = props
 
-  const { setAndProcessAiPromptInput } = useAssistants()
+  const { setAndProcessPromptInput } = useAgentChat()
 
   const handleSuggestedPromptClick = useCallback(
-    async (input: AiPromptInput) => {
-      setAndProcessAiPromptInput(input)
+    async (input: PromptInput) => {
+      setAndProcessPromptInput(input)
     },
-    [setAndProcessAiPromptInput]
+    [setAndProcessPromptInput]
   )
 
   return (

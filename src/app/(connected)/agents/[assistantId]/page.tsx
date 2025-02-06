@@ -12,7 +12,7 @@ import { AssistantUserInput } from "@/app/(connected)/agents/[assistantId]/_comp
 import AssistantLoadingPage from "@/app/(connected)/agents/[assistantId]/loading"
 import { Card } from "@/components/ui/card"
 import { Typography } from "@/components/ui/typography"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
 import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { useGetSavedAgent } from "@/features/saved-agents/hooks/use-get-saved-agent"
@@ -35,11 +35,11 @@ export default function AssistantPage(props: AssistantPageProps) {
 
   const router = useRouter()
 
-  const { setSelectedAiAssistant, hotload } = useAssistants()
+  const { setSelectedAgent, hotload } = useAgentChat()
 
   useEffect(() => {
-    setSelectedAiAssistant(assistantId)
-  }, [assistantId, setSelectedAiAssistant])
+    setSelectedAgent(assistantId)
+  }, [assistantId, setSelectedAgent])
 
   const { savedAgent, isLoading: isLoadingSavedAgent } = useGetSavedAgent(
     {

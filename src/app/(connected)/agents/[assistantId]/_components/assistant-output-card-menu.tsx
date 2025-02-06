@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { useToast } from "@/features/toasts/use-toast"
 
 export type AssistantOutputCardMenuProps = {
@@ -20,17 +20,17 @@ export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
 
   const { toast } = useToast()
 
-  const { aiAssistantOutput, clearAiAssistantOutput } = useAssistants()
+  const { agentOutput, clearAgentOutput } = useAgentChat()
 
   const handleCopyAssistantOutput = useCallback(async () => {
-    if (aiAssistantOutput?.status === "processed") {
-      await window.navigator.clipboard.writeText(aiAssistantOutput.result)
+    if (agentOutput?.status === "processed") {
+      await window.navigator.clipboard.writeText(agentOutput.result)
       toast({
         variant: "success",
         description: "Agent response copied to clipboard",
       })
     }
-  }, [aiAssistantOutput, toast])
+  }, [agentOutput, toast])
 
   return (
     <DropdownMenu>
@@ -38,12 +38,12 @@ export function AssistantOutputCardMenu(props: AssistantOutputCardMenuProps) {
       <DropdownMenuContent align="end" collisionPadding={8}>
         <DropdownMenuItem
           onClick={handleCopyAssistantOutput}
-          disabled={aiAssistantOutput?.status !== "processed"}
+          disabled={agentOutput?.status !== "processed"}
         >
           Copy
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={clearAiAssistantOutput}
+          onClick={clearAgentOutput}
           className="text-destructive"
         >
           Clear

@@ -20,7 +20,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { MAX_NB_SAVED_PROMPTS_PER_AGENT } from "@/features/saved-prompts/constants"
 import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
@@ -35,18 +35,18 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
   const { ...divProps } = props
 
   const {
-    selectedAiAssistant,
-    aiPromptInput,
-    aiAssistantOutput,
-    processAiPromptInput,
-    updateAiPromptInput,
-    clearAiPromptInput,
-  } = useAssistants()
+    selectedAgent,
+    promptInput,
+    agentOutput,
+    processPromptInput,
+    updatePromptInput,
+    clearPromptInput,
+  } = useAgentChat()
 
   const { openSaveDialog } = useSavedPromptDialog()
   const { savedPrompts: aiPrompts } = useGetSavedPrompts({
     filter: {
-      assistantId: selectedAiAssistant,
+      assistantId: selectedAgent,
     },
   })
   // const { openDialog: openConfigDialog } = useAiPromptConfigDialog()
@@ -62,22 +62,22 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
   const handleUserPromptChange: ChangeEventHandler<HTMLTextAreaElement> =
     useCallback(
       (event) => {
-        updateAiPromptInput((prevInput) => ({
+        updatePromptInput((prevInput) => ({
           ...prevInput,
           prompt: event.target.value,
         }))
       },
-      [updateAiPromptInput]
+      [updatePromptInput]
     )
 
   const handleKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = useCallback(
     (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault()
-        processAiPromptInput()
+        processPromptInput()
       }
     },
-    [processAiPromptInput]
+    [processPromptInput]
   )
 
   useLayoutEffect(() => {
@@ -97,12 +97,12 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
           <Textarea
             ref={inputRef}
             placeholder="Ask your agent"
-            value={aiPromptInput?.prompt ?? ""}
+            value={promptInput?.prompt ?? ""}
             onChange={handleUserPromptChange}
             onKeyDown={handleKeyDown}
             className={cn(
               "max-h-32 rounded-none border-none py-1 pl-0 focus-visible:ring-0",
-              aiPromptInput?.prompt ? "pr-8 sm:pr-10" : "pr-1"
+              promptInput?.prompt ? "pr-8 sm:pr-10" : "pr-1"
             )}
             autoComplete="off"
             autoCapitalize="off"
@@ -110,12 +110,12 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
             spellCheck="false"
             endAdornmentContainerClassName="top-0 pt-1 pr-1.5 sm:pr-2.5 flex flex-row gap-1"
             endAdornment={
-              aiPromptInput?.prompt ? (
+              promptInput?.prompt ? (
                 <Button
                   variant="ghost"
                   size="icon"
                   className="size-5"
-                  onClick={clearAiPromptInput}
+                  onClick={clearPromptInput}
                 >
                   <XIcon className="size-5 opacity-50 sm:size-6" />
                   <span className="sr-only">Clear user input</span>
@@ -138,10 +138,10 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
                   variant="outline"
                   size="icon"
                   className="size-8 sm:size-10"
-                  disabled={!aiPromptInput?.prompt || isMaxNbPromptsReached}
+                  disabled={!promptInput?.prompt || isMaxNbPromptsReached}
                   onClick={() => {
                     openSaveDialog({
-                      prompt: aiPromptInput?.prompt,
+                      prompt: promptInput?.prompt,
                     })
                   }}
                 >
@@ -157,28 +157,13 @@ export function AssistantUserInput(props: AssistantUserInputProps) {
             </Tooltip>
           </div>
           <div className="flex flex-row items-center justify-end gap-2">
-            {/* <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="size-8 sm:size-10"
-                  onClick={openConfigDialog}
-                >
-                  <Settings2Icon className="size-5 sm:size-6" />
-                  <span className="sr-only">Manage prompt configurations</span>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Configure</TooltipContent>
-            </Tooltip> */}
             <Button
               variant="primary"
               size="icon"
               className="size-8 sm:size-10"
-              onClick={processAiPromptInput}
+              onClick={processPromptInput}
               disabled={
-                !aiPromptInput?.prompt ||
-                aiAssistantOutput?.status === "processing"
+                !promptInput?.prompt || agentOutput?.status === "processing"
               }
             >
               <SendIcon className="size-5 sm:size-6" />

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo, useState } from "react"
 
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
 import { ManageSavedAgentDialog } from "@/features/saved-agents/components/manage-saved-agent-dialog"
 import {
@@ -38,7 +38,7 @@ export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {
     isOpen: false,
   })
 
-  const { selectedAiAssistant } = useAssistants()
+  const { selectedAgent } = useAgentChat()
   const { savedAgents } = useGetSavedAgents()
   const { createSavedAgentAsync } = useCreateSavedAgent()
   const { updateSavedAgentAsync } = useUpdateSavedAgent()
@@ -103,12 +103,12 @@ export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {
     }
 
     const savedAgentId = dialogState.savedAgentRecord._id
-    const isCurrentAgent = savedAgentId === selectedAiAssistant
+    const isCurrentAgent = savedAgentId === selectedAgent
 
     const nextAgentId = isCurrentAgent
-      ? (savedAgents?.find((assistant) => assistant._id !== savedAgentId)
+      ? (savedAgents?.find((savedAgent) => savedAgent._id !== savedAgentId)
           ?._id ?? DEFAULT_AGENT._id)
-      : (savedAgents?.find((assistant) => assistant._id === selectedAiAssistant)
+      : (savedAgents?.find((savedAgent) => savedAgent._id === selectedAgent)
           ?._id ?? DEFAULT_AGENT._id)
 
     await deleteSavedAgentAsync(savedAgentId)
@@ -119,13 +119,7 @@ export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {
         fromDeletion: true,
       })
     )
-  }, [
-    deleteSavedAgentAsync,
-    dialogState,
-    savedAgents,
-    router,
-    selectedAiAssistant,
-  ])
+  }, [deleteSavedAgentAsync, dialogState, savedAgents, router, selectedAgent])
 
   const value: SavedAgentDialogContextType = useMemo(
     () => ({

@@ -8,15 +8,15 @@ import {
   ErrorBlockImage,
   ErrorBlockTitle,
 } from "@/components/ui/error"
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 
 export function AssistantOutput() {
-  const { aiAssistantOutput, error } = useAssistants()
+  const { agentOutput, error } = useAgentChat()
 
   return (
     // TODO: Manage when the hotloading had an error
     <>
-      {aiAssistantOutput ? (
+      {agentOutput ? (
         <AssistantOutputCard />
       ) : error ? (
         <ErrorBlock className="mt-2">

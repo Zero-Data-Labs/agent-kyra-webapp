@@ -7,10 +7,10 @@ import {
   LoadingBlockTitle,
   LoadingProgress,
 } from "@/components/ui/loading"
-import type { AiAssistantHotloadResult } from "@/features/assistants/types"
+import type { LlmApiHotloadResult } from "@/features/agent-chat/types"
 
 type AssistantLoadingPageProps = {
-  hotload?: AiAssistantHotloadResult
+  hotload?: LlmApiHotloadResult
 }
 
 export default function AssistantLoadingPage(props: AssistantLoadingPageProps) {

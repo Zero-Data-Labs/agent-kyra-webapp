@@ -2,15 +2,15 @@
 
 import { redirect } from "next/navigation"
 
-import { useAssistants } from "@/features/assistants/hooks/use-assistants"
+import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
 
 export default function AgentsPage() {
-  const { selectedAiAssistant } = useAssistants()
+  const { selectedAgent } = useAgentChat()
 
   redirect(
     getAgentPageRoute({
-      agentId: selectedAiAssistant,
+      agentId: selectedAgent,
     })
   )
 }
