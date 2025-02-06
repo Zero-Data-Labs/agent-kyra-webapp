@@ -34,18 +34,16 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { LLM_MODEL_DEFS } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
-import { PromptConfigFormDataSchema } from "@/features/assistants/schemas"
-import type { PromptConfigFormData } from "@/features/assistants/types"
+import { PromptConfigFormDataSchema } from "@/features/prompt-config/schemas"
+import type { PromptConfigFormData } from "@/features/prompt-config/types"
 import { useToast } from "@/features/toasts/use-toast"
 
-export type ManageAiPromptConfigDialogProps = {
+export type ManagePromptConfigDialogProps = {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function ManageAiPromptConfigDialog(
-  props: ManageAiPromptConfigDialogProps
-) {
+export function ManagePromptConfigDialog(props: ManagePromptConfigDialogProps) {
   const { open, onOpenChange } = props
 
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -204,4 +202,4 @@ export function ManageAiPromptConfigDialog(
     </Dialog>
   )
 }
-ManageAiPromptConfigDialog.displayName = "ManageAiPromptConfigDialog"
+ManagePromptConfigDialog.displayName = "ManagePromptConfigDialog"
