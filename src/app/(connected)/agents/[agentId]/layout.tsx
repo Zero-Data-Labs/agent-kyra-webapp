@@ -1,9 +1,9 @@
 import React, { use } from "react"
 
-import { AgentCombobox } from "@/app/(connected)/agents/[agentId]/_components/agent-combobox"
 import { PageWrapper } from "@/components/page-wrapper"
 import { Typography } from "@/components/ui/typography"
 import { DisconnectButton } from "@/features/auth/components/disconnect-button"
+import { AgentCombobox } from "@/features/saved-agents/components/agent-combobox"
 
 export type AgentLayoutProps = {
   children: React.ReactNode

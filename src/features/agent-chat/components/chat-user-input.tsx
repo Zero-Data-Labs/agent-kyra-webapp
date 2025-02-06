@@ -11,7 +11,6 @@ import React, {
 } from "react"
 import { useMediaQuery } from "usehooks-ts"
 
-import { PromptsCombobox } from "@/app/(connected)/agents/[agentId]/_components/prompts-combobox"
 import { Button } from "@/components/ui/button"
 import { Card, CardBody, CardFooter } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
@@ -21,6 +20,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
+import { PromptsCombobox } from "@/features/saved-prompts/components/prompts-combobox"
 import { MAX_NB_SAVED_PROMPTS_PER_AGENT } from "@/features/saved-prompts/constants"
 import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved-prompts"
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"

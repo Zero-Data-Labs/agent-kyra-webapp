@@ -3,7 +3,6 @@
 import { MessageSquareMoreIcon } from "lucide-react"
 import { useCallback, useState } from "react"
 
-import { PromptSelector } from "@/app/(connected)/agents/[agentId]/_components/prompt-selector"
 import { Button } from "@/components/ui/button"
 import {
   Popover,
@@ -15,6 +14,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { PromptSelector } from "@/features/saved-prompts/components/prompt-selector"
 
 export interface PromptsComboboxProps
   extends React.ComponentProps<typeof Button> {

@@ -2,11 +2,11 @@
 
 import React from "react"
 
-import { AgentSelector } from "@/app/(connected)/agents/[agentId]/_components/agent-selector"
 import {
   ErrorPageContent,
   type ErrorPageProps,
 } from "@/components/error-page-content"
+import { AgentSelector } from "@/features/saved-agents/components/agent-selector"
 
 export default function AgentErrorPage(props: ErrorPageProps) {
   const { error, reset } = props

@@ -3,7 +3,6 @@
 import { ChevronDownIcon } from "lucide-react"
 import { useCallback, useMemo, useState } from "react"
 
-import { AgentSelector } from "@/app/(connected)/agents/[agentId]/_components/agent-selector"
 import { Button } from "@/components/ui/button"
 import {
   Popover,
@@ -11,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Typography } from "@/components/ui/typography"
+import { AgentSelector } from "@/features/saved-agents/components/agent-selector"
 import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-agents"
 import { cn } from "@/styles/utils"

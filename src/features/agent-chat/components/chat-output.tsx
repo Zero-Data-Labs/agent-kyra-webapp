@@ -1,13 +1,13 @@
 "use client"
 
-import { ChatAgentOutputCard } from "@/app/(connected)/agents/[agentId]/_components/chat-agent-output-card"
-import { ChatEmptyContent } from "@/app/(connected)/agents/[agentId]/_components/chat-empty-content"
 import {
   ErrorBlock,
   ErrorBlockDescription,
   ErrorBlockImage,
   ErrorBlockTitle,
 } from "@/components/ui/error"
+import { ChatAgentOutputCard } from "@/features/agent-chat/components/chat-agent-output-card"
+import { ChatEmptyContent } from "@/features/agent-chat/components/chat-empty-content"
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 
 export function ChatOutput() {

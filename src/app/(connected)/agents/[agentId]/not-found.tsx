@@ -1,12 +1,12 @@
 import React from "react"
 
-import { AgentSelector } from "@/app/(connected)/agents/[agentId]/_components/agent-selector"
 import {
   NotFoundBlock,
   NotFoundBlockDescription,
   NotFoundBlockImage,
   NotFoundBlockTitle,
 } from "@/components/ui/not-found"
+import { AgentSelector } from "@/features/saved-agents/components/agent-selector"
 
 export default function AgentNotFoundPage() {
   return (
