@@ -4,9 +4,9 @@ import React, { useCallback } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
-import { SUGGESTED_PROMPTS } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
 import type { AiPromptInput } from "@/features/assistants/types"
+import { SUGGESTED_PROMPTS } from "@/features/suggested-prompts/constants"
 import { cn } from "@/styles/utils"
 
 export type AssistantEmptyContentProps = React.ComponentProps<"div">

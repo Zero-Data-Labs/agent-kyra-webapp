@@ -34,7 +34,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Typography } from "@/components/ui/typography"
-import { SUGGESTED_PROMPTS } from "@/features/assistants/constants"
 import { useAssistants } from "@/features/assistants/hooks/use-assistants"
 import type { AiPromptInput } from "@/features/assistants/types"
 import { DEFAULT_SAVED_PROMPT_ORDER } from "@/features/saved-prompts/constants"
@@ -42,6 +41,7 @@ import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
 import { useUpdateSavedPrompt } from "@/features/saved-prompts/hooks/use-update-saved-prompt"
 import type { SavedPromptRecord } from "@/features/saved-prompts/types"
+import { SUGGESTED_PROMPTS } from "@/features/suggested-prompts/constants"
 import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
