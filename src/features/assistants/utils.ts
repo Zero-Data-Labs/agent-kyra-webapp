@@ -30,39 +30,29 @@ export async function sendAiPromptInputToAssistant(
     throw new Error("Prompt is required")
   }
 
-  // Temporarily deprecated as unused by the new agent but may come back later
-  // const promptConfigValidationResult = PromptConfigSchema.safeParse(
-  //   aiPromptInput.config?.promptConfig
-  // )
-
   // Explicitly building the body to ensure that the request is correct
   // Mostly because the structures are not the same
   // But also because aiPromptInput may have additional fields
   const body: PrivateDataApiV1LLMAgentRequestBody = {
     prompt: aiPromptInput.prompt,
-
-    // Temporarily deprecated as unused by the new agent but may come back later
-    // provider:
-    //   aiPromptInput.config?.llmProvider ?? commonConfig.DEFAULT_AI_PROVIDER,
-    // model: aiPromptInput.config?.llmModel ?? commonConfig.DEFAULT_AI_MODEL,
-    // promptConfig: promptConfigValidationResult.success
-    //   ? aiPromptInput.config?.promptConfig
-    //   : undefined,
   }
 
   try {
     logger.debug("Sending request to AI assistant API")
-    const response = await fetch(
-      `${commonConfig.VERIDA_DATA_API_BASE_URL}/api/rest/v1/llm/agent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${authToken}`,
-        },
-        body: JSON.stringify(body),
-      }
+
+    const url = new URL(
+      "/api/rest/v1/llm/agent",
+      commonConfig.VERIDA_DATA_API_BASE_URL
     )
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`,
+      },
+      body: JSON.stringify(body),
+    })
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
