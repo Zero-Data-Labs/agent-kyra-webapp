@@ -154,7 +154,7 @@ export function SavedPromptDialogProvider(
   )
 
   return (
-    <SavedPromptDialogContext.Provider value={value}>
+    <SavedPromptDialogContext value={value}>
       {children}
       <ManageSavedPromptDialog
         type={dialogState.type}
@@ -164,7 +164,7 @@ export function SavedPromptDialogProvider(
         onSubmit={handleSubmit}
         onDelete={dialogState.type === "edit" ? handleDelete : undefined}
       />
-    </SavedPromptDialogContext.Provider>
+    </SavedPromptDialogContext>
   )
 }
 SavedPromptDialogProvider.displayName = "SavedPromptDialogProvider"

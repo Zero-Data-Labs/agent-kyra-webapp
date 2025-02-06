@@ -132,7 +132,7 @@ export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {
   )
 
   return (
-    <SavedAgentDialogContext.Provider value={value}>
+    <SavedAgentDialogContext value={value}>
       {children}
       <ManageSavedAgentDialog
         type={dialogState.type}
@@ -142,7 +142,7 @@ export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {
         onSubmit={handleSubmit}
         onDelete={dialogState.type === "edit" ? handleDelete : undefined}
       />
-    </SavedAgentDialogContext.Provider>
+    </SavedAgentDialogContext>
   )
 }
 SavedAgentDialogProvider.displayName = "SavedAgentDialogProvider"
