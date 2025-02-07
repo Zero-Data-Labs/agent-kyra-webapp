@@ -77,10 +77,11 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
   }, [token])
 
   useEffect(() => {
-    initialise().catch((error) => {
-      logger.error(error)
-      setHotload({ status: "error", progress: 0 })
-    })
+    // TODO: Uncomment the initialise once the hotloading is fixed
+    // initialise().catch((error) => {
+    //   logger.error(error)
+    //   setHotload({ status: "error", progress: 0 })
+    // })
   }, [initialise])
 
   useEffect(() => {
