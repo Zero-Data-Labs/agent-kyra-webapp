@@ -17,7 +17,12 @@ import {
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { ArrowUpRightIcon, GripVerticalIcon, PencilIcon } from "lucide-react"
-import { useCallback, useMemo } from "react"
+import {
+  type ComponentProps,
+  type ReactNode,
+  useCallback,
+  useMemo,
+} from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -46,10 +51,10 @@ import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
 
-const logger = Logger.create("agent-page")
+const logger = Logger.create("saved-prompts")
 
 export interface PromptSelectorProps
-  extends Omit<React.ComponentProps<"div">, "children"> {
+  extends Omit<ComponentProps<"div">, "children"> {
   onSelect?: () => void
   onSetPrompt?: () => void
 }
@@ -254,12 +259,12 @@ export function PromptSelector(props: PromptSelectorProps) {
 }
 PromptSelector.displayName = "PromptSelector"
 
-type PromptSelectorItemProps = {
+interface PromptSelectorItemProps {
   prompt: SavedPromptRecord
   onSelect: () => void
   onSetPrompt: () => void
   sortable?: boolean
-  additionalActions?: React.ReactNode
+  additionalActions?: ReactNode
 }
 
 function PromptSelectorItem(props: PromptSelectorItemProps) {

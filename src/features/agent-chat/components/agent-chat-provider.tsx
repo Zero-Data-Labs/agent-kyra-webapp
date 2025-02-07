@@ -1,7 +1,13 @@
 "use client"
 
 import { useQueryClient } from "@tanstack/react-query"
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { useLocalStorage } from "usehooks-ts"
 
 import {
@@ -24,8 +30,8 @@ import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 
 const logger = Logger.create("agent-chat")
 
-export type AgentChatProviderProps = {
-  children: React.ReactNode
+export interface AgentChatProviderProps {
+  children: ReactNode
 }
 
 /**

@@ -1,10 +1,10 @@
 import Image from "next/image"
-import React from "react"
+import { type ComponentProps } from "react"
 
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
-export type NotFoundBlockProps = React.ComponentProps<"div">
+export interface NotFoundBlockProps extends ComponentProps<"div"> {}
 
 export function NotFoundBlock(props: NotFoundBlockProps) {
   const { className, ...divProps } = props
@@ -31,7 +31,8 @@ export function NotFoundBlockImage() {
 }
 NotFoundBlockImage.displayName = "NotFoundBlockImage"
 
-export type NotFoundBlockTitleProps = React.ComponentProps<typeof Typography>
+export interface NotFoundBlockTitleProps
+  extends ComponentProps<typeof Typography> {}
 
 export function NotFoundBlockTitle(props: NotFoundBlockTitleProps) {
   const { variant = "heading-4", ...typographyProps } = props
@@ -40,9 +41,8 @@ export function NotFoundBlockTitle(props: NotFoundBlockTitleProps) {
 }
 NotFoundBlockTitle.displayName = "NotFoundBlockTitle"
 
-export type NotFoundBlockDescriptionProps = React.ComponentProps<
-  typeof Typography
->
+export interface NotFoundBlockDescriptionProps
+  extends ComponentProps<typeof Typography> {}
 
 export function NotFoundBlockDescription(props: NotFoundBlockDescriptionProps) {
   const { variant = "base-regular", ...typographyProps } = props

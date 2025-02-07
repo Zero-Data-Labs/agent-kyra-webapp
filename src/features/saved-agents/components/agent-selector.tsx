@@ -18,7 +18,7 @@ import {
 import { CSS } from "@dnd-kit/utilities"
 import { CheckIcon, GripVerticalIcon, PencilIcon } from "lucide-react"
 import { useRouter } from "next/navigation"
-import React, { useCallback, useMemo, useState } from "react"
+import { type ComponentProps, useCallback, useMemo, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -53,10 +53,10 @@ import { Logger } from "@/features/telemetry/logger"
 import { cn } from "@/styles/utils"
 import { moveItemInArray } from "@/utils/misc"
 
-const logger = Logger.create("agent-page")
+const logger = Logger.create("saved-agents")
 
 export interface AgentSelectorProps
-  extends Omit<React.ComponentProps<"div">, "children"> {
+  extends Omit<ComponentProps<"div">, "children"> {
   currentAgentId?: string
   onCreateClick?: () => void
   onItemSelect?: (savedAgent: SavedAgentRecord) => void
@@ -269,7 +269,7 @@ export function AgentSelector(props: AgentSelectorProps) {
 }
 AgentSelector.displayName = "AgentSelector"
 
-type AgentSelectorItemProps = {
+interface AgentSelectorItemProps {
   sortable?: boolean
   agent: SavedAgentRecord
   isSelected?: boolean

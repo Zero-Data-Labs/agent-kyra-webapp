@@ -4,13 +4,14 @@ import React, { useCallback, useLayoutEffect, useRef } from "react"
 
 import { cn } from "@/styles/utils"
 
-export type TextareaProps = {
+export interface TextareaProps
+  extends Omit<React.ComponentProps<"textarea">, "rows"> {
   containerClassName?: React.ComponentProps<"div">["className"]
   startAdornment?: React.ReactNode
   startAdornmentContainerClassName?: React.ComponentProps<"div">["className"]
   endAdornment?: React.ReactNode
   endAdornmentContainerClassName?: React.ComponentProps<"div">["className"]
-} & Omit<React.ComponentProps<"textarea">, "rows">
+}
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (props, ref) => {

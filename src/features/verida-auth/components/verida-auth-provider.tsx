@@ -1,11 +1,17 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 
 import { AUTH_TOKEN_LOCAL_STORAGE_KEY } from "@/features/verida-auth/constants"
 import { VeridaAuthContext } from "@/features/verida-auth/contexts/verida-auth-context"
 import type { VeridaAuthStatus } from "@/features/verida-auth/type"
 
 export interface VeridaAuthProviderProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 // TODO: Need to handle auth error when calling Verida's API (e.g. invalid token)
@@ -51,3 +57,4 @@ export function VeridaAuthProvider(props: VeridaAuthProviderProps) {
 
   return <VeridaAuthContext value={contextValue}>{children}</VeridaAuthContext>
 }
+VeridaAuthProvider.displayName = "VeridaAuthProvider"

@@ -30,9 +30,10 @@ const TooltipContent = React.forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-type TooltipIndicatorProps = {
+interface TooltipIndicatorProps
+  extends Pick<React.ComponentProps<typeof Button>, "className"> {
   content: string
-} & Pick<React.ComponentProps<typeof Button>, "className">
+}
 
 function TooltipIndicator(props: TooltipIndicatorProps) {
   const { content, className } = props

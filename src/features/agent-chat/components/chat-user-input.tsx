@@ -1,8 +1,9 @@
 "use client"
 
 import { BookmarkIcon, SendIcon, XIcon } from "lucide-react"
-import React, {
+import {
   type ChangeEventHandler,
+  type ComponentProps,
   type KeyboardEventHandler,
   useCallback,
   useLayoutEffect,
@@ -26,7 +27,8 @@ import { useGetSavedPrompts } from "@/features/saved-prompts/hooks/use-get-saved
 import { useSavedPromptDialog } from "@/features/saved-prompts/hooks/use-saved-prompt-dialog"
 import { cn, getMediaQuery } from "@/styles/utils"
 
-export type ChatUserInputProps = Omit<React.ComponentProps<"div">, "children">
+export interface ChatUserInputProps
+  extends Omit<ComponentProps<"div">, "children"> {}
 
 export function ChatUserInput(props: ChatUserInputProps) {
   const { ...divProps } = props

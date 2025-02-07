@@ -1,11 +1,11 @@
-import React from "react"
+import type { ComponentProps } from "react"
 
 import { Progress } from "@/components/ui/progress"
 import { Spinner } from "@/components/ui/spinner"
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
-export type LoadingBlockProps = React.ComponentProps<"div">
+export interface LoadingBlockProps extends ComponentProps<"div"> {}
 
 export function LoadingBlock(props: LoadingBlockProps) {
   const { className, ...divProps } = props
@@ -19,14 +19,16 @@ export function LoadingBlock(props: LoadingBlockProps) {
 }
 LoadingBlock.displayName = "LoadingBlock"
 
-export type LoadingBlockSpinnerProps = React.ComponentProps<typeof Spinner>
+export interface LoadingBlockSpinnerProps
+  extends ComponentProps<typeof Spinner> {}
 
 export function LoadingBlockSpinner(props: LoadingBlockSpinnerProps) {
   return <Spinner {...props} />
 }
 LoadingBlockSpinner.displayName = "LoadingBlockSpinner"
 
-export type LoadingBlockTitleProps = React.ComponentProps<typeof Typography>
+export interface LoadingBlockTitleProps
+  extends ComponentProps<typeof Typography> {}
 
 export function LoadingBlockTitle(props: LoadingBlockTitleProps) {
   const { variant = "heading-4", ...typographyProps } = props
@@ -35,9 +37,8 @@ export function LoadingBlockTitle(props: LoadingBlockTitleProps) {
 }
 LoadingBlockTitle.displayName = "LoadingBlockTitle"
 
-export type LoadingBlockDescriptionProps = React.ComponentProps<
-  typeof Typography
->
+export interface LoadingBlockDescriptionProps
+  extends ComponentProps<typeof Typography> {}
 
 export function LoadingBlockDescription(props: LoadingBlockDescriptionProps) {
   const { variant = "base-regular", ...typographyProps } = props
@@ -50,7 +51,7 @@ export function LoadingBlockDescription(props: LoadingBlockDescriptionProps) {
 }
 LoadingBlockDescription.displayName = "LoadingBlockDescription"
 
-type LoadingProgressProps = React.ComponentProps<typeof Progress>
+export interface LoadingProgressProps extends ComponentProps<typeof Progress> {}
 
 export function LoadingProgress(props: LoadingProgressProps) {
   return <Progress {...props} />

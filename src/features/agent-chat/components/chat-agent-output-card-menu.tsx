@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback } from "react"
+import { type ReactNode, useCallback } from "react"
 
 import {
   DropdownMenu,
@@ -11,8 +11,8 @@ import {
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { useToast } from "@/features/toasts/use-toast"
 
-export type ChatAgentOutputCardMenuProps = {
-  children: React.ReactNode
+export interface ChatAgentOutputCardMenuProps {
+  children: ReactNode
 }
 
 export function ChatAgentOutputCardMenu(props: ChatAgentOutputCardMenuProps) {

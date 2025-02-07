@@ -1,5 +1,3 @@
-import React from "react"
-
 import {
   LoadingBlock,
   LoadingBlockDescription,
@@ -9,7 +7,7 @@ import {
 } from "@/components/ui/loading"
 import type { LlmApiHotloadResult } from "@/features/agent-chat/types"
 
-export type AgentLoadingPageProps = {
+export interface AgentLoadingPageProps {
   hotload?: LlmApiHotloadResult
 }
 

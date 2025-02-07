@@ -1,13 +1,14 @@
 "use client"
 
 import { redirect } from "next/navigation"
+import type { ReactNode } from "react"
 
 import { AuthenticationLoading } from "@/features/auth/components/authentication-loading"
 import { useAuthRedirectPathState } from "@/features/auth/hooks/use-auth-redirect-path-state"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 
-export type RootAuthenticationHandlerProps = {
-  children: React.ReactNode
+export interface RootAuthenticationHandlerProps {
+  children: ReactNode
 }
 
 export function RootAuthenticationHandler(

@@ -1,8 +1,10 @@
+import type { ReactNode } from "react"
+
 import { AppProviders } from "@/components/app-providers"
 import { AppAuthenticationHandler } from "@/features/auth/components/app-authentication-handler"
 
 export interface AppLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default function AppLayout(props: AppLayoutProps) {

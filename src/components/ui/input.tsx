@@ -2,13 +2,13 @@ import React from "react"
 
 import { cn } from "@/styles/utils"
 
-export type InputProps = {
+export interface InputProps extends React.ComponentProps<"input"> {
   containerClassName?: React.ComponentProps<"div">["className"]
   startAdornment?: React.ReactNode
   startAdornmentContainerClassName?: React.ComponentProps<"div">["className"]
   endAdornment?: React.ReactNode
   endAdornmentContainerClassName?: React.ComponentProps<"div">["className"]
-} & React.ComponentProps<"input">
+}
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => {

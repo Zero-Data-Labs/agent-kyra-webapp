@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronDownIcon } from "lucide-react"
-import { useCallback, useMemo, useState } from "react"
+import { type ComponentProps, useCallback, useMemo, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,7 +16,7 @@ import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-a
 import { cn } from "@/styles/utils"
 
 export interface AgentComboboxProps
-  extends Omit<React.ComponentProps<typeof Button>, "children"> {
+  extends Omit<ComponentProps<typeof Button>, "children"> {
   agentId: string
 }
 

@@ -1,13 +1,12 @@
+import type { ComponentProps } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
 import { cn } from "@/styles/utils"
 
-export type MarkdownRendererProps = Pick<
-  React.ComponentProps<typeof ReactMarkdown>,
-  "children"
-> &
-  Omit<React.ComponentProps<"div">, "children">
+export interface MarkdownRendererProps
+  extends Omit<ComponentProps<"div">, "children">,
+    Pick<ComponentProps<typeof ReactMarkdown>, "children"> {}
 
 export function MarkdownRenderer(props: MarkdownRendererProps) {
   const { children, className, ...divProps } = props

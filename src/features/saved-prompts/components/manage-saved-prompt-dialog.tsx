@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useEffect, useState } from "react"
+import { type ReactNode, useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import {
@@ -43,7 +43,7 @@ import { cn } from "@/styles/utils"
 
 const logger = Logger.create("saved-prompts")
 
-export type ManageSavedPromptDialogProps = {
+export interface ManageSavedPromptDialogProps {
   type: "create" | "edit"
   initialData: Partial<SavedPromptFormData>
   open: boolean
@@ -192,8 +192,8 @@ export function ManageSavedPromptDialog(props: ManageSavedPromptDialogProps) {
 }
 ManageSavedPromptDialog.displayName = "ManageSavedPromptDialog"
 
-type DeleteSavedPromptDialogProps = {
-  children: React.ReactNode
+interface DeleteSavedPromptDialogProps {
+  children: ReactNode
   onDelete: () => Promise<void>
   isProcessing: boolean
 }

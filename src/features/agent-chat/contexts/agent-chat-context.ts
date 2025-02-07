@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { type Dispatch, type SetStateAction, createContext } from "react"
 
 import type {
   AgentOutput,
@@ -13,7 +13,7 @@ export type AgentChatContextType = {
   agentOutput: AgentOutput | null
   processPromptInput: () => Promise<void>
   setAndProcessPromptInput: (promptInput: PromptInput) => Promise<void>
-  updatePromptInput: React.Dispatch<React.SetStateAction<PromptInput | null>>
+  updatePromptInput: Dispatch<SetStateAction<PromptInput | null>>
   clearPromptInput: () => void
   clearAgentOutput: () => void
   error: string | null

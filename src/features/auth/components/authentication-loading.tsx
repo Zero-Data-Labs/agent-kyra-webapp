@@ -1,3 +1,5 @@
+import type { ComponentProps } from "react"
+
 import {
   LoadingBlock,
   LoadingBlockDescription,
@@ -6,10 +8,8 @@ import {
 } from "@/components/ui/loading"
 import { cn } from "@/styles/utils"
 
-export type AuthenticationLoadingProps = Omit<
-  React.ComponentPropsWithoutRef<typeof LoadingBlock>,
-  "children"
->
+export interface AuthenticationLoadingProps
+  extends Omit<ComponentProps<typeof LoadingBlock>, "children"> {}
 
 export function AuthenticationLoading(props: AuthenticationLoadingProps) {
   const { className, ...loadingBlockProps } = props

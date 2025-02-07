@@ -1,7 +1,7 @@
 "use client"
 
 import { NuqsAdapter } from "nuqs/adapters/next/app"
-import { Suspense } from "react"
+import { type ReactNode, Suspense } from "react"
 
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { QueriesProvider } from "@/features/queries/queries-provider"
@@ -10,7 +10,7 @@ import { Toaster } from "@/features/toasts/toaster"
 import { VeridaAuthProvider } from "@/features/verida-auth/components/verida-auth-provider"
 
 export interface RootProvidersProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function RootProviders(props: RootProvidersProps) {

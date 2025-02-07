@@ -1,9 +1,11 @@
 "use client"
 
+import type { ReactNode } from "react"
+
 import { AgentChatProvider } from "@/features/agent-chat/components/agent-chat-provider"
 
-export type AppProvidersProps = {
-  children: React.ReactNode
+export interface AppProvidersProps {
+  children: ReactNode
 }
 
 export function AppProviders(props: AppProvidersProps) {

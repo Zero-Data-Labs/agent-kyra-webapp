@@ -8,10 +8,8 @@ import { cn } from "@/styles/utils"
 
 const authUrl = buildAuthUrl()
 
-export type ConnectButtonProps = Omit<
-  ComponentProps<typeof Button>,
-  "children" | "onClick"
->
+export interface ConnectButtonProps
+  extends Omit<ComponentProps<typeof Button>, "children" | "onClick"> {}
 
 export function ConnectButton(props: ConnectButtonProps) {
   const { className, ...buttonProps } = props

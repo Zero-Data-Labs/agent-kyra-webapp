@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
+import { type ReactNode, useCallback, useMemo, useState } from "react"
 
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
@@ -27,8 +27,8 @@ import type {
   SavedPromptRecord,
 } from "@/features/saved-prompts/types"
 
-export type SavedPromptDialogProviderProps = {
-  children: React.ReactNode
+export interface SavedPromptDialogProviderProps {
+  children: ReactNode
 }
 
 export function SavedPromptDialogProvider(

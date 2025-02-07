@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
+import { type ReactNode, useCallback, useMemo, useState } from "react"
 
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
 import { getAgentPageRoute } from "@/features/routes/utils"
@@ -24,8 +24,8 @@ import type {
   SavedAgentRecord,
 } from "@/features/saved-agents/types"
 
-export type SavedAgentDialogProviderProps = {
-  children: React.ReactNode
+export interface SavedAgentDialogProviderProps {
+  children: ReactNode
 }
 
 export function SavedAgentDialogProvider(props: SavedAgentDialogProviderProps) {

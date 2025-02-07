@@ -1,12 +1,12 @@
-import React, { use } from "react"
+import { type ReactNode, use } from "react"
 
 import { PageWrapper } from "@/components/page-wrapper"
 import { Typography } from "@/components/ui/typography"
 import { DisconnectButton } from "@/features/auth/components/disconnect-button"
 import { AgentCombobox } from "@/features/saved-agents/components/agent-combobox"
 
-export type AgentLayoutProps = {
-  children: React.ReactNode
+export interface AgentLayoutProps {
+  children: ReactNode
   params: Promise<{
     agentId: string
   }>

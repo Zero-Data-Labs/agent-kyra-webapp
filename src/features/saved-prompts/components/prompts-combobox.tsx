@@ -1,7 +1,7 @@
 "use client"
 
 import { MessageSquareMoreIcon } from "lucide-react"
-import { useCallback, useState } from "react"
+import { type ComponentProps, useCallback, useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -16,8 +16,7 @@ import {
 } from "@/components/ui/tooltip"
 import { PromptSelector } from "@/features/saved-prompts/components/prompt-selector"
 
-export interface PromptsComboboxProps
-  extends React.ComponentProps<typeof Button> {
+export interface PromptsComboboxProps extends ComponentProps<typeof Button> {
   onSetPrompt?: () => void
 }
 

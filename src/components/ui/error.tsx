@@ -1,10 +1,10 @@
 import Image from "next/image"
-import React from "react"
+import { type ComponentProps } from "react"
 
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
-export type ErrorBlockProps = React.ComponentProps<"div">
+export interface ErrorBlockProps extends ComponentProps<"div"> {}
 
 export function ErrorBlock(props: ErrorBlockProps) {
   const { className, ...divProps } = props
@@ -31,7 +31,8 @@ export function ErrorBlockImage() {
 }
 ErrorBlockImage.displayName = "ErrorBlockImage"
 
-export type ErrorBlockTitleProps = React.ComponentProps<typeof Typography>
+export interface ErrorBlockTitleProps
+  extends ComponentProps<typeof Typography> {}
 
 export function ErrorBlockTitle(props: ErrorBlockTitleProps) {
   const { variant = "heading-4", ...typographyProps } = props
@@ -40,7 +41,8 @@ export function ErrorBlockTitle(props: ErrorBlockTitleProps) {
 }
 ErrorBlockTitle.displayName = "ErrorBlockTitle"
 
-export type ErrorBlockDescriptionProps = React.ComponentProps<typeof Typography>
+export interface ErrorBlockDescriptionProps
+  extends ComponentProps<typeof Typography> {}
 
 export function ErrorBlockDescription(props: ErrorBlockDescriptionProps) {
   const { variant = "base-regular", ...typographyProps } = props

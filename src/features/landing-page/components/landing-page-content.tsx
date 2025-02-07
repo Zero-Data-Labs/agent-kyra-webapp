@@ -4,7 +4,8 @@ import { Typography } from "@/components/ui/typography"
 import { ConnectButton } from "@/features/auth/components/connect-button"
 import { cn } from "@/styles/utils"
 
-export type LandingPageContentProps = Omit<ComponentProps<"div">, "children">
+export interface LandingPageContentProps
+  extends Omit<ComponentProps<"div">, "children"> {}
 
 export function LandingPageContent(props: LandingPageContentProps) {
   const { className, ...divProps } = props

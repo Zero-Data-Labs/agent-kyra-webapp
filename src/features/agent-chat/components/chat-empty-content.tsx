@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback } from "react"
+import { type ComponentProps, useCallback } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
@@ -9,7 +9,7 @@ import type { PromptInput } from "@/features/agent-chat/types"
 import { SUGGESTED_PROMPTS } from "@/features/suggested-prompts/constants"
 import { cn } from "@/styles/utils"
 
-export type ChatEmptyContentProps = React.ComponentProps<"div">
+export interface ChatEmptyContentProps extends ComponentProps<"div"> {}
 
 export function ChatEmptyContent(props: ChatEmptyContentProps) {
   const { className, ...divProps } = props

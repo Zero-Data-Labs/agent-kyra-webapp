@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useEffect, useState } from "react"
+import { type ReactNode, useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { Alert, AlertDescription } from "@/components/ui/alert"
@@ -43,7 +43,7 @@ import { cn } from "@/styles/utils"
 
 const logger = Logger.create("saved-agents")
 
-export type ManageSavedAgentDialogProps = {
+export interface ManageSavedAgentDialogProps {
   type: "create" | "edit"
   initialData: Partial<SavedAgentFormData>
   open: boolean
@@ -172,8 +172,8 @@ export function ManageSavedAgentDialog(props: ManageSavedAgentDialogProps) {
 }
 ManageSavedAgentDialog.displayName = "ManageSavedAgentDialog"
 
-type DeleteSavedAgentDialogProps = {
-  children: React.ReactNode
+interface DeleteSavedAgentDialogProps {
+  children: ReactNode
   onDelete: () => Promise<void>
   isProcessing: boolean
 }

@@ -7,10 +7,8 @@ import { Button } from "@/components/ui/button"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 import { cn } from "@/styles/utils"
 
-export type DisconnectButtonProps = Omit<
-  ComponentProps<typeof Button>,
-  "onClick"
->
+export interface DisconnectButtonProps
+  extends Omit<ComponentProps<typeof Button>, "onClick"> {}
 
 export function DisconnectButton(props: DisconnectButtonProps) {
   const { className, variant = "ghost", ...buttonProps } = props

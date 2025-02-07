@@ -1,10 +1,12 @@
 "use client"
 
+import type { ReactNode } from "react"
+
 import { useAuthRedirection } from "@/features/auth/hooks/use-auth-redirection"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 
 export interface AppAuthenticationHandlerProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AppAuthenticationHandler(props: AppAuthenticationHandlerProps) {

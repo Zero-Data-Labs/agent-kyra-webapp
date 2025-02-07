@@ -1,10 +1,10 @@
-import React from "react"
+import type { ReactNode } from "react"
 
 import { SavedAgentDialogProvider } from "@/features/saved-agents/components/saved-agent-dialog-provider"
 import { SavedPromptDialogProvider } from "@/features/saved-prompts/components/saved-prompt-dialog-provider"
 
 export interface AgentsLayoutProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default function AgentsLayout(props: AgentsLayoutProps) {

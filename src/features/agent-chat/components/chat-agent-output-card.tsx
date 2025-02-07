@@ -2,7 +2,7 @@
 
 import { intlFormat } from "date-fns"
 import { EllipsisVerticalIcon } from "lucide-react"
-import { useMemo } from "react"
+import { type ComponentProps, useMemo } from "react"
 
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
@@ -18,7 +18,7 @@ import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-a
 import { cn } from "@/styles/utils"
 import { SHORT_TIME_FORMAT_OPTIONS } from "@/utils/date"
 
-export type ChatAgentOutputCardProps = React.ComponentProps<"div">
+export interface ChatAgentOutputCardProps extends ComponentProps<"div"> {}
 
 export function ChatAgentOutputCard(props: ChatAgentOutputCardProps) {
   const { className, ...divProps } = props
@@ -155,10 +155,8 @@ export function ChatAgentOutputCard(props: ChatAgentOutputCardProps) {
 }
 ChatAgentOutputCard.displayName = "ChatAgentOutputCard"
 
-type ChatAgentOutputSkeletonProps = Omit<
-  React.ComponentProps<"div">,
-  "children"
->
+interface ChatAgentOutputSkeletonProps
+  extends Omit<ComponentProps<"div">, "children"> {}
 
 function ChatAgentOutputSkeleton(props: ChatAgentOutputSkeletonProps) {
   const { className, ...divProps } = props

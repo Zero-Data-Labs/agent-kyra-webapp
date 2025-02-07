@@ -4,7 +4,7 @@ import { type SVGProps, useLayoutEffect, useRef, useState } from "react"
 
 import { cn } from "@/styles/utils"
 
-export type SpinnerProps = SVGProps<SVGSVGElement>
+export interface SpinnerProps extends SVGProps<SVGSVGElement> {}
 
 export function Spinner(props: SpinnerProps) {
   const { className, ...svgProps } = props

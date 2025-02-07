@@ -19,7 +19,7 @@ import { useGetSavedAgents } from "@/features/saved-agents/hooks/use-get-saved-a
 import { PromptSelector } from "@/features/saved-prompts/components/prompt-selector"
 import { getMediaQuery } from "@/styles/utils"
 
-export type AgentPageProps = {
+export interface AgentPageProps {
   params: Promise<{
     agentId: string
   }>

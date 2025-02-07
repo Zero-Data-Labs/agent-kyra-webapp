@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority"
 import { ShieldAlertIcon, ShieldCheckIcon } from "lucide-react"
-import React from "react"
+import { type ComponentProps, type ElementRef, forwardRef } from "react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,8 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/styles/utils"
 
-export type SecurityIconProps = React.ComponentProps<typeof ShieldCheckIcon>
+export interface SecurityIconProps
+  extends ComponentProps<typeof ShieldCheckIcon> {}
 
 export function SecurityIcon(props: SecurityIconProps) {
   const { className, ...iconProps } = props
@@ -31,6 +32,7 @@ export function SecurityIcon(props: SecurityIconProps) {
     />
   )
 }
+SecurityIcon.displayName = "SecurityIcon"
 
 const securityBadgeVariants = cva("", {
   variants: {
@@ -46,11 +48,9 @@ const securityBadgeVariants = cva("", {
   },
 })
 
-export type SecuredBadgeProps = Omit<
-  React.ComponentProps<typeof Badge>,
-  "children" | "variant"
-> &
-  VariantProps<typeof securityBadgeVariants>
+export interface SecuredBadgeProps
+  extends Omit<ComponentProps<typeof Badge>, "children" | "variant">,
+    VariantProps<typeof securityBadgeVariants> {}
 
 export function SecurityBadge(props: SecuredBadgeProps) {
   const { variant, className, ...divProps } = props
@@ -83,9 +83,9 @@ export const SecurityDetailsDialogContent = DialogContent
 
 export const SecurityDetailsDialogHeader = DialogHeader
 
-export const SecurityDetailsDialogTitle = React.forwardRef<
-  React.ElementRef<typeof DialogTitle>,
-  React.ComponentProps<typeof DialogTitle>
+export const SecurityDetailsDialogTitle = forwardRef<
+  ElementRef<typeof DialogTitle>,
+  ComponentProps<typeof DialogTitle>
 >(({ className, ...props }, ref) => (
   <DialogTitle
     ref={ref}
@@ -115,11 +115,9 @@ const securityDetailsDialogTriggerVariants = cva("", {
   },
 })
 
-export type SecurityDetailsDialogTriggerProps = Pick<
-  React.ComponentProps<typeof Button>,
-  "className"
-> &
-  VariantProps<typeof securityDetailsDialogTriggerVariants>
+export interface SecurityDetailsDialogTriggerProps
+  extends Pick<ComponentProps<typeof Button>, "className">,
+    VariantProps<typeof securityDetailsDialogTriggerVariants> {}
 
 export function SecurityDetailsDialogTrigger(
   props: SecurityDetailsDialogTriggerProps

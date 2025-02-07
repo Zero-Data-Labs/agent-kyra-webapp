@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo } from "react"
+import { type ComponentProps, useEffect, useMemo } from "react"
 
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
@@ -22,9 +22,7 @@ export interface ErrorPageProps {
   reset: () => void
 }
 
-interface ErrorPageContentProps
-  extends ErrorPageProps,
-    React.ComponentProps<"div"> {
+interface ErrorPageContentProps extends ErrorPageProps, ComponentProps<"div"> {
   mainMessage?: string | null
   subMessage?: string | null
   resetButtonLabel?: string
@@ -105,3 +103,4 @@ export function ErrorPageContent(props: ErrorPageContentProps) {
     </div>
   )
 }
+ErrorPageContent.displayName = "ErrorPageContent"

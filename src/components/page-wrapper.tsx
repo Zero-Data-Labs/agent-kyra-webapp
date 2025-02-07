@@ -1,18 +1,19 @@
 import { ArrowLeftIcon } from "lucide-react"
 import Link from "next/link"
+import type { ComponentProps, ReactNode } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Typography } from "@/components/ui/typography"
 import { cn } from "@/styles/utils"
 
-export type PageWrapperProps = {
-  pageTitle?: string | React.ReactNode
-  rightContent?: React.ReactNode
+export interface PageWrapperProps extends ComponentProps<"div"> {
+  pageTitle?: string | ReactNode
+  rightContent?: ReactNode
   backNavigationHref?: string
   backNavigationLabel?: string
-  children: React.ReactNode
-  contentClassName?: React.ComponentProps<"div">["className"]
-} & React.ComponentProps<"div">
+  children: ReactNode
+  contentClassName?: ComponentProps<"div">["className"]
+}
 
 export function PageWrapper(props: PageWrapperProps) {
   const {
@@ -75,11 +76,11 @@ export function PageWrapper(props: PageWrapperProps) {
 }
 PageWrapper.displayName = "PageWrapper"
 
-export type PageTitleProps = React.ComponentProps<typeof Typography>
+export interface PageTitleProps extends ComponentProps<typeof Typography> {}
 
 export function PageTitle(props: PageTitleProps) {
-  const { ...typographyProps } = props
+  const { variant = "heading-3", ...typographyProps } = props
 
-  return <Typography variant="heading-3" {...typographyProps} />
+  return <Typography variant={variant} {...typographyProps} />
 }
 PageTitle.displayName = "PageTitle"

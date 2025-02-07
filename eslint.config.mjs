@@ -23,6 +23,7 @@ const config = [
   eslintPluginPrettierRecommended,
   {
     rules: {
+      "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
       "no-console": "warn",
