@@ -6,6 +6,7 @@ export const CommonConfigSchema = z.object({
     .string()
     .optional()
     .transform((value) => value === "true"),
+  PLAUSIBLE_DOMAIN: z.string().optional(),
   LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
   SENTRY_ENABLED: z
     .string()

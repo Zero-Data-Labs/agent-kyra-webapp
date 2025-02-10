@@ -7,6 +7,7 @@ const commonConfigCheckResult = CommonConfigSchema.safeParse({
   // the code(like here). It also allows us to have shorter names.
   BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   DEV_MODE: process.env.NEXT_PUBLIC_DEV_MODE,
+  PLAUSIBLE_DOMAIN: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,
   LOG_LEVEL: process.env.NEXT_PUBLIC_LOG_LEVEL,
   SENTRY_ENABLED: process.env.NEXT_PUBLIC_SENTRY_ENABLED,
   VERIDA_APP_DID: process.env.NEXT_PUBLIC_VERIDA_APP_DID,
