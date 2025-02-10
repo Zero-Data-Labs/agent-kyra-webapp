@@ -2,6 +2,7 @@
   "name": "agent-kyra-webapp",
   "version": "0.0.1",
   "private": true,
+  "license": "ISC",
   "scripts": {
     "version": "npx genversion --es6 --double ./src/config/version.ts",
     "postinstall": "yarn run version",
