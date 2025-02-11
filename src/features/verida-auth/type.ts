@@ -7,8 +7,11 @@ export interface VeridaAuthContextValue {
   disconnect: () => void
 }
 
+export type VeridaAuthRequestPayer = "app" | "user"
+
 export type VeridaAuthRequest = {
   appDid: string
+  payer: VeridaAuthRequestPayer
   scopes: string[]
   redirectUrl: string
   state?: Record<string, unknown>

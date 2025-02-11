@@ -25,6 +25,9 @@ export function buildVeridaAuthRequestUrl(request: VeridaAuthRequest): string {
   const url = new URL(commonConfig.VERIDA_AUTH_URL)
 
   url.searchParams.set("appDID", request.appDid)
+  if (request.payer) {
+    url.searchParams.set("payer", request.payer)
+  }
   for (const scope of request.scopes) {
     url.searchParams.append("scopes", scope)
   }
@@ -48,6 +51,7 @@ export function buildVeridaAuthRequestUrl(request: VeridaAuthRequest): string {
 export function buildVeridaAuthRequest(appBaseUrl: string): VeridaAuthRequest {
   return {
     appDid: commonConfig.VERIDA_APP_DID,
+    payer: "app",
     scopes: VERIDA_AUTH_REQUIRED_SCOPES,
     redirectUrl: getAuthPageRoute(appBaseUrl),
   }
