@@ -2,6 +2,7 @@ import { z } from "zod"
 
 export const CommonConfigSchema = z.object({
   BASE_URL: z.string().url(),
+  LANDING_PAGE_URL: z.string().url().optional(),
   DEV_MODE: z
     .string()
     .optional()

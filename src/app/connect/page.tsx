@@ -1,22 +1,16 @@
 "use client"
 
 import { redirect } from "next/navigation"
-import type { ReactNode } from "react"
 
-import { commonConfig } from "@/config/common"
 import { AuthenticationLoading } from "@/features/auth/components/authentication-loading"
 import { useAuthRedirectPathState } from "@/features/auth/hooks/use-auth-redirect-path-state"
+import { buildAuthUrl } from "@/features/auth/utils"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 
-export interface RootAuthenticationHandlerProps {
-  children: ReactNode
-}
+// TODO: Pass the redirectPath as a state in the auth URL
+const authUrl = buildAuthUrl()
 
-export function RootAuthenticationHandler(
-  props: RootAuthenticationHandlerProps
-) {
-  const { children } = props
-
+export default function ConnectPage() {
   const { status } = useVeridaAuth()
   const { redirectPath } = useAuthRedirectPathState()
 
@@ -32,12 +26,7 @@ export function RootAuthenticationHandler(
     )
   }
 
-  // From there, user is not authenticated, so we redirect to the landing page, whether the one from the config or the default one
-
-  if (commonConfig.LANDING_PAGE_URL) {
-    redirect(commonConfig.LANDING_PAGE_URL)
-  }
-
-  return <>{children}</>
+  // If not authenticated, redirect automatically to the Verida Auth URL
+  redirect(authUrl)
 }
-RootAuthenticationHandler.displayName = "RootAuthenticationHandler"
+ConnectPage.displayName = "ConnectPage"

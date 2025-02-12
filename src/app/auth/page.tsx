@@ -5,6 +5,7 @@ import { useEffect } from "react"
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { ConnectButton } from "@/features/auth/components/connect-button"
+import { getRootPageRoute } from "@/features/routes/utils"
 import { VERIDA_AUTH_ERROR_MESSAGES } from "@/features/verida-auth/constants"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
 import { useVeridaAuthResponse } from "@/features/verida-auth/hooks/use-verida-auth-response"
@@ -17,7 +18,8 @@ export default function AuthPage() {
   useEffect(() => {
     if (authResponse.status === "success") {
       setToken(authResponse.token)
-      router.replace("/")
+      // TODO: get the redirectPath from the state
+      router.replace(getRootPageRoute())
     }
   }, [authResponse, router, setToken])
 
