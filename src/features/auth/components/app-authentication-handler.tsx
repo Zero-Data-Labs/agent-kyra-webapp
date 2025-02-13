@@ -15,6 +15,12 @@ export function AppAuthenticationHandler(props: AppAuthenticationHandlerProps) {
   const { status } = useVeridaAuth()
   const { redirectToAuthPage } = useAuthRedirection()
 
+  // TODO: Check the granted scopes compared to the expected ones. If they are
+  // not the same we need to handle it (e.g. disabled impacted features, inform
+  // user, provide ways to fix it by re-authenticating, etc.)
+
+  // TODO: Handle when the token is invalid
+
   if (status === "unauthenticated") {
     redirectToAuthPage()
   }

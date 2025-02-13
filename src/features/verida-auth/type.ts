@@ -1,9 +1,18 @@
+import type { z } from "zod"
+
+import type { VeridaAuthTokenDetailsSchema } from "@/features/verida-auth/schemas"
+
+export interface VeridaAuthTokenDetails
+  extends z.infer<typeof VeridaAuthTokenDetailsSchema> {
+  token: string
+}
+
 export type VeridaAuthStatus = "authenticated" | "unauthenticated" | "loading"
 
 export interface VeridaAuthContextValue {
-  token: string | null
+  authDetails: VeridaAuthTokenDetails | null
   status: VeridaAuthStatus
-  setToken: (token: string | null) => void
+  setToken: (token: string) => void
   disconnect: () => void
 }
 

@@ -40,7 +40,7 @@ export function useVeridaRecords<T extends z.ZodObject<any>>(
   { databaseDefinition, filter, options, baseSchema }: UseVeridaRecordsArgs<T>,
   queryOptions?: UseQueryOptions
 ) {
-  const { token } = useVeridaAuth()
+  const { authDetails } = useVeridaAuth()
   const queryClient = useQueryClient()
 
   const queryKey = useMemo(
@@ -54,15 +54,15 @@ export function useVeridaRecords<T extends z.ZodObject<any>>(
   )
 
   const { data, ...query } = useQuery({
-    enabled: !!token && queryOptions?.enabled,
+    enabled: !!authDetails?.token && queryOptions?.enabled,
     queryKey,
     queryFn: async () => {
-      if (!token) {
+      if (!authDetails?.token) {
         throw new Error("Authentication token is required")
       }
 
       const result = await getVeridaRecords<T>({
-        authToken: token,
+        authToken: authDetails.token,
         databaseDefinition,
         filter,
         options,

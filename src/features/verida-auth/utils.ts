@@ -1,13 +1,18 @@
 import { commonConfig } from "@/config/common"
 import { getAuthPageRoute } from "@/features/routes/utils"
+import { Logger } from "@/features/telemetry/logger"
 import {
   VERIDA_AUTH_ERROR_MESSAGES,
   VERIDA_AUTH_REQUIRED_SCOPES,
 } from "@/features/verida-auth/constants"
+import { GetVeridaAuthTokenDetailsApiV1ResponseSchema } from "@/features/verida-auth/schemas"
 import type {
   VeridaAuthRequest,
   VeridaAuthResponseError,
+  VeridaAuthTokenDetails,
 } from "@/features/verida-auth/type"
+
+const logger = Logger.create("verida-auth")
 
 /**
  * Builds a URL for the Verida authentication request
@@ -67,4 +72,54 @@ export function isVeridaAuthError(
   value: string
 ): value is VeridaAuthResponseError {
   return value in VERIDA_AUTH_ERROR_MESSAGES
+}
+
+/**
+ * Fetches and validates the details of a Verida authentication token
+ *
+ * @param token - The Verida authentication token to get details for.
+ * @returns A promise that resolves to a VeridaAuthTokenDetails object.
+ * @throws Error if the API request fails or returns invalid data
+ */
+export async function getVeridaAuthTokenDetails(
+  token: string
+): Promise<VeridaAuthTokenDetails> {
+  logger.info("Getting Verida auth token details")
+
+  try {
+    const url = new URL(
+      "/api/rest/v1/auth/token",
+      commonConfig.VERIDA_DATA_API_BASE_URL
+    )
+    url.searchParams.set("tokenId", token)
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}: ${response.statusText}`)
+    }
+
+    const data = await response.json()
+
+    const validatedData =
+      GetVeridaAuthTokenDetailsApiV1ResponseSchema.parse(data)
+
+    logger.info("Successfully got Verida auth token details")
+
+    const tokenDetails: VeridaAuthTokenDetails = {
+      ...validatedData.token,
+      token,
+    }
+
+    return tokenDetails
+  } catch (error) {
+    throw new Error("Error getting Verida auth token details", {
+      cause: error,
+    })
+  }
 }

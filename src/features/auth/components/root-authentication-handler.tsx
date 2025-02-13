@@ -32,6 +32,8 @@ export function RootAuthenticationHandler(
     )
   }
 
+  // TODO: Handle when the token is invalid
+
   // From there, user is not authenticated, so we redirect to the landing page, whether the one from the config or the default one
 
   if (commonConfig.LANDING_PAGE_URL) {

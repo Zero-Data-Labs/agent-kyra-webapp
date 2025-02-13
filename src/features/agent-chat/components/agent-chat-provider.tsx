@@ -40,7 +40,7 @@ export interface AgentChatProviderProps {
  */
 export function AgentChatProvider(props: AgentChatProviderProps) {
   const { children } = props
-  const { token } = useVeridaAuth()
+  const { authDetails } = useVeridaAuth()
 
   const queryClient = useQueryClient()
 
@@ -61,20 +61,20 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
   const [promptSearchValue, setPromptSearchValue] = useState("")
 
   const initialise = useCallback(async () => {
-    if (!token) {
+    if (!authDetails?.token) {
       return
     }
 
     logger.info("Initialising the LLM API")
     setHotload({ status: "loading", progress: 0 })
 
-    await hotloadLlmApi(token, (progress, dataCurrentlyLoading) => {
+    await hotloadLlmApi(authDetails.token, (progress, dataCurrentlyLoading) => {
       setHotload({ status: "loading", progress, dataCurrentlyLoading })
     })
 
     setHotload({ status: "success", progress: 1 })
     logger.info("LLM API initialized")
-  }, [token])
+  }, [authDetails?.token])
 
   useEffect(() => {
     // TODO: Uncomment the initialise once the hotloading is fixed
@@ -85,22 +85,22 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
   }, [initialise])
 
   useEffect(() => {
-    if (!token) {
+    if (!authDetails?.token) {
       return
     }
 
     prefetchGetSavedPrompts({
       queryClient,
-      authToken: token,
+      authToken: authDetails.token,
       filter: {
         assistantId: selectedAgent,
       },
     })
-  }, [token, selectedAgent, queryClient])
+  }, [authDetails?.token, selectedAgent, queryClient])
 
   const processInput = useCallback(
     async (input: PromptInput) => {
-      if (!token) {
+      if (!authDetails?.token) {
         return
       }
 
@@ -125,7 +125,7 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
             ...input,
             agentId: selectedAgent,
           },
-          token
+          authDetails.token
         )
         setAgentOutput(result)
       } catch (error) {
@@ -135,7 +135,7 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
         setAgentOutput(null)
       }
     },
-    [token, agentOutput, selectedAgent]
+    [authDetails?.token, agentOutput, selectedAgent]
   )
 
   const processPromptInput = useCallback(async () => {

@@ -20,7 +20,7 @@ type CreateRecordArgs<T extends z.ZodObject<any>> = {
 export function useCreateVeridaRecord<T extends z.ZodObject<any>>(
   baseSchema?: T
 ) {
-  const { token } = useVeridaAuth()
+  const { authDetails } = useVeridaAuth()
   const queryClient = useQueryClient()
 
   // TODO: Add optimistic update. Have to deal with a temporary id though
@@ -31,12 +31,12 @@ export function useCreateVeridaRecord<T extends z.ZodObject<any>>(
     CreateRecordArgs<T>
   >({
     mutationFn: async ({ databaseDefinition, record }) => {
-      if (!token) {
+      if (!authDetails?.token) {
         throw new Error("Authentication token is required")
       }
 
       return createVeridaRecord<T>({
-        authToken: token,
+        authToken: authDetails.token,
         databaseDefinition,
         record,
         baseSchema,
