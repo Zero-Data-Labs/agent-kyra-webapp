@@ -13,9 +13,9 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#ffffff",
     icons: [
       {
-        src: "kyra.jpg",
-        type: "image/jpg",
-        sizes: "400x400",
+        src: "icon.png",
+        type: "image/png",
+        sizes: "512x512",
       },
     ],
   }
