@@ -6,6 +6,7 @@ import {
   LogOutIcon,
   MessageCircle,
 } from "lucide-react"
+import Link from "next/link"
 import React, { useCallback } from "react"
 
 import { Button } from "@/components/ui/button"
@@ -19,7 +20,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { Typography } from "@/components/ui/typography"
 import { version } from "@/config/version"
-import { APP_NAME } from "@/constants/app"
+import { APP_NAME, TERMS_AND_CONDITIONS_URL } from "@/constants/app"
 import { useUserFeedback } from "@/features/telemetry/use-user-feedback"
 import { useToast } from "@/features/toasts/use-toast"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
@@ -145,8 +146,18 @@ export function IdentityDropdownMenu(props: IdentityDropdownMenuProps) {
           <LogOutIcon />
           <Typography variant="base-semibold">Disconnect</Typography>
         </DropdownMenuItem>
-        <DropdownMenuLabel className="text-center text-xs font-normal">
-          {`${APP_NAME} ${version}`}
+        <DropdownMenuLabel className="">
+          <div className="flex flex-col gap-1 text-center text-xs font-normal">
+            <p>{`${APP_NAME} ${version}`}</p>
+            <Link
+              href={TERMS_AND_CONDITIONS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
         </DropdownMenuLabel>
       </DropdownMenuContent>
     </DropdownMenu>
