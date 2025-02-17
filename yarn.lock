@@ -1500,30 +1500,30 @@
     lodash.merge "^4.6.2"
     postcss-selector-parser "6.0.10"
 
-"@tanstack/query-core@5.66.0":
-  version "5.66.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.66.0.tgz#163f670b3b4e3b3cdbff6698ad44b2edfcaed185"
-  integrity sha512-J+JeBtthiKxrpzUu7rfIPDzhscXF2p5zE/hVdrqkACBP8Yu0M96mwJ5m/8cPPYQE9aRNvXztXHlNwIh4FEeMZw==
+"@tanstack/query-core@5.66.3":
+  version "5.66.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.66.3.tgz#3ab0daa49477cfae38c45c02b8dc0bc39ec9cc5d"
+  integrity sha512-+2iDxH7UFdtwcry766aJszGmbByQDIzTltJ3oQAZF9bhCxHCIN3yDwHa6qDCZxcpMGvUphCRx/RYJvLbM8mucQ==
 
 "@tanstack/query-devtools@5.65.0":
   version "5.65.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.65.0.tgz#37da5e911543b4f6d98b9a04369eab0de6044ba1"
   integrity sha512-g5y7zc07U9D3esMdqUfTEVu9kMHoIaVBsD0+M3LPdAdD710RpTcLiNvJY1JkYXqkq9+NV+CQoemVNpQPBXVsJg==
 
-"@tanstack/query-persist-client-core@5.66.0":
-  version "5.66.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-5.66.0.tgz#9f358b3246a6da9a589894042ec3623395e5cbde"
-  integrity sha512-y6bolShmbOmexexZfnmTiHsBOm4ruJxc2MQJzqi6PxkSPjkKAU+Zqviy4ZwQos5skwSw0g7b9L6V6Rd64oZc9g==
+"@tanstack/query-persist-client-core@5.66.3":
+  version "5.66.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-persist-client-core/-/query-persist-client-core-5.66.3.tgz#fcbac0375c05756aa2a97f7b94c3aee06ce4ff63"
+  integrity sha512-YR0hgzxHLr20CNAoKWn24KCb0cyd2ogB6/6yFZaqTrv1y94fRdU1RdxAASaUX0fasHBBHRN6cjbXThEvjeQyKA==
   dependencies:
-    "@tanstack/query-core" "5.66.0"
+    "@tanstack/query-core" "5.66.3"
 
-"@tanstack/query-sync-storage-persister@^5.66.0":
-  version "5.66.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-5.66.0.tgz#ca92e68bd17ca102d4eaaa131b6a1a9be6060480"
-  integrity sha512-G/QCN1eWGgwIEkjbjas2IJTy1dXYnMcJV61wKtmFB7eFNiqDa5YdWTEynJs4UOsdh9HsvFq5JH/DN8AA/zpKWw==
+"@tanstack/query-sync-storage-persister@^5.66.3":
+  version "5.66.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-sync-storage-persister/-/query-sync-storage-persister-5.66.3.tgz#e05c932a3964f4ccfb5e40110ebf88e843ac5937"
+  integrity sha512-+GEY9WmDrOSHpDx9FUnulrv7JCZ4Vxf1PzHrxm9w7Z6OGTmL4b3eQa9ZOuf7SZ4G53M21qWTmUPhP/Powqe7YQ==
   dependencies:
-    "@tanstack/query-core" "5.66.0"
-    "@tanstack/query-persist-client-core" "5.66.0"
+    "@tanstack/query-core" "5.66.3"
+    "@tanstack/query-persist-client-core" "5.66.3"
 
 "@tanstack/react-query-devtools@^5.66.0":
   version "5.66.0"
@@ -1532,19 +1532,19 @@
   dependencies:
     "@tanstack/query-devtools" "5.65.0"
 
-"@tanstack/react-query-persist-client@^5.66.0":
-  version "5.66.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-5.66.0.tgz#9b6f9b349ad20aacc58ebc747fbc4c33605618ff"
-  integrity sha512-LpocQrJF9HCR6N09X7+k8TjkgYsVHPB4e4AvV2qvCeL5aOsQWORttEqCHldohnJwdVm/68tWacw2jVP/8AuI1w==
+"@tanstack/react-query-persist-client@^5.66.3":
+  version "5.66.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-persist-client/-/react-query-persist-client-5.66.3.tgz#a0191e083b8c93b5b34167d081f70ca0604060f0"
+  integrity sha512-tHUM9atYNSaXuL10/aN4ZnK4PK2ato3GyOr3e2akksmvuIwUUaAiZH85UtpObiz3cdIuwftzoYcj1Mmw/yyGNw==
   dependencies:
-    "@tanstack/query-persist-client-core" "5.66.0"
+    "@tanstack/query-persist-client-core" "5.66.3"
 
-"@tanstack/react-query@^5.66.0":
-  version "5.66.0"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.66.0.tgz#9f7aa1b3e844ea6a0ad2ee61fccaed76e614b865"
-  integrity sha512-z3sYixFQJe8hndFnXgWu7C79ctL+pI0KAelYyW+khaNJ1m22lWrhJU2QrsTcRKMuVPtoZvfBYrTStIdKo+x0Xw==
+"@tanstack/react-query@^5.66.3":
+  version "5.66.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.66.3.tgz#287d37e2079291302b86ce2c5898f6a1a4aaeea9"
+  integrity sha512-sWMvxZ5VugPDgD1CzP7f0s9yFvjcXP3FXO5IVV2ndXlYqUCwykU8U69Kk05Qn5UvGRqB/gtj4J7vcTC6vtLHtQ==
   dependencies:
-    "@tanstack/query-core" "5.66.0"
+    "@tanstack/query-core" "5.66.3"
 
 "@trivago/prettier-plugin-sort-imports@^5.2.2":
   version "5.2.2"
