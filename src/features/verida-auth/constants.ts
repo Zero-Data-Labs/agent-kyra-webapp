@@ -1,9 +1,12 @@
+import { commonConfig } from "@/config/common"
 import { AGENTS_DB_DEF } from "@/features/saved-agents/constants"
 import { SAVED_PROMPTS_DB_DEF } from "@/features/saved-prompts/constants"
 import type {
   VeridaAuthErrorInfo,
   VeridaAuthResponseError,
 } from "@/features/verida-auth/type"
+
+export const VERIDA_AUTH_URL = `${commonConfig.VERIDA_VAULT_BASE_URL}/auth`
 
 export const AUTH_TOKEN_LOCAL_STORAGE_KEY = "kyra_verida_auth_token"
 

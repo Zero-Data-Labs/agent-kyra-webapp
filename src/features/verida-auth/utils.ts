@@ -4,6 +4,7 @@ import { Logger } from "@/features/telemetry/logger"
 import {
   VERIDA_AUTH_ERROR_MESSAGES,
   VERIDA_AUTH_REQUIRED_SCOPES,
+  VERIDA_AUTH_URL,
 } from "@/features/verida-auth/constants"
 import { GetVeridaAuthTokenDetailsApiV1ResponseSchema } from "@/features/verida-auth/schemas"
 import type {
@@ -27,7 +28,7 @@ const logger = Logger.create("verida-auth")
  * - state: Optional state data to pass through the auth flow (will be JSON stringified)
  */
 export function buildVeridaAuthRequestUrl(request: VeridaAuthRequest): string {
-  const url = new URL(commonConfig.VERIDA_AUTH_URL)
+  const url = new URL(VERIDA_AUTH_URL)
 
   url.searchParams.set("appDID", request.appDid)
   if (request.payer) {
