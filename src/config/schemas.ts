@@ -14,7 +14,7 @@ export const CommonConfigSchema = z.object({
     .optional()
     .transform((value) => value === "true"),
   VERIDA_APP_DID: z.string(),
-  VERIDA_AUTH_URL: z.string().url(),
+  VERIDA_VAULT_BASE_URL: z.string().url(),
   VERIDA_DATA_API_BASE_URL: z.string().url(),
   isClient: z.boolean(),
   appVersion: z.string(),

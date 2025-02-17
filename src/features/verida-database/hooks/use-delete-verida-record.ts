@@ -30,7 +30,7 @@ type UseDeleteMutationContext = {
 export function useDeleteVeridaRecord(
   options: UseDeleteVeridaRecordOptions = {}
 ) {
-  const { token } = useVeridaAuth()
+  const { authDetails } = useVeridaAuth()
   const queryClient = useQueryClient()
 
   const { mutate, mutateAsync, ...mutation } = useMutation<
@@ -40,12 +40,12 @@ export function useDeleteVeridaRecord(
     UseDeleteMutationContext
   >({
     mutationFn: async ({ databaseDefinition, recordId }) => {
-      if (!token) {
+      if (!authDetails?.token) {
         throw new Error("Authentication token is required")
       }
 
       return deleteVeridaRecord({
-        authToken: token,
+        authToken: authDetails.token,
         databaseDefinition,
         recordId,
       })

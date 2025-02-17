@@ -12,7 +12,7 @@ const commonConfigCheckResult = CommonConfigSchema.safeParse({
   LOG_LEVEL: process.env.NEXT_PUBLIC_LOG_LEVEL,
   SENTRY_ENABLED: process.env.NEXT_PUBLIC_SENTRY_ENABLED,
   VERIDA_APP_DID: process.env.NEXT_PUBLIC_VERIDA_APP_DID,
-  VERIDA_AUTH_URL: process.env.NEXT_PUBLIC_VERIDA_AUTH_URL,
+  VERIDA_VAULT_BASE_URL: process.env.NEXT_PUBLIC_VERIDA_VAULT_BASE_URL,
   VERIDA_DATA_API_BASE_URL: process.env.NEXT_PUBLIC_VERIDA_DATA_API_BASE_URL,
   isClient: !(typeof window === "undefined"),
   appVersion: version,

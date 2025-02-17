@@ -34,7 +34,7 @@ export function useUpdateVeridaRecord<T extends z.ZodObject<any>>(
   baseSchema?: T,
   options: UseUpdateVeridaRecordOptions = {}
 ) {
-  const { token } = useVeridaAuth()
+  const { authDetails } = useVeridaAuth()
   const queryClient = useQueryClient()
 
   const { mutate, mutateAsync, ...mutation } = useMutation<
@@ -44,12 +44,12 @@ export function useUpdateVeridaRecord<T extends z.ZodObject<any>>(
     UseUpdateMutationContext
   >({
     mutationFn: async ({ databaseDefinition, record }) => {
-      if (!token) {
+      if (!authDetails?.token) {
         throw new Error("Authentication token is required")
       }
 
       return updateVeridaRecord<T>({
-        authToken: token,
+        authToken: authDetails.token,
         databaseDefinition,
         record,
         baseSchema,

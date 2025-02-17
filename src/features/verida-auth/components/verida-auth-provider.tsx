@@ -8,51 +8,61 @@ import {
 
 import { AUTH_TOKEN_LOCAL_STORAGE_KEY } from "@/features/verida-auth/constants"
 import { VeridaAuthContext } from "@/features/verida-auth/contexts/verida-auth-context"
-import type { VeridaAuthStatus } from "@/features/verida-auth/type"
+import { useGetVeridaAuthTokenDetails } from "@/features/verida-auth/hooks/use-get-verida-auth-token-details"
+import type {
+  VeridaAuthContextValue,
+  VeridaAuthStatus,
+} from "@/features/verida-auth/type"
 
 export interface VeridaAuthProviderProps {
   children: ReactNode
 }
 
-// TODO: Need to handle auth error when calling Verida's API (e.g. invalid token)
-
 export function VeridaAuthProvider(props: VeridaAuthProviderProps) {
   const { children } = props
 
   const [token, setTokenInternal] = useState<string | null>(null)
-  const [status, setStatus] = useState<VeridaAuthStatus>("loading")
+
+  const { authTokenDetails: authDetails, isLoading: isLoadingAuthDetails } =
+    useGetVeridaAuthTokenDetails(token)
 
   useEffect(() => {
     // Load token from localStorage on mount
     const storedToken = localStorage.getItem(AUTH_TOKEN_LOCAL_STORAGE_KEY)
     setTokenInternal(storedToken)
-    setStatus(storedToken ? "authenticated" : "unauthenticated")
   }, [])
 
-  const setToken = useCallback((newToken: string | null) => {
-    if (newToken) {
-      localStorage.setItem(AUTH_TOKEN_LOCAL_STORAGE_KEY, newToken)
-      setTokenInternal(newToken)
-      setStatus("authenticated")
-    } else {
-      localStorage.removeItem(AUTH_TOKEN_LOCAL_STORAGE_KEY)
-      setTokenInternal(null)
-      setStatus("unauthenticated")
-    }
+  const setToken = useCallback((newToken: string) => {
+    localStorage.setItem(AUTH_TOKEN_LOCAL_STORAGE_KEY, newToken)
+    setTokenInternal(newToken)
   }, [])
 
   const disconnect = useCallback(() => {
-    setToken(null)
-  }, [setToken])
+    localStorage.removeItem(AUTH_TOKEN_LOCAL_STORAGE_KEY)
+    setTokenInternal(null)
+  }, [])
 
-  const contextValue = useMemo(
+  const status: VeridaAuthStatus = useMemo(() => {
+    if (token && authDetails && token === authDetails.token) {
+      return "authenticated"
+    }
+
+    if (isLoadingAuthDetails) {
+      return "loading"
+    }
+
+    return "unauthenticated"
+  }, [token, authDetails, isLoadingAuthDetails])
+
+  const contextValue: VeridaAuthContextValue = useMemo(
     () => ({
-      token,
+      // TODO: Need to handle invalid tokens, the status should be invalid and the UI must show some details to the user
+      authDetails: status === "authenticated" ? (authDetails ?? null) : null,
       status,
       setToken,
       disconnect,
     }),
-    [token, status, setToken, disconnect]
+    [authDetails, status, setToken, disconnect]
   )
 
   return <VeridaAuthContext value={contextValue}>{children}</VeridaAuthContext>
