@@ -1360,10 +1360,10 @@
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.52.0.tgz#ad5f4099b82a35b53c16be1fa86fd51817acd051"
   integrity sha512-2j3B7IKmseTKFm6AyheJ+RSgXqIsx+3blFSuxpkdvsEt60Lbzva2uDkCENfBDOclioo1kvHgsyuXLfWW4A+wwA==
 
-"@sentry/core@8.54.0":
-  version "8.54.0"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-8.54.0.tgz#a2ebec965cadcb6de89e116689feeef79d5862a6"
-  integrity sha512-03bWf+D1j28unOocY/5FDB6bUHtYlm6m6ollVejhg45ZmK9iPjdtxNWbrLsjT1WRym0Tjzowu+A3p+eebYEv0Q==
+"@sentry/core@9.1.0":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-9.1.0.tgz#db7438d144b7ea405260c33082971eedab48d7f3"
+  integrity sha512-djWEzSBpMgqdF3GQuxO+kXCUX+Mgq42G4Uah/HSUBvPDHKipMmyWlutGRoFyVPPOnCDgpHu3wCt83wbpEyVmDw==
 
 "@sentry/nextjs@^8.52.0":
   version "8.52.0"
@@ -1442,12 +1442,12 @@
     "@sentry/core" "8.52.0"
     hoist-non-react-statics "^3.3.2"
 
-"@sentry/types@^8.54.0":
-  version "8.54.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-8.54.0.tgz#1d57bb094443081de4e0d8b638e6ebc40f5ddd36"
-  integrity sha512-wztdtr7dOXQKi0iRvKc8XJhJ7HaAfOv8lGu0yqFOFwBZucO/SHnu87GOPi8mvrTiy1bentQO5l+zXWAaMvG4uw==
+"@sentry/types@^9.1.0":
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-9.1.0.tgz#cacbe75e9e2cb04a9c367f8e4046be208c33bee4"
+  integrity sha512-RE9qelDpkBHdUc2oEA/YQp77ai1XwPKQS60WD2QqX2tRC1v5kZkVem07JFJE2ZDx3eXOI/qmwu1VXN52pB2lPw==
   dependencies:
-    "@sentry/core" "8.54.0"
+    "@sentry/core" "9.1.0"
 
 "@sentry/vercel-edge@8.52.0":
   version "8.52.0"
