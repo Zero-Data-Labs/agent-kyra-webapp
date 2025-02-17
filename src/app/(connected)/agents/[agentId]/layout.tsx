@@ -1,8 +1,8 @@
 import { type ReactNode, use } from "react"
 
+import { IdentityDropdownMenu } from "@/components/identity-dropdown-menu"
 import { PageWrapper } from "@/components/page-wrapper"
 import { Typography } from "@/components/ui/typography"
-import { DisconnectButton } from "@/features/auth/components/disconnect-button"
 import { AgentCombobox } from "@/features/saved-agents/components/agent-combobox"
 
 export interface AgentLayoutProps {
@@ -29,7 +29,7 @@ export default function AgentLayout(props: AgentLayoutProps) {
           <AgentCombobox agentId={agentId} className="flex-1" />
         </div>
       }
-      rightContent={<DisconnectButton />}
+      rightContent={<IdentityDropdownMenu />}
     >
       {children}
     </PageWrapper>
