@@ -45,7 +45,8 @@ export function AgentChatProvider(props: AgentChatProviderProps) {
   const queryClient = useQueryClient()
 
   const [selectedAgent, setSelectedAgent] = useLocalStorage(
-    "kyra-selected-agent",
+    // This provider being used in the app providers means that the user is authenticated and the DID should be available, but adding a default for typescript.
+    `kyra-selected-agent-${authDetails?.did || "default"}`,
     DEFAULT_AGENT._id,
     {
       initializeWithValue: true,
