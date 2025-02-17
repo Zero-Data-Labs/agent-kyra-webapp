@@ -3,6 +3,7 @@
 import {
   ChevronDownIcon,
   CopyIcon,
+  ExternalLinkIcon,
   LogOutIcon,
   MessageCircle,
 } from "lucide-react"
@@ -15,10 +16,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Typography } from "@/components/ui/typography"
+import { commonConfig } from "@/config/common"
 import { version } from "@/config/version"
 import { APP_NAME, TERMS_AND_CONDITIONS_URL } from "@/constants/app"
 import { useUserFeedback } from "@/features/telemetry/use-user-feedback"
@@ -86,10 +89,10 @@ export function IdentityDropdownMenu(props: IdentityDropdownMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-screen max-w-80 rounded-xl p-0 text-muted-foreground"
+        className="w-screen max-w-80 text-muted-foreground"
         align="end"
       >
-        <DropdownMenuItem className="block px-4 py-3" onClick={handleCopyDid}>
+        <DropdownMenuItem className="block" onClick={handleCopyDid}>
           <div className="flex flex-row items-center gap-3">
             <ProfileAvatar
               profile={profile}
@@ -124,31 +127,47 @@ export function IdentityDropdownMenu(props: IdentityDropdownMenuProps) {
             </div>
             {did ? (
               <div className="-mx-2 flex cursor-pointer flex-row items-center justify-center rounded-md p-2">
-                <CopyIcon className="size-5" />
+                <CopyIcon className="size-4" />
                 <span className="sr-only">Click to copy DID</span>
               </div>
             ) : null}
           </div>
         </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem inset asChild>
+          <Link
+            href={commonConfig.VERIDA_VAULT_BASE_URL}
+            target="_blank"
+            className="group flex-row gap-1"
+          >
+            <Typography variant="base-regular">Manage my data</Typography>
+            <ExternalLinkIcon className="size-3 opacity-0 group-hover:opacity-100" />
+          </Link>
+        </DropdownMenuItem>
         {isUserFeedbackReady ? (
           <DropdownMenuItem
             onClick={openUserFeedbackForm}
-            className="cursor-pointer gap-3 px-4 py-4 text-muted-foreground"
+            className="gap-2 text-muted-foreground"
           >
-            <MessageCircle />
-            <Typography variant="base-semibold">Give your feedback</Typography>
+            <MessageCircle className="size-4" />
+            <Typography variant="base-regular">Give your feedback</Typography>
           </DropdownMenuItem>
         ) : null}
         <DropdownMenuItem
           onClick={disconnect}
-          className="cursor-pointer gap-3 px-4 py-4 text-destructive"
+          className="gap-2 text-destructive"
         >
-          <LogOutIcon />
-          <Typography variant="base-semibold">Disconnect</Typography>
+          <LogOutIcon className="size-4" />
+          <Typography variant="base-regular">Disconnect</Typography>
         </DropdownMenuItem>
-        <DropdownMenuLabel className="">
-          <div className="flex flex-col gap-1 text-center text-xs font-normal">
-            <p>{`${APP_NAME} ${version}`}</p>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>
+          <Typography
+            variant="base-s-regular"
+            component="p"
+            className="flex flex-col items-center gap-0"
+          >
+            <span>{`${APP_NAME} ${version}`}</span>
             <Link
               href={TERMS_AND_CONDITIONS_URL}
               target="_blank"
@@ -157,7 +176,7 @@ export function IdentityDropdownMenu(props: IdentityDropdownMenuProps) {
             >
               Terms & Conditions
             </Link>
-          </div>
+          </Typography>
         </DropdownMenuLabel>
       </DropdownMenuContent>
     </DropdownMenu>
