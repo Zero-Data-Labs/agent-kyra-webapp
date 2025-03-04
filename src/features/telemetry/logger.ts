@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-import type { CaptureContext } from "@sentry/types"
-
 import { commonConfig } from "@/config/common"
 import { Sentry } from "@/features/telemetry/sentry"
 import type { LogLevel } from "@/features/telemetry/types"
@@ -95,15 +93,14 @@ export class Logger {
     console[level](formattedMessage, ...formattedExtra)
   }
 
-  public error(error: Error | unknown, sentryCaptureContext?: CaptureContext) {
+  public error(
+    error: Error | unknown,
+    context?: { tags: Record<string, string> }
+  ) {
     if (commonConfig.SENTRY_ENABLED) {
       Sentry.captureException(error, {
-        ...sentryCaptureContext,
         tags: {
-          // For some reason the `tags` property is not recognise while clearly defined. Not a big deal to ignore the warning given how we use this property here
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          ...sentryCaptureContext?.tags,
+          ...context?.tags,
           feature: this.category,
         },
       })
