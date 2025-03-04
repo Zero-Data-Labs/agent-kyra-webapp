@@ -6,10 +6,6 @@ export function getAuthPageRoute(basePath?: string) {
   return `${basePath ?? ""}/auth`
 }
 
-export function getConnectPageRoute() {
-  return `/connect`
-}
-
 export function getDefaultRedirectPathAfterAuthentication() {
   return getAgentsPageRoute()
 }
