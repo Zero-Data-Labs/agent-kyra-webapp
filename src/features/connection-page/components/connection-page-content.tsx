@@ -4,10 +4,10 @@ import { Typography } from "@/components/ui/typography"
 import { ConnectButton } from "@/features/auth/components/connect-button"
 import { cn } from "@/styles/utils"
 
-export interface LandingPageContentProps
+export interface ConnectionPageContentProps
   extends Omit<ComponentProps<"div">, "children"> {}
 
-export function LandingPageContent(props: LandingPageContentProps) {
+export function ConnectionPageContent(props: ConnectionPageContentProps) {
   const { className, ...divProps } = props
 
   return (
@@ -25,4 +25,4 @@ export function LandingPageContent(props: LandingPageContentProps) {
     </div>
   )
 }
-LandingPageContent.displayName = "LandingPageContent"
+ConnectionPageContent.displayName = "ConnectionPageContent"
