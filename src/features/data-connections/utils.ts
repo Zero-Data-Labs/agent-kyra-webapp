@@ -66,7 +66,7 @@ export async function getDataProviders(): Promise<DataProvider[]> {
       .filter((provider) => provider.id !== "mock")
       .filter(
         (provider) =>
-          // For now, explicitely accepting active and upcoming providers
+          // For now, explicitly accepting active and upcoming providers
           // But we'll need to update in case of additional statuses
           provider.status === "active" || provider.status === "upcoming"
       )
