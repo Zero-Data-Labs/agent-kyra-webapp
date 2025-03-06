@@ -16,7 +16,7 @@ import { useDataConnection } from "@/features/data-connections/hooks/use-data-co
 import { useDataConnections } from "@/features/data-connections/hooks/use-data-connections"
 import { useDataProvider } from "@/features/data-connections/hooks/use-data-provider"
 import type { DataConnection } from "@/features/data-connections/types"
-import { getDataConnectionPageUrl } from "@/features/verida-vault/utils"
+import { getVeridaVaultDataConnectionPageUrl } from "@/features/verida-vault/utils"
 
 export interface DataConnectionsGlobalStatusPopoverProps {
   children?: ReactNode
@@ -111,7 +111,7 @@ function DataConnectionsGlobalStatusPopoverItem(
             </AvatarFallback>
           </Avatar>
           <Link
-            href={getDataConnectionPageUrl(connection._id)}
+            href={getVeridaVaultDataConnectionPageUrl(connection._id)}
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
