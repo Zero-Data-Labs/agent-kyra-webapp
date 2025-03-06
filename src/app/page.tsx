@@ -1,10 +1,10 @@
 import { RootAuthenticationHandler } from "@/features/auth/components/root-authentication-handler"
-import { LandingPageContent } from "@/features/landing-page/components/landing-page-content"
+import { ConnectionPageContent } from "@/features/connection-page/components/connection-page-content"
 
 export default function RootPage() {
   return (
     <RootAuthenticationHandler>
-      <LandingPageContent className="h-dvh" />
+      <ConnectionPageContent className="h-dvh" />
     </RootAuthenticationHandler>
   )
 }

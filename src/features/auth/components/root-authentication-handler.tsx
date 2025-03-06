@@ -3,7 +3,6 @@
 import { redirect } from "next/navigation"
 import type { ReactNode } from "react"
 
-import { commonConfig } from "@/config/common"
 import { AuthenticationLoading } from "@/features/auth/components/authentication-loading"
 import { useAuthRedirectPathState } from "@/features/auth/hooks/use-auth-redirect-path-state"
 import { useVeridaAuth } from "@/features/verida-auth/hooks/use-verida-auth"
@@ -33,12 +32,6 @@ export function RootAuthenticationHandler(
   }
 
   // TODO: Handle when the token is invalid
-
-  // From there, user is not authenticated, so we redirect to the landing page, whether the one from the config or the default one
-
-  if (commonConfig.LANDING_PAGE_URL) {
-    redirect(commonConfig.LANDING_PAGE_URL)
-  }
 
   return <>{children}</>
 }
