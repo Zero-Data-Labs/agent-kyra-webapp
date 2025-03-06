@@ -117,7 +117,7 @@ function DataConnectionsGlobalStatusPopoverItem(
             className="underline"
           >
             <Typography className="truncate">
-              {connection.profile.readableId}
+              {connection.readableId}
             </Typography>
           </Link>
         </div>

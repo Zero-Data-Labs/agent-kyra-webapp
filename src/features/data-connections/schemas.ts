@@ -39,24 +39,6 @@ export const DataConnectionsApiV1GetProvidersResponseSchema = z.object({
   items: filteredArraySchema(DataProviderSchema, logger),
 })
 
-export const DataConnectionProfileSchema = z.object({
-  id: z.string(),
-  readableId: z.string(),
-  username: z.string().optional(),
-  name: z.string(),
-  avatar: z.object({
-    uri: z.string().url(),
-  }),
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
-  link: z.string().optional(),
-  email: z.string().email().optional(),
-  emailVerified: z.boolean().optional(),
-  phone: z.string().optional(),
-  phoneVerified: z.boolean().optional(),
-  verified: z.boolean().optional(),
-})
-
 export const DataConnectionStatusSchema = z.enum([
   "connected",
   "error",
@@ -74,12 +56,8 @@ export const DataConnectionHandlerStatusSchema = z.enum([
 ])
 
 export const DataConnectionHandlerSchema = z.object({
-  id: z.string(),
-  providerId: z.string(),
-  accountId: z.string(),
   handlerId: z.string(),
   enabled: z.boolean(),
-  config: z.record(z.string(), z.string()),
   status: DataConnectionHandlerStatusSchema,
   syncMessage: z.string().optional(),
   latestSyncStart: z.string().optional(),
@@ -92,15 +70,17 @@ export const DataConnectionSchema = z.object({
   _id: z.string(),
   providerId: z.string(),
   accountId: z.string(),
-  profile: DataConnectionProfileSchema,
+  readableId: z.string(),
   syncStatus: DataConnectionStatusSchema,
   syncFrequency: z.string(),
+  syncStart: z.string().optional(),
+  syncEnd: z.string().optional(),
   syncNext: z.string().optional(),
-  config: z.record(z.string(), z.string()),
+  syncMessage: z.string().optional(),
   handlers: z.array(DataConnectionHandlerSchema),
 })
 
 export const DataConnectionsApiV1GetConnectionsResponseSchema = z.object({
-  items: z.record(z.string(), DataConnectionSchema),
+  items: z.array(DataConnectionSchema),
   success: z.boolean(),
 })

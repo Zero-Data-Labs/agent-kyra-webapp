@@ -37,6 +37,9 @@ export const VERIDA_AUTH_REQUIRED_SCOPES: string[] = [
   "ds:r:social-chat-message",
   "ds:r:social-calendar",
   "ds:r:social-event",
+
+  // To get the data connections status
+  "api:connections-status",
 ]
 
 export const VERIDA_AUTH_ERROR_MESSAGES: Record<

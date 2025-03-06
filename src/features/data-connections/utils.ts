@@ -99,7 +99,7 @@ export async function getDataConnections(
     logger.debug("Sending API request to fetch data connections")
 
     const url = new URL(
-      "/api/rest/v1/connections",
+      "/api/rest/v1/connections/status",
       commonConfig.VERIDA_DATA_API_BASE_URL
     )
 
@@ -128,7 +128,7 @@ export async function getDataConnections(
 
     logger.info("Successfully fetched data connections")
 
-    return Object.values(validatedData.items)
+    return validatedData.items
   } catch (error) {
     throw new Error("Error fetching data connections", { cause: error })
   }
