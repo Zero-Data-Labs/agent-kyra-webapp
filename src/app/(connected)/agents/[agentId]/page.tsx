@@ -12,6 +12,7 @@ import { Typography } from "@/components/ui/typography"
 import { ChatOutput } from "@/features/agent-chat/components/chat-output"
 import { ChatUserInput } from "@/features/agent-chat/components/chat-user-input"
 import { useAgentChat } from "@/features/agent-chat/hooks/use-agent-chat"
+import { DataConnectionsGlobalStatus } from "@/features/data-connections/components/data-connections-global-status"
 import { getAgentPageRoute } from "@/features/routes/utils"
 import { DEFAULT_AGENT } from "@/features/saved-agents/constants"
 import { useGetSavedAgent } from "@/features/saved-agents/hooks/use-get-saved-agent"
@@ -98,7 +99,8 @@ export default function AgentPage(props: AgentPageProps) {
             <ChatUserInput />
           </div>
           <div className="flex flex-1 flex-col gap-4">
-            <div className="flex flex-row items-center justify-end gap-4 px-3 md:px-4">
+            <div className="flex flex-row items-center justify-between gap-4 px-3 md:px-4">
+              <DataConnectionsGlobalStatus />
               <AiSecurityDetailsDialog />
             </div>
             <ChatOutput />
