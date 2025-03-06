@@ -23,7 +23,12 @@ export function DataConnectionsGlobalStatus(
 ) {
   const { className, ...divProps } = props
 
-  const { connections, isAnySyncing, latestSync } = useDataConnections()
+  const {
+    connections,
+    isAnySyncing,
+    latestSync,
+    isError: isDataConnectionsError,
+  } = useDataConnections()
 
   const [formattedLatestSync, setFormattedLatestSync] = useState<string>("")
 
@@ -47,6 +52,10 @@ export function DataConnectionsGlobalStatus(
       return "Data currently syncing..."
     }
 
+    if (isDataConnectionsError) {
+      return "Error checking data connections"
+    }
+
     if (connections === undefined) {
       return "Checking data connections..."
     }
@@ -60,7 +69,13 @@ export function DataConnectionsGlobalStatus(
     }
 
     return `Data synced ${formattedLatestSync}`
-  }, [isAnySyncing, connections, latestSync, formattedLatestSync])
+  }, [
+    isAnySyncing,
+    connections,
+    isDataConnectionsError,
+    latestSync,
+    formattedLatestSync,
+  ])
 
   return (
     <div

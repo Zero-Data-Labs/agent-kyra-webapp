@@ -65,7 +65,7 @@ export function ChatEmptyContent(props: ChatEmptyContentProps) {
             <Alert variant="info">
               <div className="flex flex-col gap-4">
                 <AlertDescription>
-                  {`Your don't seem to have any active data connections in your Verida Vault.`}
+                  {`You don't seem to have any active data connections in your Verida Vault.`}
                 </AlertDescription>
                 <AlertDescription>
                   Your agent works best when it can tailor its responses to your
